@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HelpStudent</title>
+</head>
+<body>
+    <main>
+        <table>
+            <caption>Studenten</caption>
+            <thead>
+                <tr>ID</tr>
+                <tr>Vorname</tr>
+                <tr>Name</tr>
+                <tr>Geburtsdatum</tr>
+            </thead>
+            <tbody>
+                <tr th:each="student:${listStudent}">
+                    <td th:text="${student.vorname}">ID</td>
+                    <td th:text="${student.name}">ID</td>
+                    <td th:text="${student.email}">ID</td>
+                    <td th:text="${student.gebDatum}">ID</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
