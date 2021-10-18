@@ -1,5 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    table, tr, td{
+        border: 1px solid white;
+    }
+
+    *{
+        font-family: Bahnschrift;
+        color: white;
+    }
+
+    body{
+        background: gray;
+    }
+</style>
+
+
 <head>
     <meta charset="UTF-8">
     <title>HelpStudent</title>
@@ -9,13 +25,17 @@
         <table>
             <caption>Studenten</caption>
             <thead>
-                <tr>ID</tr>
-                <tr>Vorname</tr>
-                <tr>Name</tr>
-                <tr>Geburtsdatum</tr>
+            <tr>
+            <td>ID</td>
+            <td>Vorname</td>
+            <td>Name</td>
+            <td>email</td>
+            <td>Geburtsdatum</td>
+            </tr>
             </thead>
             <tbody>
                 <tr th:each="student:${listStudent}">
+                    <td th:text="${student.id}">ID</td>
                     <td th:text="${student.vorname}">ID</td>
                     <td th:text="${student.name}">ID</td>
                     <td th:text="${student.email}">ID</td>
