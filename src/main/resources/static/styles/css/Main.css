@@ -1,0 +1,92 @@
+#title { color: white;
+    margin: auto;
+    text-align: center;
+    font-size: 40pt;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: #222222;
+}
+.btn{
+    font-family: "Segoe UI Semibold", sans-serif ;
+    margin: 4vw;
+    height: 32pt;
+    color: #ffffff;
+    background: #086CA2;
+    border-style: hidden;
+    border-color: white;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+#content{
+    background: #086CA2;
+    width: 70vw;
+    min-width: 600px;
+    max-width: 960px;
+    height: 60em;
+    margin: 0 auto;
+}
+.text{
+    margin-left: 6px;
+    font-family: "Segoe UI", serif;
+    color: #ffffff;
+}
+
+#footer{
+    text-align: center;
+    min-width: 600px;
+    max-width: 960px;
+    width: 70vw;
+    height: 64px;
+    color: #086CA2;
+    background: #ffffff;
+    margin: auto;
+}
+.foot{
+    margin: 24px;
+}
+
+header {
+    width: 70vw;
+    display: flex;
+    justify-content: space-between;
+}
+#home {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 8pt;
+    color: white;
+    background: #086CA2;
+    padding: 8px;
+    margin: 12px 12px 12px 12vw;
+    border-radius: 60% 60% 60% 0%;
+    border-bottom: chartreuse;
+
+}
+#nav {
+    display: flex;
+    border-radius: 100% 100% 0 0;
+    background: #086CA2;
+    justify-content: space-evenly;
+    width: 70vw;
+    min-width: 600px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.subtitle{
+    font-family: "Yu Gothic UI Semibold",sans-serif;
+    font-size: 22pt;
+    color: yellow;
+    margin-bottom: 0;
+    text-align: center;
+}
+#dbtest {
+    margin: 0 auto;
+    width: 40em;
+    max-width: 960px;
+    height: 8em;
+    background: white;
+    color: white;
+}

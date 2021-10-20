@@ -1,48 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-<style>
-    table, tr, td{
-        border: 1px solid white;
-    }
-
-    *{
-        font-family: Bahnschrift;
-        color: white;
-    }
-
-    body{
-        background: gray;
-    }
-</style>
-
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>HelpStudent</title>
+  <meta charset="UTF-8">
+  <title>HelpStudent</title>
+  <link th:href="@{/styles/css/main.css}" rel="stylesheet">
 </head>
 <body>
-    <main>
-        <table>
-            <caption>Studenten</caption>
-            <thead>
-            <tr>
-            <td>ID</td>
-            <td>Vorname</td>
-            <td>Name</td>
-            <td>email</td>
-            <td>Geburtsdatum</td>
-            </tr>
-            </thead>
-            <tbody>
-                <tr th:each="student:${listStudent}">
-                    <td th:text="${student.id}">ID</td>
-                    <td th:text="${student.vorname}">ID</td>
-                    <td th:text="${student.name}">ID</td>
-                    <td th:text="${student.email}">ID</td>
-                    <td th:text="${student.gebDatum}">ID</td>
-                </tr>
-            </tbody>
-        </table>
-    </main>
+<header>
+  <div id="home">
+    <h2>HelpStudent</h2>
+  </div>
+</header>
+<div id="nav">
+  <a href="faecher">
+    <button class="btn">Fächer</button>
+  </a>
+
+  <a href="Gruppen">
+    <button class="btn">Gruppen</button>
+  </a>
+
+  <a href="Profil">
+    <button class="btn">Profil</button>
+  </a>
+</div>
+<div id="content">
+  <h1 id="title">HelpStudent</h1>
+  <p class="text">Das ist eine Testwebsite</p>
+  <h3 class="subtitle">Datenbank Tests</h3>
+  <div id="dbtest">
+    <p id="dbout"></p>
+  </div>
+</div>
+<div id="footer">
+  <a class="foot" href="https://www.youtube.com">Impressum</a>
+  <a class="foot" href="https://www.hshl.de">Kontakt</a>
+  <a class="foot" href="https://www.twitter.com">Platzhalter</a>
+</div>
 </body>
 </html>
