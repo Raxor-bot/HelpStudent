@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" http-equiv="Cache-control" content="no-cache">
   <title>HelpStudent</title>
   <link th:href="@{/styles/css/main.css}" rel="stylesheet">
+
+
+
 </head>
 <body>
 <header>
@@ -26,7 +29,24 @@
 </div>
 <div id="content">
   <h1 id="title">HelpStudent</h1>
-  <p class="text">Das ist eine Testwebsite</p>
+  <article id="hello">
+    <p><strong>Hallo [NAME]!</strong><br>
+      Lern neue Gruppen und Lernpartner kennen!</p>
+    <button class="hellobtn" type="button"></button>
+  </article>
+
+  <article id="subject">
+    <p><strong>Deine Fächer</strong><br>
+      Neue Student:innen benötigen deine Hilfe in einem deiner Fächer!</p>
+    <button class="subjbtn" type="button"></button>
+  </article>
+
+  <article id="group">
+    <p><strong>Deine Gruppen</strong><br>
+      Sieh dir an, was in deinen Gruppen los ist!</p>
+    <button class="groupbtn" type="button"></button>
+  </article>
+
   <h3 class="subtitle">Datenbank Tests</h3>
   <div id="dbtest">
     <p id="dbout"></p>
@@ -36,6 +56,8 @@
   <a class="foot" href="https://www.youtube.com">Impressum</a>
   <a class="foot" href="https://www.hshl.de">Kontakt</a>
   <a class="foot" href="https://www.twitter.com">Platzhalter</a>
+
+
 </div>
 </body>
 </html>

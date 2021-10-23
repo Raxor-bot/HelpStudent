@@ -90,3 +90,91 @@ header {
     background: white;
     color: white;
 }
+
+#hello{
+    padding: 30px 30px;
+    margin: 5em auto;
+    width: 40em;
+    max-width: 80em;
+    height: 6em;
+    max-height: 10em;
+    background: #222222;
+    color: white;
+    border-style: outset;
+    border-radius: 5px;
+    border-top-color: #222222;
+    border-bottom-color: #4949f3;
+    border-bottom-width: 10px;
+    border-left-color: #222222;
+    border-right-width: 0;
+    font-size: 15px;
+    font-family: "Segoe UI Semibold", sans-serif ;
+}
+#subject{
+    padding: 30px 30px;
+    margin: 5em auto;
+    width: 40em;
+    max-width: 80em;
+    height: 6em;
+    max-height: 10em;
+    background: #222222;
+    color: white;
+    border-style: outset;
+    border-radius: 5px;
+    border-top-color: #222222;
+    border-bottom-color: #ce3440;
+    border-bottom-width: 10px;
+    border-left-color: #222222;
+    border-right-width: 0;
+    font-size: 15px;
+    font-family: "Segoe UI Semibold", sans-serif ;
+}
+#group {
+    padding: 30px 30px;
+    margin: 5em auto;
+    width: 40em;
+    max-width: 80em;
+    height: 6em;
+    max-height: 10em;
+    background: #222222;
+    color: white;
+    border-style: outset;
+    border-radius: 5px;
+    border-top-color: #222222;
+    border-bottom-color: #54b42e;
+    border-bottom-width: 10px;
+    border-left-color: #222222;
+    border-right-width: 0;
+    font-size: 15px;
+    font-family: "Segoe UI Semibold", sans-serif ;
+}
+.hellobtn{
+    margin: -30em  40em;
+    width: 5em;
+    height: 5em;
+    background-color: #4949f3;
+    border-radius: 360px;
+    border-width: 0;
+}
+.subjbtn{
+    margin: -30em  40em;
+    width: 5em;
+    height: 5em;
+    background-color: #ce3440;
+    border-radius: 360px;
+    border-width: 0;
+}
+.groupbtn {
+    margin: -30em  40em;
+    width: 5em;
+    height: 5em;
+    background-color: #54b42e;
+    border-radius: 360px;
+    border-width: 0;
+}
+
+strong{
+    font-size: 20px;
+    font-weight: bold;
+}
+
