@@ -23,9 +23,24 @@
     <button class="btn">Gruppen</button>
   </a>
 
-  <a href="Profil">
+  <div class="dropdown">
     <button class="btn">Profil</button>
-  </a>
+    <div class="dropdown-content">
+      <form class="logmenu" th:action="@{/Login.html}" id="Benutzer">
+        <div class="formlog">
+          <label class="text" form="Benutzer"></label>
+          <label class="text" for="Username">Username</label>
+          <input class="logdata" type="text" name="Username" id="Username" maxlength="40" required>
+
+          <label class="text" for="Passwort">Passwort</label>
+          <input class="logdata" type="password" name="Passwort" id="Passwort" required>
+
+          <button class="formbtn" type="submit">Login</button>
+          <button class="signin" type="button">Anmelden</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
 </div>
 <div id="content">
@@ -48,25 +63,34 @@
     <button class="groupbtn" type="button"></button>
   </article>
 
-  <form class="logmenu" th:action="@{/Login.html}" id="Benutzer">
-    <div class="formlog">
-    <label class="text" form="Benutzer"></label>
-    <label class="text" for="Username">Username</label>
-    <input class="logdata" type="text" name="Username" id="Username" maxlength="40" required>
 
-    <label class="text" for="Passwort">Passwort</label>
-    <input class="logdata" type="password" name="Passwort" id="Passwort" required>
-
-    <button class="formbtn" type="submit">Login</button>
-      <button class="signin" type="button">Anmelden</button>
-    </div>
-  </form>
 
   <h3 class="subtitle">Datenbank Tests</h3>
   <div id="dbtest">
-    <p id="dbout"></p>
+    <table>
+      <caption>Studenten</caption>
+      <thead>
+      <tr>
+        <td>ID</td>
+        <td>Vorname</td>
+        <td>Name</td>
+        <td>email</td>
+        <td>Geburtsdatum</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="student:${listStudent}">
+        <td th:text="${student.id}">ID</td>
+        <td th:text="${student.vorname}">ID</td>
+        <td th:text="${student.name}">ID</td>
+        <td th:text="${student.email}">ID</td>
+        <td th:text="${student.gebDatum}">ID</td>
+      </tr>
+      </tbody>
+      </table>
   </div>
 </div>
+
 <div id="footer">
   <a class="foot" href="https://www.youtube.com">Impressum</a>
   <a class="foot" href="https://www.hshl.de">Kontakt</a>
