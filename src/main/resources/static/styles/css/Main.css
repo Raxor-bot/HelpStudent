@@ -9,8 +9,9 @@ body {
     background: #222222;
 }
 .btn{
+    font-size: 15px;
     font-family: "Segoe UI Semibold", sans-serif ;
-    padding: 2vw 10vw 2vw;
+    padding: 2vw 9.5vw 2vw;
     margin: 2vw auto;
     color: #ffffff;
     background: #086CA2;
@@ -18,6 +19,10 @@ body {
     border-color: white;
     border-bottom-width: 1px;
     border-bottom-style: solid;
+}
+
+.btn:hover {
+    cursor: pointer;
 }
 
 #content{
@@ -33,7 +38,7 @@ body {
     font-family: "Segoe UI", serif;
     color: #ffffff;
 }
-#kannstdumichsehen{}
+
 #footer{
     text-align: center;
     min-width: 600px;
@@ -239,7 +244,7 @@ strong{
     display: inline-block;
 }
 
-/* Dropdown Content (Hidden by Default) */
+
 .dropdown-content {
     display: none;
     position: absolute;
