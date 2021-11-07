@@ -1,5 +1,7 @@
-package com.example.helpstudent.Student;
+package com.example.helpstudent.Service;
 
+import com.example.helpstudent.Tabellen.Student.Student;
+import com.example.helpstudent.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,12 +1,11 @@
-package com.example.helpstudent.Student;
+package com.example.helpstudent.Controller;
 
 
+import com.example.helpstudent.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
 
 @Controller
 public class StudentController {
@@ -18,10 +17,9 @@ public class StudentController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping()
         public String viewHomePage(Model model) {
-        List<Student> listStudent = service.listAll();
-        model.addAttribute("listStudent", listStudent);
+        model.addAttribute("listStudent", service.listAll());
         return "index";
     }
 }
