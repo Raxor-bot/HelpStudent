@@ -3,6 +3,7 @@ package com.example.helpstudent.Tabellen.Student;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table
@@ -115,4 +116,7 @@ public class Student {
                 ", bilderpfad='" + bilderpfad + '\'' +
                 '}';
     }
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Interessen> interessen;
 }
