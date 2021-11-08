@@ -11,8 +11,7 @@ body {
 .btn{
     font-size: 15px;
     font-family: "Segoe UI Semibold", sans-serif ;
-    padding: 2vw 9.5vw 2vw;
-    margin: 2vw auto;
+    padding: 16px 72px;
     color: #ffffff;
     background: #086CA2;
     border-style: hidden;
@@ -23,6 +22,8 @@ body {
 
 .btn:hover {
     cursor: pointer;
+    transition: 0.6s;
+    background-color: #222222;
 }
 
 #content{
@@ -250,14 +251,12 @@ strong{
     position: absolute;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    height: 385px;
 }
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .btn {transition: 0.6s;
-background-color: #222222;}
 
 
 
