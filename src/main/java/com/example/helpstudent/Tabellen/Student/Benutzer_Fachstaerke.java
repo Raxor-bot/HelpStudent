@@ -18,14 +18,10 @@ public class Benutzer_Fachstaerke {
     )
 
     private long StudentenFachstaerkenEintrag;
-    private long Student_nlfdStudent;
-    private long fach_nlfdfach;
-    private long stearke;
+    private long staerke;
 
-    public Benutzer_Fachstaerke(long student_nlfdStudent, long fach_nlfdfach, long stearke) {
-        Student_nlfdStudent = student_nlfdStudent;
-        this.fach_nlfdfach = fach_nlfdfach;
-        this.stearke = stearke;
+    public Benutzer_Fachstaerke(long staerke){
+        this.staerke = staerke;
     }
 
     @OneToOne(cascade = CascadeType.ALL)
