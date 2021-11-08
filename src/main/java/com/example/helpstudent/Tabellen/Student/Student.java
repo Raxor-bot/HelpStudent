@@ -19,7 +19,7 @@ public class Student {
             generator = "student_sequence"
     )
 
-    private long nlfdbenutzer;
+    private long nlfdstudent;
     private String sname;
     private String svorname;
     private LocalDate geburtstag;
@@ -43,8 +43,8 @@ public class Student {
         this.bilderpfad = bilderpfad;
     }
 
-    public long getNlfdbenutzer() {
-        return nlfdbenutzer;
+    public long getNlfdstudent() {
+        return nlfdstudent;
     }
 
     public String getSname() {
@@ -106,7 +106,7 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "nlfdbenutzer=" + nlfdbenutzer +
+                "nlfdbenutzer=" + nlfdstudent +
                 ", sname='" + sname + '\'' +
                 ", svorname='" + svorname + '\'' +
                 ", geburtstag=" + geburtstag +

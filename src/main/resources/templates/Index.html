@@ -16,11 +16,11 @@
 </header>
 <div id="nav">
   <a href="Faecher">
-  <button class="btn">Fächer</button>
+  <button class="btn">Add User</button>
   </a>
 
   <a href="Gruppen">
-    <button class="btn">Gruppen</button>
+    <button class="btn">Delete User</button>
   </a>
 
   <div class="dropdown">
@@ -36,7 +36,9 @@
           <input class="logdata" type="password" name="Passwort" id="Passwort" required>
 
           <button class="formbtn" type="submit">Login</button>
-          <button class="signin" type="button">Anmelden</button>
+          <a href="Register">
+          <button class="register" type="button">Registrieren</button>
+          </a>
         </div>
       </form>
     </div>
@@ -80,11 +82,11 @@
       </thead>
       <tbody>
       <tr th:each="student:${listStudent}">
-        <td th:text="${student.id}">ID</td>
-        <td th:text="${student.vorname}">ID</td>
-        <td th:text="${student.name}">ID</td>
-        <td th:text="${student.email}">ID</td>
-        <td th:text="${student.gebDatum}">ID</td>
+        <td th:text="${student.nlfdstudent}">ID</td>
+        <td th:text="${student.svorname}">ID</td>
+        <td th:text="${student.sname}">ID</td>
+        <td th:text="${student.mail}">ID</td>
+        <td th:text="${student.geburtstag}">ID</td>
       </tr>
       </tbody>
       </table>
