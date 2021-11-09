@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" http-equiv="Cache-control" content="no-cache">
   <title>HelpStudent</title>
-  <link th:href="@{/styles/css/main.css}" rel="stylesheet">
+  <link th:href="@{/styles/css/Main.css}" rel="stylesheet">
 
 
 
@@ -26,7 +26,7 @@
   <div class="dropdown">
     <button class="btn">Profil</button>
     <div class="dropdown-content">
-      <form class="logmenu" th:action="@{/Login.html}" id="Benutzer">
+      <form class="logmenu" th:action="@{/templates/Login.html}" id="Benutzer">
         <div class="formlog">
           <label class="text" form="Benutzer"></label>
           <label class="text" for="Username">Username</label>
@@ -35,7 +35,7 @@
           <label class="text" for="Passwort">Passwort</label>
           <input class="logdata" type="password" name="Passwort" id="Passwort" required>
 
-          <button class="formbtn" type="submit">Login</button>
+          <button class="formbtn" type="submit" value="submit">Login</button>
           <a href="Register">
           <button class="register" type="button">Registrieren</button>
           </a>
