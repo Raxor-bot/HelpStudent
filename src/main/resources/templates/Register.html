@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrieren</title>
+    <link rel="stylesheet" th:href="@{/styles/css/Main.css}">
+</head>
+<body>
+<div id="content">
+    <h1 id="title">Registrieren</h1>
+    <form class="logmenu" method="post">
+        <h3 id="text">Bitte gib deine Daten ein!</h3>
+
+        <label class="text" for="sname">Name</label>
+        <input class="logdata" id="sname" name="sname" type="text">
+
+        <label class="text" for="svorname">Vorname</label>
+        <input class="logdata" id="svorname" name="svorname" type="text">
+
+        <label class="text" for="mail">E-Mail Adresse*</label>
+        <input class="logdata" id="mail" name="mail" required type="email">
+
+        <label class="text" for="nsemester">Semester</label>
+        <input class="logdata" id="nsemester" max="9" min="1" name="nsemester" type="number">
+
+        <label class="text" for="Username">Username*</label>
+        <input class="logdata" id="Username" maxlength="40" name="Username" required type="text">
+
+        <label class="text" for="Passwort">Passwort*</label>
+        <input class="logdata" id="Passwort" minlength="8" name="Passwort" required type="password">
+
+        <label class="text" for="Passwortwdh">Passwort*</label>
+        <input class="logdata" id="Passwortwdh" minlength="8" name="Passwortwdh" required type="password">
+
+<!--        <a href="/Login">-->
+            <button class="register" type="submit" value="submit">Registrieren</button>
+<!--        </a>-->
+    </form>
+</div>
+</body>
+</html>
