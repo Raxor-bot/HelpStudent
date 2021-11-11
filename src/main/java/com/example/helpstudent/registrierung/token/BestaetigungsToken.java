@@ -36,13 +36,12 @@ public class BestaetigungsToken {
 
     private LocalDateTime verfaelltUm;
 
-    @Column(nullable = false)
     private LocalDateTime bestaetigtUm;
 
     @ManyToOne
     @JoinColumn(
             nullable = false,
-            name = "student_id"
+            name = "nlfdstudent"
     )
     private Student student;
     public BestaetigungsToken(String token,

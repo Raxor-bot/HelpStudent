@@ -10,11 +10,11 @@
 <div class="content">
     <form class="logmenu" th:action="@{/Login}" id="Benutzer">
         <div class="formlog">
-            <label class="text" for="Username">Username</label>
-            <input class="logdata" type="text" name="Username" id="Username" maxlength="40" required>
+            <label class="text" for="Mail">Username</label>
+            <input class="logdata" type="text" name="username" id="Mail" maxlength="40" required>
 
             <label class="text" for="Passwort">Passwort</label>
-            <input class="logdata" type="password" name="Passwort" id="Passwort" required>
+            <input class="logdata" type="password" name="password" id="Passwort" required>
 
             <button class="formbtn" type="submit">Login</button>
             <a href="/Login/Register">
@@ -22,7 +22,6 @@
             </a>
         </div>
     </form>
-    <button th:action="@{/Faecher}" class="btn">Userhinzufügen</button>
 </div>
 </body>
 </html>

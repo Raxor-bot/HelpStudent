@@ -8,26 +8,26 @@
 <body>
 <div id="content">
     <h1 id="title">Registrieren</h1>
-    <form class="logmenu" method="post">
+    <form class="logmenu" method="post" th:action="@{/Login/Register}" th:object="${Student}">
         <h3 id="text">Bitte gib deine Daten ein!</h3>
 
         <label class="text" for="sname">Name</label>
-        <input class="logdata" id="sname" name="sname" type="text">
+        <input class="logdata" id="sname" name="sname" type="text" th:field="*{sname}">
 
         <label class="text" for="svorname">Vorname</label>
-        <input class="logdata" id="svorname" name="svorname" type="text">
+        <input class="logdata" id="svorname" name="svorname" type="text" th:field="*{svorname}">
 
         <label class="text" for="mail">E-Mail Adresse*</label>
-        <input class="logdata" id="mail" name="mail" required type="email">
+        <input class="logdata" id="mail" name="mail" required type="email" th:field="*{mail}">
 
         <label class="text" for="nsemester">Semester</label>
-        <input class="logdata" id="nsemester" max="9" min="1" name="nsemester" type="number">
+        <input class="logdata" id="nsemester" max="9" min="0" name="nsemester" type="number" th:field="*{nsemester}">
 
-        <label class="text" for="Username">Username*</label>
-        <input class="logdata" id="Username" maxlength="40" name="Username" required type="text">
+        <label class="text" for="geburtstag">Username*</label>
+        <input class="logdata" id="geburtstag" maxlength="40" name="geburtstag"  type="date" placeholder="yyyy-mm-dd" th:field="*{geburtstag}">
 
         <label class="text" for="Passwort">Passwort*</label>
-        <input class="logdata" id="Passwort" minlength="8" name="Passwort" required type="password">
+        <input class="logdata" id="Passwort" minlength="8" name="Passwort" required type="password" th:field="*{passwort}">
 
         <label class="text" for="Passwortwdh">Passwort*</label>
         <input class="logdata" id="Passwortwdh" minlength="8" name="Passwortwdh" required type="password">

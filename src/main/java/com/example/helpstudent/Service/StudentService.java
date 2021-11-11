@@ -21,7 +21,9 @@ import java.util.UUID;
 @Service
 public class StudentService implements UserDetailsService {
 
+    @Autowired
     private final StudentRepository repo;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final BestaetigungsTokenService bestaetigungsTokenService;
 
@@ -47,16 +49,16 @@ public class StudentService implements UserDetailsService {
                 .encode(student.getPassword());
         student.setPasswort(encodedPassword);
         repo.save(student);
-        System.out.println(student);
 
         String token = UUID.randomUUID().toString();
         BestaetigungsToken bestaetigungsToken = new BestaetigungsToken(
                 token,
                 LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(15),
+                LocalDateTime.now().plusMinutes(15), // 15 min Zeit die Registrierung in der Mail zu bestätigen
                 student
         );
-        bestaetigungsTokenService.saveBestaetigungsToken(bestaetigungsToken);
+        bestaetigungsTokenService.saveBestaetigungsToken(
+                bestaetigungsToken);
         return token;
     }
 
@@ -94,10 +96,9 @@ public class StudentService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-
-        return repo.findStudentByMail(s)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("Student mit E-Mail %s nicht gefunden!",s)));
+    public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+        return repo.findStudentByMail(mail)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("Student mit E-Mail %s nicht gefunden!",mail)));
     }
 
     public int enableStudent(String mail) {

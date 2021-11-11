@@ -17,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class Student implements UserDetails {
     @Id
     @SequenceGenerator(
@@ -46,6 +47,16 @@ public class Student implements UserDetails {
     public Student() {
     }
 
+    public Student(String sname,        //Login Konstruktor
+                   String svorname,
+                   String mail,
+                   String passwort) {
+        this.sname = sname;
+        this.svorname = svorname;
+        this.mail = mail;
+        this.passwort = passwort;
+    }
+
     public Student(String sname,
                    String svorname,
                    LocalDate geburtstag,
@@ -70,8 +81,8 @@ public class Student implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(rolle.name());
-        return Collections.singletonList(authority);
+        SimpleGrantedAuthority rang = new SimpleGrantedAuthority(rolle.name());
+        return Collections.singletonList(rang);
     }
 
     @Override
