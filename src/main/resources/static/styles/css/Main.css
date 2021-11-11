@@ -59,7 +59,7 @@ header {
     display: flex;
     justify-content: space-between;
 }
-#home {
+.home {
     font-family: "Segoe UI", sans-serif;
     font-size: 8pt;
     color: white;
@@ -257,6 +257,11 @@ strong{
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
-
-
-
+#content_register {
+    background: #086CA2;
+    width: 70vw;
+    min-width: 600px;
+    max-width: 960px;
+    height: 60em;
+    margin: 0 auto;
+}

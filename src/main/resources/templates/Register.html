@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" http-equiv="Cache-control" content="no-cache">
+    <title>HelpStudent</title>
+    <link th:href="@{/styles/css/main.css}" rel="stylesheet">
+
+
+
+</head>
+<body>
+    <header>
+        <div class="home">
+            <h2>HelpStudent</h2>
+        </div>
+    </header>
+    <div id="nav">
+        <a href="Faecher">
+            <button class="btn">Add User</button>
+        </a>
+
+        <a href="Gruppen">
+            <button class="btn">Delete User</button>
+        </a>
+
+        <div class="dropdown">
+            <button class="btn">Profil</button>
+            <div class="dropdown-content">
+                <form class="logmenu" th:action="@{/Login.html}" id="Benutzer">
+                    <div class="formlog">
+                        <label class="text" form="Benutzer"></label>
+                        <label class="text" for="Username">Username</label>
+                        <input class="logdata" type="text" name="Username" id="Username" maxlength="40" required>
+
+                        <label class="text" for="Passwort">Passwort</label>
+                        <input class="logdata" type="password" name="Passwort" id="Passwort" required>
+
+                        <button class="formbtn" type="submit">Login</button>
+                        <a href="Register">
+                            <button class="register" type="button">Registrieren</button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <form id="content_register">
+        <label class="text">Benutzername</label>
+        <input class="logdata" type="text" name="Benutzername" size="50"/> <br> <br>
+        <label class="text">Vorname</label>
+        <input class="logdata" type="text" name="Vorname" size="20"/> <br> <br>
+        <label class="text">Nachname</label>
+        <input class="logdata" type="text" name="Nachname" size="20"/> <br> <br>
+
+        <label class="text">Studiengang:</label>
+        <select>
+            <option value="AIS">Angewandte Informatik Und Soziale Medien</option>
+            <option value="BWL">Betriebswirtschaftslehre</option>
+            <option value="BMT">Biomedizinische Technologien</option>
+            <option value="CVD">Computervisualistik Und Design</option>
+            <option value="ELE">Electronic Engineering</option>
+            <option value="ETR">Energietechnik Und Ressourcenoptimierung</option>
+            <option value="ISD">Intelligent Systems Design</option>
+            <option value="IWP">Interkulturelle Wirtschaftspsychologie</option>
+            <option value="MBP">Materialdesign - Bionik Und Photoniki</option>
+            <option value="MTR">Mechatronik</option>
+            <option value="SGT">Sport- und Gesundheitstechnik</option>
+            <option value="TMM">Technisches Management Und Marketing</option>
+            <option value="UFC">Umweltmonitoring und Forensische Chemie</option>
+            <option value="WING">Wirtschaftsingenieurwesen</option>
+            <option value="ABT">Angewandte Biomedizintechnik</option>
+            <option value="BWL_MA">Betriebswirtschaftslehre (Master)</option>
+            <option value="BMM">Biomedizinisches Management Und Marketing (Master)</option>
+            <option value="BSE">Business And Systems Engineering</option>
+            <option value="IBP">Intercultural Business Psychology</option>
+            <option value="PAM">Product And Asset Management </option>
+            <option value="PDBS">Product Development And Business Studies</option>
+            <option value="TCM">Technical Consulting Und Management</option>
+            <option value="TEI">Tecnical Entrepreneurship And Innovation</option>
+            <option value="UGA">Umwelt- Und Gefahrstoffanalytik</option>
+        </select>
+        <label class="text">Geschlecht:</label>
+        <br>
+        <input class="text" type="radio" name="M"/> Männlich<br>
+        <input class="text" type="radio" name="W"/> Weiblich<br>
+        <input class="text" type="radio" name="D"/> Divers
+        <br>
+        <label class="text">E-Mail:</label>
+        <input class="logdata" type="email" id="email" name="email"/>
+        <label>Passwort:</label>
+        <input class="logdata" type="Password" id="passwort" name="passwort">
+        <label>Passwort wiederholen:</label>
+        <input class="logdata" type="Password" id="repass" name="repass"> <br> <br>
+        <input class="formbtn" type="button" value="Submit"/>
+
+
+    </form>
+
+
+
+
+<div id="footer">
+    <a class="foot" href="https://www.youtube.com">Impressum</a>
+    <a class="foot" href="https://www.hshl.de">Kontakt</a>
+    <a class="foot" href="https://www.twitter.com">Platzhalter</a>
+
+
+</div>
+</body>
+</html>
