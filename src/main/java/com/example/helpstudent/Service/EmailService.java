@@ -29,7 +29,7 @@ public class EmailService implements EmailSender {
         try{
             MimeMessage msg = mailsender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(msg,"utf-8");
-            helper.setText("email",true);
+            helper.setText(email,true);
             helper.setTo(to);
             helper.setSubject("HelpStudents E-mail Bestätigen");
             helper.setFrom(new InternetAddress("mail@HelpStudent.com"));
