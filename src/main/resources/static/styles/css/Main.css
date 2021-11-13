@@ -265,3 +265,120 @@ strong{
     height: 60em;
     margin: 0 auto;
 }
+
+.logdata_reg_b{
+    font-family: "Segoe UI Semibold", sans-serif ;
+    outline: 0;
+    background: #f2f2f2;
+    width: 60%;
+    height:2em;
+    border: 0;
+    margin-top:20px;
+    margin-left: 105px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.logdata_reg_v{
+    font-family: "Segoe UI Semibold", sans-serif ;
+    outline: 0;
+    background: #f2f2f2;
+    width: 60%;
+    height:2em;
+    border: 0;
+    margin-top:20px;
+    margin-left: 142px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.logdata_reg_n{
+    font-family: "Segoe UI Semibold", sans-serif ;
+    outline: 0;
+    background: #f2f2f2;
+    width: 60%;
+    height:2em;
+    border: 0;
+    margin-top:20px;
+    margin-left: 130px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.sel_gen{
+    font-family: "Segoe UI Semibold", sans-serif ;
+    width: 60%;
+    height:2em;
+    font-size: 14px;
+    margin-left: 130px;
+}
+.sel_stud {
+    font-family: "Segoe UI Semibold", sans-serif ;
+    width: 60%;
+    height:2em;
+    font-size: 14px;
+    margin-left: 118px;
+}
+
+input#email {
+    font-family: "Segoe UI Semibold", sans-serif ;
+    outline: 0;
+    background: #f2f2f2;
+    width: 60%;
+    height:2em;
+    border: 0;
+    margin-top:20px;
+    margin-left: 162px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input#pw {
+    font-family: "Segoe UI Semibold", sans-serif ;
+    outline: 0;
+    background: #f2f2f2;
+    width: 60%;
+    height:2em;
+    border: 0;
+    margin-top:20px;
+    margin-left: 145px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input#repass {
+    font-family: "Segoe UI Semibold", sans-serif ;
+    outline: 0;
+    background: #f2f2f2;
+    width: 60%;
+    height:2em;
+    border: 0;
+    margin-top:20px;
+    margin-left: 55px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.box{
+    padding-top: 20px;
+    height:180px;
+    width: 40em;
+    background: #222222;
+    color: white;
+    font-family: "Segoe UI Semibold", sans-serif ;
+}
+
+#regbtn {
+    margin-left:450px;
+    margin-top:40px;
+    width: 100px;
+    height: 100px;
+    background-color: #54b42e;
+    border-radius: 360px;
+    border-width: 0;
+}
+

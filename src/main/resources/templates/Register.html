@@ -49,54 +49,69 @@
 
     </div>
     <form id="content_register">
-        <label class="text">Benutzername</label>
-        <input class="logdata" type="text" name="Benutzername" size="50"/> <br> <br>
-        <label class="text">Vorname</label>
-        <input class="logdata" type="text" name="Vorname" size="20"/> <br> <br>
-        <label class="text">Nachname</label>
-        <input class="logdata" type="text" name="Nachname" size="20"/> <br> <br>
-
-        <label class="text">Studiengang:</label>
-        <select>
-            <option value="AIS">Angewandte Informatik Und Soziale Medien</option>
-            <option value="BWL">Betriebswirtschaftslehre</option>
-            <option value="BMT">Biomedizinische Technologien</option>
-            <option value="CVD">Computervisualistik Und Design</option>
-            <option value="ELE">Electronic Engineering</option>
-            <option value="ETR">Energietechnik Und Ressourcenoptimierung</option>
-            <option value="ISD">Intelligent Systems Design</option>
-            <option value="IWP">Interkulturelle Wirtschaftspsychologie</option>
-            <option value="MBP">Materialdesign - Bionik Und Photoniki</option>
-            <option value="MTR">Mechatronik</option>
-            <option value="SGT">Sport- und Gesundheitstechnik</option>
-            <option value="TMM">Technisches Management Und Marketing</option>
-            <option value="UFC">Umweltmonitoring und Forensische Chemie</option>
-            <option value="WING">Wirtschaftsingenieurwesen</option>
-            <option value="ABT">Angewandte Biomedizintechnik</option>
-            <option value="BWL_MA">Betriebswirtschaftslehre (Master)</option>
-            <option value="BMM">Biomedizinisches Management Und Marketing (Master)</option>
-            <option value="BSE">Business And Systems Engineering</option>
-            <option value="IBP">Intercultural Business Psychology</option>
-            <option value="PAM">Product And Asset Management </option>
-            <option value="PDBS">Product Development And Business Studies</option>
-            <option value="TCM">Technical Consulting Und Management</option>
-            <option value="TEI">Tecnical Entrepreneurship And Innovation</option>
-            <option value="UGA">Umwelt- Und Gefahrstoffanalytik</option>
-        </select>
-        <label class="text">Geschlecht:</label>
         <br>
-        <input class="text" type="radio" name="M"/> Männlich<br>
-        <input class="text" type="radio" name="W"/> Weiblich<br>
-        <input class="text" type="radio" name="D"/> Divers
         <br>
-        <label class="text">E-Mail:</label>
-        <input class="logdata" type="email" id="email" name="email"/>
-        <label>Passwort:</label>
-        <input class="logdata" type="Password" id="passwort" name="passwort">
-        <label>Passwort wiederholen:</label>
-        <input class="logdata" type="Password" id="repass" name="repass"> <br> <br>
-        <input class="formbtn" type="button" value="Submit"/>
+        <article class="box">
+            <label class="text">Benutzername</label>
+            <input class="logdata_reg_b" type="text" name="Benutzername" size="50"/> <br>
+            <label class="text">Vorname</label>
+            <input class="logdata_reg_v" type="text" name="Vorname" size="20"/> <br>
+            <label class="text">Nachname</label>
+            <input class="logdata_reg_n" type="text" name="Nachname" size="20"/>
+        </article> <br><br> <br> <br>
 
+        <article class="box">
+            <label class="text">Geschlecht</label>
+            <select class="sel_gen">
+                <option value="X">---Keine Angabe---</option>
+                <option value="M">Männlich</option>
+                <option value="W">Weiblich</option>
+                <option value="D">Divers</option>
+            </select><br> <br>
+
+
+            <label class="text">Studiengang</label>
+            <select class="sel_stud">
+                <option value="AIS">Angewandte Informatik Und Soziale Medien</option>
+                <option value="BWL">Betriebswirtschaftslehre</option>
+                <option value="BMT">Biomedizinische Technologien</option>
+                <option value="CVD">Computervisualistik Und Design</option>
+                <option value="ELE">Electronic Engineering</option>
+                <option value="ETR">Energietechnik Und Ressourcenoptimierung</option>
+                <option value="ISD">Intelligent Systems Design</option>
+                <option value="IWP">Interkulturelle Wirtschaftspsychologie</option>
+                <option value="MBP">Materialdesign - Bionik Und Photoniki</option>
+                <option value="MTR">Mechatronik</option>
+                <option value="SGT">Sport- und Gesundheitstechnik</option>
+                <option value="TMM">Technisches Management Und Marketing</option>
+                <option value="UFC">Umweltmonitoring und Forensische Chemie</option>
+                <option value="WING">Wirtschaftsingenieurwesen</option>
+                <option value="ABT">Angewandte Biomedizintechnik</option>
+                <option value="BWL_MA">Betriebswirtschaftslehre (Master)</option>
+                <option value="BMM">Biomedizinisches Management Und Marketing (Master)</option>
+                <option value="BSE">Business And Systems Engineering</option>
+                <option value="IBP">Intercultural Business Psychology</option>
+                <option value="PAM">Product And Asset Management </option>
+                <option value="PDBS">Product Development And Business Studies</option>
+                <option value="TCM">Technical Consulting Und Management</option>
+                <option value="TEI">Tecnical Entrepreneurship And Innovation</option>
+                <option value="UGA">Umwelt- Und Gefahrstoffanalytik</option>
+            </select>
+        </article><br> <br> <br> <br>
+
+        <article class="box">
+            <label class="text" for="email">E-Mail</label>
+            <input type="email" id="email" name="email"/> <br>
+
+            <label class="text" for="pw">Passwort</label>
+            <input type="Password" id="pw" name="passwort"><br>
+
+            <label class="text" for="pw">Passwort wiederholen</label>
+            <input  type="Password" id="repass" name="repass"> <br>
+        </article>
+
+
+        <input id="regbtn" class="formbtn" type="button" value="Submit"/>
 
     </form>
 
@@ -110,5 +125,6 @@
 
 
 </div>
+
 </body>
 </html>
