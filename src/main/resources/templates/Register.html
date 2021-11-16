@@ -4,9 +4,272 @@
     <meta charset="UTF-8">
     <title>Registrieren</title>
     <link rel="stylesheet" th:href="@{/styles/css/Main.css}">
+    <style>#title { color: white;
+        margin: auto;
+        text-align: center;
+        font-size: 40pt;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+        background: #222222;
+    }
+    .btn{
+        font-size: 15px;
+        font-family: "Segoe UI Semibold", sans-serif ;
+        padding: 16px 72px;
+        color: #ffffff;
+        background: #086CA2;
+        border-style: hidden;
+        border-color: white;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+    }
+
+    .btn:hover {
+        cursor: pointer;
+        transition: 0.6s;
+        background-color: #222222;
+    }
+
+    #content{
+        background: #086CA2;
+        width: 70vw;
+        min-width: 600px;
+        max-width: 960px;
+        height: 60em;
+        margin: 0 auto;
+    }
+    .text{
+        margin-left: 6px;
+        font-family: "Segoe UI", serif;
+        color: #ffffff;
+    }
+
+    #footer{
+        text-align: center;
+        min-width: 600px;
+        max-width: 960px;
+        width: 70vw;
+        height: 64px;
+        color: #086CA2;
+        background: #ffffff;
+        margin: auto;
+    }
+    .foot{
+        margin: 24px;
+    }
+
+    header {
+        width: 70vw;
+        display: flex;
+        justify-content: space-between;
+    }
+    #home {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 8pt;
+        color: white;
+        background: #086CA2;
+        padding: 8px;
+        margin: 12px 12px 12px 12vw;
+        border-radius: 60% 60% 60% 0%;
+        border-bottom: chartreuse;
+
+    }
+    #nav {
+        display: flex;
+        background: #086CA2;
+        justify-content: space-evenly;
+        width: 70vw;
+        min-width: 600px;
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    .subtitle{
+        font-family: "Yu Gothic UI Semibold",sans-serif;
+        font-size: 22pt;
+        color: white;
+        margin-bottom: 0;
+        text-align: center;
+    }
+    #dbtest {
+        margin: 0 auto;
+        width: 40em;
+        max-width: 960px;
+        height: 8em;
+        background: white;
+        color: black;
+    }
+
+    #hello{
+        padding: 30px 30px;
+        margin: 5em auto;
+        width: 40em;
+        max-width: 80em;
+        height: 6em;
+        max-height: 10em;
+        background: #222222;
+        color: white;
+        border-style: outset;
+        border-radius: 5px;
+        border-top-color: #222222;
+        border-bottom-color: #4949f3;
+        border-bottom-width: 10px;
+        border-left-color: #222222;
+        border-right-width: 0;
+        font-size: 15px;
+        font-family: "Segoe UI Semibold", sans-serif ;
+    }
+    #subject{
+        padding: 30px 30px;
+        margin: 5em auto;
+        width: 40em;
+        max-width: 80em;
+        height: 6em;
+        max-height: 10em;
+        background: #222222;
+        color: white;
+        border-style: outset;
+        border-radius: 5px;
+        border-top-color: #222222;
+        border-bottom-color: #ce3440;
+        border-bottom-width: 10px;
+        border-left-color: #222222;
+        border-right-width: 0;
+        font-size: 15px;
+        font-family: "Segoe UI Semibold", sans-serif ;
+    }
+    #group {
+        padding: 30px 30px;
+        margin: 5em auto;
+        width: 40em;
+        max-width: 80em;
+        height: 6em;
+        max-height: 10em;
+        background: #222222;
+        color: white;
+        border-style: outset;
+        border-radius: 5px;
+        border-top-color: #222222;
+        border-bottom-color: #54b42e;
+        border-bottom-width: 10px;
+        border-left-color: #222222;
+        border-right-width: 0;
+        font-size: 15px;
+        font-family: "Segoe UI Semibold", sans-serif ;
+    }
+    .hellobtn{
+        margin: -30em  40em;
+        width: 5em;
+        height: 5em;
+        background-color: #4949f3;
+        border-radius: 360px;
+        border-width: 0;
+    }
+    .subjbtn{
+        margin: -30em  40em;
+        width: 5em;
+        height: 5em;
+        background-color: #ce3440;
+        border-radius: 360px;
+        border-width: 0;
+    }
+    .groupbtn {
+        margin: -30em  40em;
+        width: 5em;
+        height: 5em;
+        background-color: #54b42e;
+        border-radius: 360px;
+        border-width: 0;
+    }
+
+    strong{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .logmenu {
+        width: 300px;
+        /*padding: 2em;
+        margin: 2em;*/
+    }
+    .formlog {
+        position: relative;
+        background: #222222;
+        max-width: 360px;
+        margin: 0 auto 100px;
+        padding: 45px;
+        text-align: center;
+        border-radius: 20px;
+        border-style: outset;
+        border-width: 5px;
+        border-color: white;
+    }
+    .logdata {
+        font-family: "Segoe UI Semibold", sans-serif ;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+
+    }
+    .formbtn {
+        font-family: "Segoe UI Semibold", sans-serif ;
+        text-transform: uppercase;
+        outline: 0;
+        background: #086CA2;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        margin-bottom: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 20px;
+    }
+
+    .register{
+        font-family: "Segoe UI Semibold", sans-serif ;
+        text-transform: uppercase;
+        outline: 0;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        background: #54b42e;
+        color: #FFFFFF;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 20px;
+
+    }
+
+    .dropdown {
+        display: inline-block;
+    }
+
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        height: 385px;
+    }
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {display: block;}
+
+
+
+
+    </style>
 </head>
 <body>
-<div id="content">
+<div id="content" align="center">
     <h1 id="title">Registrieren</h1>
     <form class="logmenu" method="post" th:action="@{/Login/Register}" th:object="${Student}">
         <h3 id="text">Bitte gib deine Daten ein!</h3>

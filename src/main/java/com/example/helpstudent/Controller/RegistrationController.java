@@ -18,8 +18,9 @@ public class RegistrationController {
         return registrierService.registrierenValidierung(student);
     }
 
-    @GetMapping(path = "/bestaetigt")
+    @GetMapping(path = "Login/Register/bestaetigt")
     public String bestaetigen(@RequestParam("token")String token) {
-        return registrierService.bestaetigeToken(token);
+        registrierService.bestaetigeToken(token);
+        return "Login";
     }
 }

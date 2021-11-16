@@ -1,7 +1,5 @@
 package com.example.helpstudent.Service;
 
-import com.example.helpstudent.Service.BestaetigungsTokenService;
-import com.example.helpstudent.Service.StudentService;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.email.EmailSender;
 import com.example.helpstudent.registrierung.EmailValidierung;
@@ -38,7 +36,7 @@ public String registrierenValidierung(@ModelAttribute("Student") Student student
     );
     //TODO ADRESSE FÜR SERVER AUF RASPBERRY PI ANPASSEN
     String link = "http://localhost:8080/Login/Registration/bestaetigt?token="+ eingang;
-    emailsender.send(student.getMail(),buildEmail(student.getSvorname(), link));
+    emailsender.send(student.getMail(),buildEmail(student.getSname(), link));
     return eingang;
 
 }
