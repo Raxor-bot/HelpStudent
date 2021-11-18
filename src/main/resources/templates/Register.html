@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Registrieren</title>
-    <link rel="stylesheet" th:href="@{/styles/css/Main.css}">
+    <link rel="stylesheet" href="/styles/css/Main.css">
     <style>#title { color: white;
         margin: auto;
         text-align: center;
@@ -271,26 +271,26 @@
 <body>
 <div id="content" align="center">
     <h1 id="title">Registrieren</h1>
-    <form class="logmenu" method="post" th:action="@{/Login/Register}" th:object="${Student}">
+    <form class="logmenu" method="post" >
         <h3 id="text">Bitte gib deine Daten ein!</h3>
 
         <label class="text" for="sname">Name</label>
-        <input class="logdata" id="sname" name="sname" type="text" th:field="*{sname}">
+        <input class="logdata" id="sname" name="sname" type="text">
 
         <label class="text" for="svorname">Vorname</label>
-        <input class="logdata" id="svorname" name="svorname" type="text" th:field="*{svorname}">
+        <input class="logdata" id="svorname" name="svorname" type="text">
 
         <label class="text" for="mail">E-Mail Adresse*</label>
-        <input class="logdata" id="mail" name="mail" required type="email" th:field="*{mail}">
+        <input class="logdata" id="mail" name="mail" required type="email">
 
         <label class="text" for="nsemester">Semester</label>
-        <input class="logdata" id="nsemester" max="9" min="0" name="nsemester" type="number" th:field="*{nsemester}">
+        <input class="logdata" id="nsemester" max="9" min="0" name="nsemester" type="number">
 
         <label class="text" for="geburtstag">Username*</label>
-        <input class="logdata" id="geburtstag" maxlength="40" name="geburtstag"  type="date" placeholder="yyyy-mm-dd" th:field="*{geburtstag}">
+        <input class="logdata" id="geburtstag" maxlength="40" name="geburtstag"  type="date" placeholder="yyyy-mm-dd">
 
         <label class="text" for="Passwort">Passwort*</label>
-        <input class="logdata" id="Passwort" minlength="8" name="Passwort" required type="password" th:field="*{passwort}">
+        <input class="logdata" id="Passwort" minlength="8" name="Passwort" required type="password">
 
         <label class="text" for="Passwortwdh">Passwort*</label>
         <input class="logdata" id="Passwortwdh" minlength="8" name="Passwortwdh" required type="password">

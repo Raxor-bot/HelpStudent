@@ -17,8 +17,8 @@
     <!--Provide support for conversion, formatting and validation -->
     <mvc:annotation-driven/>
     <!-- Define Spring MVC view resolver -->
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="./templates/"></property>
-        <property name="suffix" value=".html"></property>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="./templates/"/>
+        <property name="suffix" value=".html"/>
     </bean>
 </beans>

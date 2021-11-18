@@ -22,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
                     .antMatchers("/Login/**").permitAll()
@@ -37,12 +38,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //logout
                 .logout()
                 .logoutUrl("/perform_logout")
-                .deleteCookies("JSESSIONID");
+                .deleteCookies("JSESSIONID")
+                 ;
 
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth){
         auth.authenticationProvider(daoAuthenticationProvider());
     }
     @Bean

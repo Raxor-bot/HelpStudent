@@ -1,7 +1,6 @@
 package com.example.helpstudent.registrierung;
 
 
-import com.example.helpstudent.Tabellen.Student.StudentRolle;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -17,10 +16,6 @@ public class RegAnfrage {
     private  int nsemester;
     private  String mail;
     private  String passwort;
-    private  String bilderpfad;
-    private  StudentRolle rolle;
 
-    public RegAnfrage() {
-
-    }
+    public RegAnfrage() {}
 }

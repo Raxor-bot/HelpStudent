@@ -3,7 +3,6 @@ package com.example.helpstudent.Service;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.Repository.StudentRepository;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

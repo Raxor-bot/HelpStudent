@@ -3,6 +3,7 @@ package com.example.helpstudent.Service;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.email.EmailSender;
 import com.example.helpstudent.registrierung.EmailValidierung;
+import com.example.helpstudent.registrierung.RegAnfrage;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,7 @@ public String registrierenValidierung(@ModelAttribute("Student") Student student
     //TODO ADRESSE FÜR SERVER AUF RASPBERRY PI ANPASSEN
     String link = "http://localhost:8080/Login/Registration/bestaetigt?token="+ eingang;
     emailsender.send(student.getMail(),buildEmail(student.getSname(), link));
+    System.out.println(link);
     return eingang;
 
 }
@@ -128,5 +130,9 @@ public String bestaetigeToken(String token){
                 "  </tbody></table><div class=\"yj6qo\"></div><div class=\"adL\">\n" +
                 "\n" +
                 "</div></div>";
+    }
+
+    public String registrierer(RegAnfrage reganfrage){
+    return "funktioniert";
     }
 }

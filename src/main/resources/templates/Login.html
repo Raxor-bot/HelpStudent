@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link th:href="@{/styles/css/Main.css}" rel="stylesheet">
+    <link href="/styles/css/Main.css" rel="stylesheet">
 
 </head>
 <body>
 <div class="content">
-    <form class="logmenu" th:action="@{/Login}" id="Benutzer">
+    <form class="logmenu" action="@{/Login}" id="Benutzer">
         <div class="formlog">
             <label class="text" for="Mail">Username</label>
             <input class="logdata" type="text" name="username" id="Mail" maxlength="40" required>

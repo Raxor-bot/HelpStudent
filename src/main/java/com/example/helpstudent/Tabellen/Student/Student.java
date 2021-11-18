@@ -86,11 +86,6 @@ public class Student implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return passwort;
-    }
-
-    @Override
     public String getUsername() {
         return mail;
     }
@@ -120,7 +115,8 @@ public class Student implements UserDetails {
         return mail;
     }
 
-    public String getPasswort() {
+    @Override
+    public String getPassword() {
         return passwort;
     }
 
