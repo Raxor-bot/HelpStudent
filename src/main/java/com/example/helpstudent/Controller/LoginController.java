@@ -54,7 +54,7 @@ public class LoginController {
 
     @GetMapping(path = "/Register/bestaetigt")
     public String bestaetigen(@RequestParam("token")String token) {
-        System.out.println("test");
+        System.out.println("BESTÄTIGE");
         registrierService.bestaetigeToken(token);
         return "redirect:/Login";
     }
