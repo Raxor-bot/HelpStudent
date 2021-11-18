@@ -4,8 +4,9 @@ package com.example.helpstudent.Controller;
 import com.example.helpstudent.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class StudentController {
@@ -18,9 +19,9 @@ public class StudentController {
     }
 
     @RequestMapping("/")
-        public String viewHomePage(Model model) {
+        public String viewHomePage(ModelMap model) {
         model.addAttribute("listStudent", service.getStudents());
-        return "Index";
+        return "index";
     }
 
     @RequestMapping("/Faecher")
@@ -29,7 +30,6 @@ public class StudentController {
     }
     @RequestMapping("/Gruppen")
     public String viewGruppen(){
-        service.deleteStudent("test@stud.hshl.de");
         return "index";
     }
 }

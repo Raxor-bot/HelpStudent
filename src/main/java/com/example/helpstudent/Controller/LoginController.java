@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping("/Login")
 public class LoginController {
     private final RegistrationService registrierService;
     private final LoginService loginservice;
 
-    @GetMapping("/Login")
+    @GetMapping()
     public String viewlogin(@RequestParam(value = "error", required = false) String error,
                             @RequestParam(value = "logout", required = false) String logout,
                             Model model) {
@@ -30,7 +31,7 @@ public class LoginController {
         return "Login.html";
     }
 
-    @RequestMapping("/Login/Register")
+    @RequestMapping("/Register")
     public String viewRegister(){
         return "Register.html";
     }
@@ -44,14 +45,14 @@ public class LoginController {
         return "Index";
     }
 
-    @PostMapping(path = "Login/Register/new_user")
+    @PostMapping(path = "/Register/new_user")
     public String registrieren(@RequestBody() Student student){
         System.out.println(student.toString());
         registrierService.registrierenValidierung(student);
         return "redirect:/Login";
     }
 
-    @GetMapping(path = "Login/Register/bestaetigt")
+    @GetMapping(path = "/Register/bestaetigt")
     public String bestaetigen(@RequestParam("token")String token) {
         System.out.println("test");
         registrierService.bestaetigeToken(token);
