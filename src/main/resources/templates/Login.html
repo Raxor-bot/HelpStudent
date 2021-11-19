@@ -1,27 +1,200 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link href="/styles/css/Main.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+
+    <title>HelpStudent</title>
+    <!--  <link th:href="@{/styles/css/main.css}" rel="stylesheet">-->
+    <!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
+
+
+
+
 
 </head>
 <body>
-<div class="content">
-    <form class="logmenu" action="@{/Login}" id="Benutzer">
-        <div class="formlog">
-            <label class="text" for="Mail">Username</label>
-            <input class="logdata" type="text" name="username" id="Mail" maxlength="40" required>
 
-            <label class="text" for="Passwort">Passwort</label>
-            <input class="logdata" type="password" name="password" id="Passwort" required>
+<div id="app">
+    <v-app id="app">
+        <v-main>
+            <v-container class="fill-height" fluid>
+                <v-row align="center" justify="center">
+                    <v-col cols="12" sm="8" md="8">
+                        <v-card class="elevation-12">
+                            <v-window v-model="step">
+                                <v-window-item :value="1">
+                                    <v-row>
+                                        <v-col cols="12" md="8">
+                                            <v-card-text class="mt-12">
+                                                <h1
+                                                        class="text-center display-2 teal--text text--accent-3"
+                                                >Anmelden in HelpStudents</h1>
+                                                <div class="text-center mt-4">
+                                                    <v-btn class="mx-2" fab color="black" outlined>
+                                                        <v-icon>fab fa-google-plus-g</v-icon>
+                                                    </v-btn>
+                                                </div>
+                                                <h4 class="text-center mt-4">Geben sie ihre Email-Adresse für die Registrierung ein</h4>
+                                                <v-form>
+                                                    <v-text-field
+                                                            label="Email"
+                                                            name="Email"
+                                                            prepend-icon="email"
+                                                            type="text"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
 
-            <button class="formbtn" type="submit">Login</button>
-            <a href="/Login/Register">
-                <button class="register" type="button">Registrieren</button>
-            </a>
-        </div>
-    </form>
+                                                    <v-text-field
+                                                            id="password"
+                                                            label="Password"
+                                                            name="password"
+                                                            prepend-icon="lock"
+                                                            type="password"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+                                                </v-form>
+                                                <h3 class="text-center mt-4">Passwort vergessen?</h3>
+                                            </v-card-text>
+                                            <v-card
+                                                    class="d-flex align-center justify-center mb-6"
+                                                    flat
+                                                    tile
+                                            >
+                                                <v-btn rounded color="teal accent-3" dark>Einloggen</v-btn>
+                                            </v-card>
+                                        </v-col>
+                                        <v-col cols="12" md="4" class="teal accent-3">
+                                            <v-card-text class="white--text mt-12">
+                                                <h1 class="text-center display-1">Hallo!</h1>
+                                                <h5
+                                                        class="text-center"
+                                                >Registriere dich und starte mit HelpStudents!</h5>
+                                            </v-card-text>
+                                            <div class="text-center">
+                                                <v-btn rounded outlined dark @click="step++">Registrieren</v-btn>
+                                            </div>
+                                        </v-col>
+                                    </v-row>
+                                </v-window-item>
+                                <v-window-item :value="2">
+                                    <v-row class="fill-height">
+                                        <v-col cols="12" md="4" class="teal accent-3">
+                                            <v-card-text class="white--text mt-12">
+                                                <h1 class="text-center display-1">Willkommen zurück!</h1>
+                                                <h5
+                                                        class="text-center"
+                                                >Hier kannst du dich anmelden!</h5>
+                                            </v-card-text>
+                                            <div class="text-center">
+                                                <v-btn rounded outlined dark @click="step--">Anmelden</v-btn>
+                                            </div>
+                                        </v-col>
+
+                                        <v-col cols="12" md="8">
+                                            <v-card-text class="mt-12">
+                                                <h1 class="text-center display-2 teal--text text--accent-3">Account erstellen</h1>
+                                                <div class="text-center mt-4">
+                                                    <v-btn class="mx-2" fab color="black" outlined>
+                                                        <v-icon>fab fa-google-plus-g</v-icon>
+                                                    </v-btn>
+                                                </div>
+                                                <h4 class="text-center mt-4">Gib deine Email-Adresse für die Registrierung ein</h4>
+                                                <v-form>
+                                                    <v-text-field
+                                                            v-model="vorname"
+                                                            label="Vorname"
+                                                            prepend-icon="person"
+                                                            type="text"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+                                                    <v-text-field
+                                                            v-model="name"
+                                                            label="Name"
+                                                            prepend-icon="person"
+                                                            type="text"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+                                                    <v-text-field
+                                                            v-model="mail"
+                                                            label="Email"
+                                                            prepend-icon="email"
+                                                            type="text"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+
+                                                    <v-text-field
+                                                            v-model="passwort"
+                                                            label="Password"
+                                                            prepend-icon="lock"
+                                                            type="password"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+                                                </v-form>
+                                            </v-card-text>
+                                            <v-card
+                                                    class="d-flex align-center justify-center mb-6"
+                                                    flat
+                                                    tile
+                                            >
+                                                <v-btn rounded color="teal accent-3" dark @click="addNewStudent()">Registrieren</v-btn>
+                                            </v-card>
+                                        </v-col>
+                                    </v-row>
+                                </v-window-item>
+                            </v-window>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-main>
+    </v-app>
+
+
+
 </div>
+
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data: {
+            step: 1,
+            model: 0,
+            vorname: "",
+            name: "",
+            mail: "",
+            passwort: "",
+        },
+        methods:{
+            //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+            addNewStudent(){
+                // Simple POST request with a JSON body using fetch
+                const requestOptions = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        svorname: this.vorname,
+                        sname: this.name,
+                        mail: this.mail,
+                        passwort: this.passwort
+                    })
+                };
+                console.log(requestOptions);
+                fetch("http://localhost:8080/Login/Register/new_user", requestOptions)
+            }
+        },
+    })
+</script>
+
+
 </body>
 </html>
