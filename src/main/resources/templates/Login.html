@@ -180,6 +180,7 @@
                 headers: { "Content-Type": "application/json" },
                 body: {}
             },
+            totalVuePackages:"",
         },
         methods:{
             //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
@@ -198,7 +199,8 @@
                     mail: this.mail,
                     passwort: this.passwort
                 });
-                fetch("http://localhost:8080/Login/perform_login", this.requestOptions);
+                fetch("http://localhost:8080/Login/perform_login", this.requestOptions)
+                    .then(response => response.json());
 
             },
         },

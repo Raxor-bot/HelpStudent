@@ -19,9 +19,15 @@ public class StudentController {
     }
 
     @RequestMapping("/")
-        public String viewHomePage(ModelMap model) {
+        public String viewLoginPage(ModelMap model) {
         model.addAttribute("listStudent", service.getStudents());
         return "login";
+    }
+
+    @RequestMapping("/Index")
+    public String viewHomePage(ModelMap model) {
+        model.addAttribute("listStudent", service.getStudents());
+        return "Index.html";
     }
 
     @RequestMapping("/Faecher")

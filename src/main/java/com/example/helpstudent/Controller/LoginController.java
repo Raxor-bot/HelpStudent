@@ -4,9 +4,13 @@ import com.example.helpstudent.Service.LoginService;
 import com.example.helpstudent.Service.RegistrationService;
 import com.example.helpstudent.Tabellen.Student.Student;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 
 @Controller
@@ -37,15 +41,15 @@ public class LoginController {
     }
 
     @PostMapping("/perform_login")
-    public String perform_login(@RequestParam("mail")String mail,@RequestParam("password")String passwort) {
-        System.out.println(mail);
-        System.out.println(passwort);
-        if (!loginservice.validate(mail,passwort)){
+    public ResponseEntity<String> perform_login(@RequestBody Map<String,Object> body) {
+        System.out.println(body.get("mail").toString());
+        System.out.println(body.get("passwort").toString());
+        if (!loginservice.validate(body.get("mail").toString(),body.get("passwort").toString())){
             System.out.println("Login wurde nicht validiert");
-            return "redirect:/Login/?error=true";
+            return new ResponseEntity<>("LoginRedirect", HttpStatus.OK);
         }else{
             System.out.println("Er versucht auf Index zu kommen");
-            return "Index";
+            return new ResponseEntity<>("IchWillIndex", HttpStatus.OK);
         }
     }
 
