@@ -36,13 +36,17 @@ public class LoginController {
         return "Register.html";
     }
 
-    @GetMapping("/perform_login")
-    public String perform_login(@RequestParam("username")String mail,@RequestParam("password")String passwort) {
+    @PostMapping("/perform_login")
+    public String perform_login(@RequestParam("mail")String mail,@RequestParam("password")String passwort) {
+        System.out.println(mail);
+        System.out.println(passwort);
         if (!loginservice.validate(mail,passwort)){
+            System.out.println("Login wurde nicht validiert");
             return "redirect:/Login/?error=true";
+        }else{
+            System.out.println("Er versucht auf Index zu kommen");
+            return "Index";
         }
-        else
-        return "Index";
     }
 
     @PostMapping(path = "/Register/new_user")

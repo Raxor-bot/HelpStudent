@@ -22,6 +22,8 @@ public class RegistrationService {
     private final EmailSender emailsender;
 
 public String registrierenValidierung(@ModelAttribute("Student") Student student){
+    System.out.println("Hier die Mail ---------------------------------------");
+    System.out.println(student.getMail());
     boolean isValidEmail = emailValidierung.test(student.getMail());
     if(!isValidEmail){
         throw new IllegalStateException("Email nicht Gültig");

@@ -41,9 +41,10 @@
                                                         <v-icon>mdi-google-plus</v-icon>
                                                     </v-btn>
                                                 </div>
-                                                <h4 class="text-center mt-4">Geben sie ihre Email-Adresse für die Registrierung ein</h4>
+                                                <h4 class="text-center mt-4">Geben sie ihre Email-Adresse und ihr Passwort an um sich anzumelden</h4>
                                                 <v-form>
                                                     <v-text-field
+                                                            v-model="mail"
                                                             label="Email"
                                                             name="Email"
                                                             prepend-icon="mdi-email"
@@ -52,6 +53,7 @@
                                                     ></v-text-field>
 
                                                     <v-text-field
+                                                            v-model="passwort"
                                                             id="password"
                                                             label="Password"
                                                             name="password"
@@ -67,7 +69,7 @@
                                                     flat
                                                     tile
                                             >
-                                                <v-btn rounded color="teal accent-3" dark>Einloggen</v-btn>
+                                                <v-btn rounded color="teal accent-3" dark @click="login()">Einloggen</v-btn>
                                             </v-card>
                                         </v-col>
                                         <v-col cols="12" md="4" class="teal accent-3">
@@ -143,7 +145,7 @@
                                                     flat
                                                     tile
                                             >
-                                                <v-btn rounded color="teal accent-3" dark @click="addNewStudent()">Registrieren</v-btn>
+                                                <v-btn rounded color="teal accent-3" dark @click="registrieren()">Registrieren</v-btn>
                                             </v-card>
                                         </v-col>
                                     </v-row>
@@ -173,24 +175,32 @@
             name: "",
             mail: "",
             passwort: "",
+            requestOptions: {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: {}
+            },
         },
         methods:{
             //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-            addNewStudent(){
-                // Simple POST request with a JSON body using fetch
-                const requestOptions = {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        svorname: this.vorname,
-                        sname: this.name,
-                        mail: this.mail,
-                        passwort: this.passwort
-                    })
-                };
-                console.log(requestOptions);
-                fetch("http://localhost:8080/Login/Register/new_user", requestOptions)
-            }
+            registrieren(){
+                this.requestOptions.body = JSON.stringify({
+                    svorname: this.vorname,
+                    sname: this.name,
+                    mail: this.mail,
+                    passwort: this.passwort
+                });
+                fetch("http://localhost:8080/Login/Register/new_user", this.requestOptions);
+                // location.reload();
+            },
+            login(){
+                this.requestOptions.body = JSON.stringify({
+                    mail: this.mail,
+                    passwort: this.passwort
+                });
+                fetch("http://localhost:8080/Login/perform_login", this.requestOptions);
+
+            },
         },
     })
 </script>
