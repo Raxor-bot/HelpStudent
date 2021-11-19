@@ -39,6 +39,7 @@ public class StudentService implements UserDetailsService {
         return repo.findAll();
     }
 
+
     public String addNewStudent(Student student) {
         Optional<Student> studentOptional = repo.findStudentByMail(student.getMail());
         if (studentOptional.isPresent()){

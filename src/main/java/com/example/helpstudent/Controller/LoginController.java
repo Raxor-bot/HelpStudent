@@ -49,7 +49,7 @@ public class LoginController {
             return new ResponseEntity<>("LoginRedirect", HttpStatus.OK);
         }else{
             System.out.println("Er versucht auf Index zu kommen");
-            return new ResponseEntity<>("IchWillIndex", HttpStatus.OK);
+            return new ResponseEntity<>("http://localhost:8080/home/"+body.get("mail").toString(), HttpStatus.OK);
         }
     }
 
