@@ -201,11 +201,17 @@
 
                 fetch("http://localhost:8080/Login/perform_login", this.requestOptions)
                     .then((res) => res.text())
-                    .then(data => (open(data)));
+                    .then(data => (
+                        this.openHome(data)
+                    ));
 
 
 
             },
+            openHome(data){
+                console.log(data)
+                open(data)
+            }
         },
     })
 </script>

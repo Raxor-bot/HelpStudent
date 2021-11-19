@@ -36,6 +36,11 @@ public class StudentController {
         return new ResponseEntity<>("http://localhost:8080/home?mail="+mail, HttpStatus.OK);
     }
 
+    @RequestMapping("/chat")
+    public String viewChat(){
+        return "chat";
+    }
+
     @RequestMapping("/Faecher")
     public String viewFaecher(){
         return "index";
