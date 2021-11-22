@@ -54,16 +54,15 @@ public class LoginController {
     }
 
     @PostMapping(path = "/Register/new_user")
-    public String registrieren(@RequestBody() Student student){
+    public ResponseEntity<String> registrieren(@RequestBody() Student student){
         System.out.println(student.toString());
         registrierService.registrierenValidierung(student);
-        return "redirect:/Login";
-    }
+        return new ResponseEntity<>("http://localhost:8080/Login/", HttpStatus.OK);    }
 
     @GetMapping(path = "/Register/bestaetigt")
-    public String bestaetigen(@RequestParam("token")String token) {
+    public ResponseEntity<String> bestaetigen(@RequestParam String token) {
+        String message = null;
         System.out.println("BESTÄTIGE");
-        registrierService.bestaetigeToken(token);
-        return "redirect:/Login";
-    }
+        message = registrierService.bestaetigeToken(token);
+        return new ResponseEntity<>("http://localhost:8080/Login/", HttpStatus.OK);    }
 }
