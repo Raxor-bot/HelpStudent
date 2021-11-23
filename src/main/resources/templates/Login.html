@@ -180,6 +180,7 @@
                 body: {}
             },
             totalVuePackages:"",
+            session:"",
         },
         methods:{
             //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
@@ -191,7 +192,7 @@
                     passwort: this.passwort
                 });
                 fetch("http://localhost:8080/Login/Register/new_user", this.requestOptions);
-                // location.reload();
+                location.reload();
             },
             login(){
                 this.requestOptions.body = JSON.stringify({
@@ -202,16 +203,36 @@
                 fetch("http://localhost:8080/Login/perform_login", this.requestOptions)
                     .then((res) => res.text())
                     .then(data => (
-                        this.openHome(data)
+                        this.handleData(data)
                     ));
-
-
-
             },
-            openHome(data){
-                console.log(data)
-                open(data)
+            handleData(data){
+                console.log("Hier die Map:")
+                data = JSON.parse(data);
+                sessionStorage.setItem("id", data.studentInformation.nlfdstudent);
+                sessionStorage.setItem("svorname", data.studentInformation.svorname);
+                sessionStorage.setItem("snachname", data.studentInformation.sname);
+                open(data.url)
+                // open(data)
+            },
+            initSession(){
+                sessionStorage.setItem("id", "");
+                sessionStorage.setItem("svorname", "");
+                sessionStorage.setItem("snachname", "");
+                sessionStorage.setItem("sbilderpfad", "");
+            },
+        },
+        computed:{
+            sessionEmpty(){
+                return sessionStorage.length === 0;
             }
+        },
+        created: function () {
+            if(this.sessionEmpty){
+                this.initSession();
+            }
+            this.session = sessionStorage;
+            console.log(sessionStorage);
         },
     })
 </script>
