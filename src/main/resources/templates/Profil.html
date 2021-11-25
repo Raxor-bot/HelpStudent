@@ -80,21 +80,28 @@
             <v-container fluid>
                 <v-row>
                     <v-col cols="12" align-self="stretch">
-                        <v-card height="400" color="#286BF9">
+                        <v-card height="250" color="#286BF9">
 
-                            <h1 class="text-center" >
-                                Juan Pablo
-                            </h1>
+
                             <v-avatar
                                     class="mt-10 mx-16"
                                     color="grey"
-                                    size="200"
+                                    size="150"
 
 
 
 
                             ></v-avatar>
 
+                            <div class="mt-n16 mb-16 mx-16 white--text">
+                                <p
+                                        class="font-weight-black text-center mt-n16 mx-auto "
+
+                                > Juan Pablo  </p>
+                                <p
+                                        class="text-center">
+                                    Studiengang - Semester - Standort</p>
+                            </div>
                         </v-card>
 
                     </v-col>
@@ -110,23 +117,26 @@
                             <v-toolbar>
                                 <v-tabs
                                         dark
+                                        v-model="tabs"
                                         background-color="primary"
                                         grow
                                 >
                                     <v-tab>
-                                        <v-badge
-                                                color="red"
-                                                icon=""
 
-                                        >
-                                            Meine Infos
+                                        Meine Infos
+
                                         </v-badge>
+
+
+
                                     </v-tab>
+
+
 
                                     <v-tab>
                                         <v-badge
                                                 color="green"
-                                                icon=""
+                                                icon="1"
                                         >
                                             Meine Fächer
                                         </v-badge>
@@ -134,20 +144,26 @@
 
                                     <v-tab>
                                         <v-badge
-                                                color="yellow"
-                                                icon=""
+                                                color="red"
+                                                icon="4"
                                         >
                                             Meine Gruppen
                                         </v-badge>
                                     </v-tab>
                                 </v-tabs>
+
+
+
                             </v-toolbar>
 
 
 
 
 
+
+
                     </v-col>
+
                 </v-row>
             </v-container>
         </v-main>
