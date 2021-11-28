@@ -39,6 +39,10 @@ public class StudentService implements UserDetailsService {
         return repo.findAll();
     }
 
+    public Optional<Student> getStudentByID(Long id){
+        return repo.findById(id);
+    }
+
 
     public String addNewStudent(Student student) {
         Optional<Student> studentOptional = repo.findStudentByMail(student.getMail());
