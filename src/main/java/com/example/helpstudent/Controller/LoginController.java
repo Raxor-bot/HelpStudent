@@ -2,6 +2,7 @@ package com.example.helpstudent.Controller;
 
 import com.example.helpstudent.Service.LoginService;
 import com.example.helpstudent.Service.RegistrationService;
+import com.example.helpstudent.Service.StudentService;
 import com.example.helpstudent.Tabellen.Student.Student;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -19,6 +21,7 @@ import java.util.Map;
 public class LoginController {
     private final RegistrationService registrierService;
     private final LoginService loginservice;
+    private final StudentService studentService;
 
     @GetMapping()
     public String viewlogin(@RequestParam(value = "error", required = false) String error,
@@ -35,13 +38,15 @@ public class LoginController {
         return "Login.html";
     }
 
+
     @RequestMapping("/Register")
     public String viewRegister(){
         return "Register.html";
     }
 
     @PostMapping("/perform_login")
-    public ResponseEntity<String> perform_login(@RequestBody Map<String,Object> body) {
+    public ResponseEntity<?> perform_login(@RequestBody Map<String,Object> body) {
+        Map<String, Object> myMap = new HashMap<>();
         System.out.println(body.get("mail").toString());
         System.out.println(body.get("passwort").toString());
         if (!loginservice.validate(body.get("mail").toString(),body.get("passwort").toString())){
@@ -49,21 +54,25 @@ public class LoginController {
             return new ResponseEntity<>("LoginRedirect", HttpStatus.OK);
         }else{
             System.out.println("Er versucht auf Index zu kommen");
-            return new ResponseEntity<>("http://localhost:8080/home/", HttpStatus.OK);
+            myMap.put("url", "http://localhost:8080/home/");
+            myMap.put("studentInformation", studentService.loadUserByUsername(body.get("mail").toString()));
+            return new ResponseEntity<Object>(myMap,HttpStatus.OK);
+//            return new ResponseEntity<>("http://localhost:8080/home/", HttpStatus.OK);
         }
     }
 
     @PostMapping(path = "/Register/new_user")
-    public String registrieren(@RequestBody() Student student){
+    public ResponseEntity<String> registrieren(@RequestBody() Student student){
         System.out.println(student.toString());
         registrierService.registrierenValidierung(student);
-        return "redirect:/Login";
-    }
+        return new ResponseEntity<>("http://localhost:8080/Login/", HttpStatus.OK);    }
 
     @GetMapping(path = "/Register/bestaetigt")
-    public String bestaetigen(@RequestParam("token")String token) {
+    public String bestaetigen(@RequestParam String token) {
+        String message = null;
         System.out.println("BESTÄTIGE");
-        registrierService.bestaetigeToken(token);
-        return "redirect:/Login";
+        message = registrierService.bestaetigeToken(token);
+//        return new ResponseEntity<>("http://localhost:8080/Login/", HttpStatus.OK);
+        return "Login";
     }
 }

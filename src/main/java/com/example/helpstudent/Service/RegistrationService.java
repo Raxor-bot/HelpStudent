@@ -38,7 +38,7 @@ public String registrierenValidierung(@ModelAttribute("Student") Student student
             )
     );
     //TODO ADRESSE FÜR SERVER AUF RASPBERRY PI ANPASSEN
-    String link = "http://localhost:8080/Login/Registration/bestaetigt?token="+ eingang;
+    String link = "http://localhost:8080/Login/Register/bestaetigt?token="+ eingang;
     emailsender.send(student.getMail(),buildEmail(student.getSname(), link));
     System.out.println(link);
     return eingang;
@@ -51,13 +51,16 @@ public String bestaetigeToken(String token){
             orElseThrow(() -> new IllegalStateException("Token nicht gefunden"));
 
     if(bestaetigungsToken.getBestaetigtUm() != null){
-        throw new IllegalStateException("Token wurde schon bestaetigt!");
+        return "Token wurde schon bestaetigt!";
+        //throw new IllegalStateException("Token wurde schon bestaetigt!");
     }
 
     LocalDateTime verfallenUm = bestaetigungsToken.getVerfaelltUm();
 
     if(verfallenUm.isBefore(LocalDateTime.now())){
-        throw new IllegalStateException("Token abgelaufen!");
+        return "Token abgelaufen!";
+        //throw new IllegalStateException("Token abgelaufen!");
+
     }
 
     bestaetigungsTokenService.setConfirmedAt(token);
@@ -132,9 +135,5 @@ public String bestaetigeToken(String token){
                 "  </tbody></table><div class=\"yj6qo\"></div><div class=\"adL\">\n" +
                 "\n" +
                 "</div></div>";
-    }
-
-    public String registrierer(RegAnfrage reganfrage){
-    return "funktioniert";
     }
 }
