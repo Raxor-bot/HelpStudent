@@ -23,7 +23,11 @@
 
 <div id="app">
   <v-app id="inspire">
-    <v-system-bar app>
+    <v-system-bar app color="secondary">
+      <v-toolbar-title class="text-uppercase grey--text">
+        <span class="font-weight-light">Help</span>
+        <span>Students</span>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-icon>mdi-square</v-icon>
@@ -38,6 +42,8 @@
             clipped-right
             flat
             height="72"
+            color="grey lighten-3"
+
     >
       <v-spacer></v-spacer>
 
@@ -48,6 +54,7 @@
                 hide-details
                 rounded
                 solo-inverted
+                color="#393939"
         ></v-text-field>
       </v-responsive>
     </v-app-bar>
@@ -56,12 +63,15 @@
             v-model="drawer"
             app
             width="300"
+
     >
       <v-navigation-drawer
               v-model="drawer"
               absolute
-              color="grey lighten-3"
+
               mini-variant
+              color="#286BF9"
+
       >
         <v-avatar
                 class="d-block text-center mx-auto mt-4"
@@ -80,23 +90,37 @@
         ></v-avatar>
       </v-navigation-drawer>
 
-      <v-sheet
-              color="grey lighten-5"
+      <v-list
+              class="pl-14"
+              color="white"
               height="128"
               width="100%"
-      ></v-sheet>
+      >
+        <v-list-item
+
+                v-for="n in 2"
+                :key="n"
+                link
+                absolute
+
+
+        >  <v-list-item-content>
+          <v-list-item-title>Feature {{ n }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list>
+      <v-divider></v-divider>
 
       <v-list
               class="pl-14"
               shaped
       >
         <v-list-item
-                v-for="n in 5"
+                v-for="n in 10"
                 :key="n"
                 link
         >
           <v-list-item-content>
-            <v-list-item-title>Item {{ n }}</v-list-item-title>
+            <v-list-item-title>Name {{ n }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -109,12 +133,12 @@
     >
       <v-list>
         <v-list-item
-                v-for="n in 5"
+                v-for="n in 10"
                 :key="n"
                 link
         >
           <v-list-item-content>
-            <v-list-item-title>Item {{ n }}</v-list-item-title>
+            <v-list-item-title>Name Status {{ n }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
