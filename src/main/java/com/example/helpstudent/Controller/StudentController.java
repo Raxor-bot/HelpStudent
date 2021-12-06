@@ -11,11 +11,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.websocket.ClientEndpoint;
 import java.util.Map;
 import java.util.Optional;
 
 @Controller
-public class StudentController {
+public class StudentController{
 
     private final StudentService service ;
 
@@ -38,23 +39,11 @@ public class StudentController {
         return new ResponseEntity<>("http://localhost:8080/home?mail="+mail, HttpStatus.OK);
     }
 
-    @GetMapping("/username")
-    public String userName(long id){
-        Optional<Student> student = service.getStudentByID(id);
-
-        if (student.isPresent()){
-            return student.get().getUsername();
-        }
-
-        return "error";
-    }
-
 
     @RequestMapping("/chat")
     public String viewChat(){
         return "chat";
     }
-
     @RequestMapping("/Faecher")
     public String viewFaecher(){
         return "index";
@@ -62,5 +51,9 @@ public class StudentController {
     @RequestMapping("/Gruppen")
     public String viewGruppen(){
         return "index";
+    }
+    @RequestMapping("/chatTest")
+    public String viewTestChat(){
+        return "chatTest";
     }
 }
