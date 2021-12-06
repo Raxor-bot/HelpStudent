@@ -46,6 +46,7 @@ public class LoginController {
 
     @PostMapping("/perform_login")
     public ResponseEntity<?> perform_login(@RequestBody Map<String,Object> body) {
+        //kommentar
         Map<String, Object> myMap = new HashMap<>();
         System.out.println(body.get("mail").toString());
         System.out.println(body.get("passwort").toString());
