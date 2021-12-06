@@ -63,16 +63,18 @@ public class LoginController {
     }
 
     @PostMapping(path = "/Register/new_user")
-    public ResponseEntity<String> registrieren(@RequestBody() Student student){
+    public ResponseEntity<?> registrieren(@RequestBody() Student student){
+        Map<String, Object> myMap = new HashMap<>();
+        myMap.put("url","http://localhost:8080/Login/");
         System.out.println(student.toString());
 //        registrierService.registrierenValidierung(student);
         try {
             registrierService.registrierenValidierung(student);
-        } catch (IllegalStateException e){
+        } catch (Exception e){
             System.out.println("im catch");
-//            myMap.put("errorMessage", e);
+            myMap.put("errorMessage", e);
         }
-        return new ResponseEntity<>("http://localhost:8080/Login/", HttpStatus.OK);    }
+        return new ResponseEntity<Object>(myMap, HttpStatus.OK);    }
 
     @GetMapping(path = "/Register/bestaetigt")
     public String bestaetigen(@RequestParam String token) {

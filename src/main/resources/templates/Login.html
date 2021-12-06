@@ -209,12 +209,19 @@
                         passwort: this.passwort
                     });
                     // alert("tesREgggggg");
-                    fetch("http://localhost:8080/Login/Register/new_user", this.requestOptions);
+                    fetch("http://localhost:8080/Login/Register/new_user", this.requestOptions)
+                        .then((res) => res.text())
+                        .then(data => (
+                            this.handleError(data.errorMessage)
+                        ));
                     // location.reload();
                 }else {
                     this.regerror = true;
                     this.regerrortext = "Bitte gib zuerst deine Daten ein!";
                 }
+            },
+            handleError(handleError){
+              alert(handleError);
             },
             login(){
                 if (this.mail !== "" && this.passwort !== "") {
