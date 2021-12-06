@@ -42,4 +42,10 @@ public class StudentController {
     public String viewRegister(){
         return "Register";
     }
+
+    @RequestMapping("/Profil")
+    public String viewProfil(){
+        return "profil";
+    }
+
 }
