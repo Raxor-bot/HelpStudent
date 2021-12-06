@@ -72,7 +72,8 @@ public class LoginController {
             registrierService.registrierenValidierung(student);
         } catch (Exception e){
             System.out.println("im catch");
-            myMap.put("errorMessage", e);
+            System.out.println(e.getMessage());
+            myMap.put("errorMessage", e.getMessage());
         }
         return new ResponseEntity<Object>(myMap, HttpStatus.OK);    }
 

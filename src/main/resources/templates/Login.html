@@ -212,16 +212,23 @@
                     fetch("http://localhost:8080/Login/Register/new_user", this.requestOptions)
                         .then((res) => res.text())
                         .then(data => (
-                            this.handleError(data.errorMessage)
+                            //Diese Daten (data) sind JSON
+                            this.handleError(data)
                         ));
-                    // location.reload();
+
                 }else {
                     this.regerror = true;
                     this.regerrortext = "Bitte gib zuerst deine Daten ein!";
                 }
             },
-            handleError(handleError){
-              alert(handleError);
+            handleError(data){
+                daten = JSON.parse(data);
+                errorMessage = daten.errorMessage;
+                if(errorMessage === ""){
+                    location.reload();
+                }
+                this.regerror = true;
+                this.regerrortext = errorMessage;
             },
             login(){
                 if (this.mail !== "" && this.passwort !== "") {
