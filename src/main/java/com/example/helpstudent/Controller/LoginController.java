@@ -64,7 +64,13 @@ public class LoginController {
     @PostMapping(path = "/Register/new_user")
     public ResponseEntity<String> registrieren(@RequestBody() Student student){
         System.out.println(student.toString());
-        registrierService.registrierenValidierung(student);
+//        registrierService.registrierenValidierung(student);
+        try {
+            registrierService.registrierenValidierung(student);
+        } catch (IllegalStateException e){
+            System.out.println("im catch");
+//            myMap.put("errorMessage", e);
+        }
         return new ResponseEntity<>("http://localhost:8080/Login/", HttpStatus.OK);    }
 
     @GetMapping(path = "/Register/bestaetigt")
