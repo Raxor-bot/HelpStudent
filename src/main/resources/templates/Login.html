@@ -44,7 +44,7 @@
                                                         v-model="loginerror"
                                                 >{{loginerrortext}}</v-alert>
                                                 <v-alert
-                                                        v-show="token"
+                                                        v-show="tokenconfirm"
                                                         v-model="tokenconfirm"
                                                         color="blue"
                                                         border="bottom"
@@ -231,8 +231,9 @@
             handleError(data){
                 daten = JSON.parse(data);
                 errorMessage = daten.errorMessage;
-                if(errorMessage === ""){
+                if(errorMessage === "" || errorMessage === undefined){
                     location.reload();
+                    return;
                 }
                 this.regerror = true;
                 this.regerrortext = errorMessage;
