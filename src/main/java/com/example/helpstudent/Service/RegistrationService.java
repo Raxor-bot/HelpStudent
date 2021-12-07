@@ -51,15 +51,15 @@ public String bestaetigeToken(String token){
             orElseThrow(() -> new IllegalStateException("Token nicht gefunden"));
 
     if(bestaetigungsToken.getBestaetigtUm() != null){
-        return "Token wurde schon bestaetigt!";
-        //throw new IllegalStateException("Token wurde schon bestaetigt!");
+        //return "Token wurde schon bestaetigt!";
+        throw new IllegalStateException("Token wurde schon bestaetigt!");
     }
 
     LocalDateTime verfallenUm = bestaetigungsToken.getVerfaelltUm();
 
     if(verfallenUm.isBefore(LocalDateTime.now())){
-        return "Token abgelaufen!";
-        //throw new IllegalStateException("Token abgelaufen!");
+        //return "Token abgelaufen!";
+        throw new IllegalStateException("Token abgelaufen!");
 
     }
 

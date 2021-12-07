@@ -43,6 +43,13 @@
                                                         type="error"
                                                         v-model="loginerror"
                                                 >{{loginerrortext}}</v-alert>
+                                                <v-alert
+                                                        v-show="token"
+                                                        v-model="tokenconfirm"
+                                                        color="blue"
+                                                        border="bottom"
+                                                        type="success"
+                                                >{{tokentext}}</v-alert>
                                                 <v-form>
                                                     <v-text-field
                                                             v-model="mail"
@@ -183,6 +190,7 @@
             loginerrortext: "",
             regerror: false,
             regerrortext: "",
+            tokentext:"",
             step: 1,
             model: 0,
             vorname: "",
@@ -208,11 +216,10 @@
                         mail: this.mail,
                         passwort: this.passwort
                     });
-                    // alert("tesREgggggg");
                     fetch("http://localhost:8080/Login/Register/new_user", this.requestOptions)
                         .then((res) => res.text())
                         .then(data => (
-                            //Diese Daten (data) sind JSON
+                            //Diese Daten (data) sind JSON und müssen zur Verwendung als String erst konvertiert werden
                             this.handleError(data)
                         ));
 
@@ -250,11 +257,21 @@
             },
             handleData(data){
                 console.log("Hier die Map:")
+
                 data = JSON.parse(data);
-                sessionStorage.setItem("id", data.studentInformation.nlfdstudent);
-                sessionStorage.setItem("svorname", data.studentInformation.svorname);
-                sessionStorage.setItem("snachname", data.studentInformation.sname);
-                open(data.url)
+
+                errorMessage = data.errorMessage;
+                console.log(errorMessage)
+                if(errorMessage === "") {
+                    sessionStorage.setItem("id", data.studentInformation.nlfdstudent);
+                    sessionStorage.setItem("svorname", data.studentInformation.svorname);
+                    sessionStorage.setItem("snachname", data.studentInformation.sname);
+                    open(data.url)
+                }
+                else {
+                    this.loginerror = true;
+                    this.loginerrortext = errorMessage;
+                }
                 // open(data)
             },
             initSession(){
@@ -278,7 +295,5 @@
         },
     })
 </script>
-
-
 </body>
 </html>

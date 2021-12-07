@@ -47,20 +47,33 @@ public class LoginController {
     @PostMapping("/perform_login")
     public ResponseEntity<?> perform_login(@RequestBody Map<String,Object> body) {
         //kommentar
+        Boolean pwcheck = false;
         Map<String, Object> myMap = new HashMap<>();
         System.out.println(body.get("mail").toString());
         System.out.println(body.get("passwort").toString());
-        if (!loginservice.validate(body.get("mail").toString(),body.get("passwort").toString())){
+        myMap.put("url","http://localhost:8080/Login/perform_Login");
+        try {
+            pwcheck = loginservice.validate(body.get("mail").toString(), body.get("passwort").toString());
+            {
+
+        }} catch (Exception e){
+            System.out.println(e.getMessage());
+            myMap.put("errorMessage", "Bitte registriere dich zuerst!");
+        }
+        if (!pwcheck){
             System.out.println("Login wurde nicht validiert");
-            return new ResponseEntity<>("LoginRedirect", HttpStatus.OK);
-        }else{
+            return new ResponseEntity<>(myMap, HttpStatus.OK);
+        }
+        else {
+            myMap.clear();
             System.out.println("Er versucht auf Index zu kommen");
             myMap.put("url", "http://localhost:8080/home/");
             myMap.put("studentInformation", studentService.loadUserByUsername(body.get("mail").toString()));
-            return new ResponseEntity<Object>(myMap,HttpStatus.OK);
+            return new ResponseEntity<Object>(myMap, HttpStatus.OK);
 //            return new ResponseEntity<>("http://localhost:8080/home/", HttpStatus.OK);
+            }
         }
-    }
+
 
     @PostMapping(path = "/Register/new_user")
     public ResponseEntity<?> registrieren(@RequestBody() Student student){
@@ -78,11 +91,15 @@ public class LoginController {
         return new ResponseEntity<Object>(myMap, HttpStatus.OK);    }
 
     @GetMapping(path = "/Register/bestaetigt")
-    public String bestaetigen(@RequestParam String token) {
-        String message = null;
-        System.out.println("BESTÄTIGE");
-        message = registrierService.bestaetigeToken(token);
-//        return new ResponseEntity<>("http://localhost:8080/Login/", HttpStatus.OK);
-        return "Login";
+    public ResponseEntity<?> bestaetigen(@RequestParam String token) {
+        Map<String, Object> myMap = new HashMap<>();
+        myMap.put("url","http://localhost:8080/Login/");
+        System.out.println("Bestätige Token...");
+        try {
+            registrierService.bestaetigeToken(token);
+        } catch (Exception e){
+            myMap.put("errorMessage", e.getMessage());
+        }
+        return new ResponseEntity<Object>(myMap, HttpStatus.OK);
     }
 }
