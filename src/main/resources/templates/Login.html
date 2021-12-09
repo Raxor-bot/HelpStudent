@@ -190,7 +190,8 @@
             loginerrortext: "",
             regerror: false,
             regerrortext: "",
-            tokentext:"",
+            tokenconfirm: false,
+            tokentext: "",
             step: 1,
             model: 0,
             vorname: "",
@@ -261,7 +262,7 @@
 
                 data = JSON.parse(data);
 
-                errorMessage = data.errorMessage;
+                this.errorMessage = data.errorMessage;
                 console.log(errorMessage)
                 if(errorMessage === "") {
                     sessionStorage.setItem("id", data.studentInformation.nlfdstudent);
@@ -274,6 +275,24 @@
                     this.loginerrortext = errorMessage;
                 }
                 // open(data)
+            },
+            handleToken(){
+                //data = JSON.parse(data);
+                const urlParams = new URLSearchParams(document.URL)
+                if(urlParams.has("token")){
+                    this.requestOptions.body = {"token":urlParams.get("token")}
+                    fetch("http://localhost:8080/Login/Register/checktoken", this.requestOptions)
+                        .then((res) => res.text())
+                        .then(data => (
+                           console.log("Dreck")
+                        ));
+                    // if(errorMessage === "") {this.tokenconfirm = true
+                    //    this.tokentext = data.tokentext;
+                    // } else {
+                    //     this.loginerror = true;
+                    //     this.loginerrortext = errorMessage;
+                    // }
+                }
             },
             initSession(){
                 sessionStorage.setItem("id", "");
@@ -288,6 +307,7 @@
             }
         },
         created: function () {
+            this.handleToken()
             if(this.sessionEmpty){
                 this.initSession();
             }

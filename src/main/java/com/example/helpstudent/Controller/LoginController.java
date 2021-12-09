@@ -1,13 +1,17 @@
 package com.example.helpstudent.Controller;
 
+import com.example.helpstudent.Repository.BestaetigungsTokenRepository;
+import com.example.helpstudent.Service.BestaetigungsTokenService;
 import com.example.helpstudent.Service.LoginService;
 import com.example.helpstudent.Service.RegistrationService;
 import com.example.helpstudent.Service.StudentService;
 import com.example.helpstudent.Tabellen.Student.Student;
+import com.example.helpstudent.registrierung.token.TokenError;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +26,8 @@ public class LoginController {
     private final RegistrationService registrierService;
     private final LoginService loginservice;
     private final StudentService studentService;
+    private final BestaetigungsTokenService bestaetService;
+    private final TokenError tokenError;
 
     @GetMapping()
     public String viewlogin(@RequestParam(value = "error", required = false) String error,
@@ -91,15 +97,26 @@ public class LoginController {
         return new ResponseEntity<Object>(myMap, HttpStatus.OK);    }
 
     @GetMapping(path = "/Register/bestaetigt")
-    public ResponseEntity<?> bestaetigen(@RequestParam String token) {
+    public String bestaetigen(@RequestParam String token) {
+        String msg = "";
         Map<String, Object> myMap = new HashMap<>();
         myMap.put("url","http://localhost:8080/Login/");
         System.out.println("Bestätige Token...");
         try {
-            registrierService.bestaetigeToken(token);
+            msg = registrierService.bestaetigeToken(token);
+            tokenError.setErrortxt(msg);
         } catch (Exception e){
-            myMap.put("errorMessage", e.getMessage());
+         bestaetService.saveTokenError(new TokenError(token,e.getMessage()));
         }
+        myMap.put("tokentext",msg);
+        return "Login";
+    }
+
+    @PostMapping("/Register/checktoken")
+    public ResponseEntity<?> checkToken(String token){
+        Map<String, Object> myMap = new HashMap<>();
+        System.out.println(bestaetService.getStudentIDbyToken(token));
         return new ResponseEntity<Object>(myMap, HttpStatus.OK);
+
     }
 }

@@ -42,7 +42,7 @@ public class Student implements UserDetails {
     @Enumerated(EnumType.STRING)
     private StudentRolle rolle = StudentRolle.USER;
     private Boolean locked = false; //gebannt oder gesperrt
-    private Boolean enabled = true; //todo das hier wieder auf false setzen(nur zu testzwecken auf true)   Bestätigungslink in Bestätingungsmail geklickt (account verifiziert)
+    private Boolean enabled = false; //Bestätigungslink in Bestätingungsmail geklickt (account verifiziert)
 
 
     public Student() {

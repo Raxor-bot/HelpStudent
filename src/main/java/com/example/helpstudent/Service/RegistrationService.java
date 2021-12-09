@@ -3,7 +3,6 @@ package com.example.helpstudent.Service;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.email.EmailSender;
 import com.example.helpstudent.registrierung.EmailValidierung;
-import com.example.helpstudent.registrierung.RegAnfrage;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -66,7 +65,7 @@ public String bestaetigeToken(String token){
     bestaetigungsTokenService.setConfirmedAt(token);
     studentService.enableStudent(bestaetigungsToken.getStudent().getMail());
 
-    return "bestaetigt";
+    return "E-Mail Adresse Bestätigt!";
 }
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
