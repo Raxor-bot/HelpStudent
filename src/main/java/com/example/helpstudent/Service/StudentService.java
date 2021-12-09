@@ -65,4 +65,8 @@ public class StudentService {
             throw new IllegalStateException("Email ist bereits vorhanden");
         }
     }
+
+    public Optional<Student> getStudent(Long id){
+       return repo.findStudentByNlfdstudent(id);
+    }
 }

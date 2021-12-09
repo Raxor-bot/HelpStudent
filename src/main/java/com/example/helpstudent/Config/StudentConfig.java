@@ -15,7 +15,17 @@ public class StudentConfig {
     @Bean
     CommandLineRunner commandLineRunner(StudentRepository repository){
         return args -> {
+          Student jannik = new Student(
+                  "Markau",
+                  "Jannik",
+                  LocalDate.now(),
+                  3,
+                  "Jannik.markau01@gmail.com",
+                  "996460",
+                  "/...");
 
+          repository.save(jannik);
         };
+
     }
 }
