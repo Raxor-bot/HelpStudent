@@ -23,7 +23,8 @@
 
 <div id="app">
     <v-app class="grey lighten-4">
-        <nav>
+
+        <nav> <!-- Kopfzeile der Webseite -->
             <v-app-bar app flat color="grey lighten-4">
                 <v-app-bar-nav-icon class="text-uppercase grey--text" @click="navdraw = !navdraw"></v-app-bar-nav-icon>
 
@@ -38,17 +39,17 @@
                 </v-btn>
             </v-app-bar>
 
+            <!-- Ausfahrbare Navbar an der linken Seite-->
             <v-navigation-drawer
                     app
-                    v-model="navdraw"
-
-            >
+                    v-model="navdraw">
                 <template v-slot:prepend>
                     <v-list-item two-line>
+
+            <!-- Profilinfos Navbar -->
                         <v-list-item-avatar>
                             <img src="https://randomuser.me/api/portraits/lego/6.jpg">
                         </v-list-item-avatar>
-
                         <v-list-item-content>
                             <v-list-item-title>Juan Pablo</v-list-item-title>
                             <v-list-item-subtitle>Angemeldet</v-list-item-subtitle>
@@ -56,140 +57,107 @@
                     </v-list-item>
                 </template>
 
-
+            <!-- Navbar Menüpunkte-->
                 <v-list dense nav>
                     <v-list-item
                             v-for="item in items"
                             :key="item.title"
                             link
-                            @click="sendPostRequest()"
-                    >
+                            @click="sendPostRequest()">
                         <v-list-item-icon>
                             <v-icon>{{ item.icon }}</v-icon>
                         </v-list-item-icon>
-
                         <v-list-item-content>
                             <v-list-item-title>{{ item.title }}</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </v-list>
             </v-navigation-drawer>
+            </nav>
 
-        </nav>
+            <!--Start Hauptcontent Profil  -->
         <v-main>
+
+            <!-- Blauer Container-->
             <v-container fluid>
                 <v-row>
                     <v-col cols="12" align-self="stretch">
                         <v-card height="250" color="#286BF9">
-
-
                             <v-avatar
                                     class="mt-10 mx-16"
-                                    size="150"
-
-
-
-
-                            > <img
+                                    size="150">
+                                <img
                                     src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                    alt="Juan"
-                            ></v-avatar>
+                                    alt="Juan">
+                            </v-avatar>
 
                             <div class="mt-n16 mb-16 mx-16 white--text">
-                                <p
-                                        class="font-weight-black text-center mt-n16 mx-auto "
-
-                                > Juan Pablo  </p>
-                                <p
-                                        class="text-center">
-                                    Studiengang - Semester - Standort</p>
+                                <p class="font-weight-black text-center mt-n16 mx-auto "> Juan Pablo</p>
+                                <p class="text-center">Studiengang - Semester - Standort</p>
 
                                 <v-chip
                                         class="mt-n16 mx-16"
                                         color="primary"
-                                        text-color="white"
-
-
-                                >
+                                        text-color="white">
                                     Alter
                                     <v-icon right>
                                         mdi-cake-variant
                                     </v-icon>
                                 </v-chip>
                             </div>
-
-
                         </v-card>
-
                     </v-col>
 
-
-
+            <!-- Start von Toolbox und Untermenüs-->
                     <v-col cols="12" align-self="stretch">
                         <v-card class="mt-n12 mx-auto"
                                 elevation="15"
                                 height="600"
-                                dark
-                        >
-
+                                dark>
                             <v-toolbar class="toolbar">
-                                <v-tabs
-                                        dark
+                                <v-tabs dark
                                         v-model="tabs"
                                         background-color="primary"
-                                        grow
-                                >
+                                        grow>
+
+            <!--Beschriftung der Tabs -->
                                     <v-tab id="meineinfos">
-
                                         Meine Infos
-
                                         </v-badge>
-
-
-
                                     </v-tab>
-
-
-
                                     <v-tab>
                                         <v-badge
                                                 color="green"
-                                                icon="1"
-                                        >
+                                                icon="1">
                                             Meine Fächer
                                         </v-badge>
                                     </v-tab>
-
                                     <v-tab>
                                         <v-badge
                                                 color="red"
-                                                icon="4"
-                                        >
+                                                icon="4">
                                             Meine Gruppen
                                         </v-badge>
                                     </v-tab>
 
+            <!--Content Meine Infos -->
                                     <v-tab-item>
-                                        <v-card
-                                                dark
-                                                tile       >
-
+                                        <v-card dark
+                                                tile>
                                             <v-card-title>
                                                 Persönliches
                                             </v-card-title>
-
                                             <v-card-text>
-                                                Geburtstag
+                                                Geburtstag am
                                             </v-card-text>
-
                                             <v-card-text>
                                                 Geschlecht
                                             </v-card-text>
-
-
                                             <v-card-text>
                                                 Studiengang
                                             </v-card-text>
+
+           <!--Auswahl Studiengang -->
                                             <v-combobox
                                                     rounded
                                                     v-model="chips"
@@ -197,9 +165,7 @@
                                                     chips
                                                     clearable
                                                     label="Wähle deinen Studiengang"
-                                                    solo
-
-                                            >
+                                                    solo>
                                                 <template
                                                         v-slot:selection="{ attrs, item, select, selected }">
                                                     <v-chip
@@ -207,41 +173,35 @@
                                                             :input-value="selected"
                                                             close
                                                             @click="select"
-                                                            @click:close="remove(item)"
-                                                    >
+                                                            @click:close="remove(item)">
                                                         <strong>{{ item }}</strong>&nbsp;
                                                         <span>(interest)</span>
                                                     </v-chip>
                                                 </template>
                                             </v-combobox>
-
+            <!--Auswahl Studiengang Ende -->
 
                                             <v-card-text>
                                                 Eingeschrieben seit
                                             </v-card-text>
                                             <v-card-text>
-
                                                 Meine Stärken
                                             </v-card-text>
-
                                             <v-card-text>
                                                 Meine Schwächen
                                             </v-card-text>
-
                                             <v-card-text>
                                                 Weiteres über mich
                                             </v-card-text>
-
                                         </v-card>
                                     </v-tab-item>
 
+            <!--Content Meine Fächer-->
                                     <v-tab-item>
                                         <v-card
                                                 dark
-                                                tile
-                                        >
+                                                tile>
                                             <v-card-title> Hilf diesen Personen auf die Sprünge</v-card-title>
-
                                             <v-card-title class="mx-10"> Fach 1 <v-card-title>
                                                 <v-sheet
                                                         color="white"
@@ -249,8 +209,8 @@
                                                         height="100"
                                                         width="500"
                                                         class="mx-4 mb-4"
-                                                        rounded
-                                                ></v-sheet>
+                                                        rounded>
+                                                </v-sheet>
                                                 <v-sheet
                                                         color="white"
                                                         elevation="1"
@@ -275,6 +235,7 @@
                                                         class="mx-4 mb-4"
                                                         rounded
                                                 ></v-sheet>
+
                                                 <v-card-title > Fach 2 <v-card-title>
                                                     <v-sheet
                                                             color="white"
@@ -308,29 +269,22 @@
                                                             class="mx-4 mb-4"
                                                             rounded
                                                     ></v-sheet>
-                                                    <v-card-text>Contents for Item 2 go here</v-card-text>
-
                                                     <v-card-title> Frag diese Personen nach Rat</v-card-title>
+
+
                                         </v-card>
                                     </v-tab-item>
-
                                     <v-tab-item>
 
-                                        <v-card
-                                                dark
-                                                tile
-
-                                        >
+            <!-- Content Meine Gruppen-->
+                                        <v-card dark
+                                                tile>
                                             <v-card-title> Deine Gruppen </v-card-title>
 
-
                                             <v-main>
-
                                                 <v-container  >
-
                                                     <v-row align-content="center" dense >
                                                         <v-col cols="1" >
-
                                                             <v-card height="150" color="secondary">
                                                                 <v-avatar
                                                                         class="mt-6 mx-5"
@@ -338,8 +292,46 @@
                                                                         src="https://randomuser.me/api/portraits/lego/6.jpg"
                                                                         alt="Juan"
                                                                 ></v-avatar>
-
-
+                                                            </v-card>
+                                                        </v-col>
+                                                        <v-col cols="1">
+                                                            <v-card height="150" color="secondary">
+                                                                <v-avatar
+                                                                        class="mt-6 mx-5"
+                                                                        size="100"> <img
+                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
+                                                                        alt="Juan"
+                                                                ></v-avatar>
+                                                            </v-card>
+                                                        </v-col>
+                                                        <v-col cols="1">
+                                                            <v-card height="150" color="secondary">
+                                                                <v-avatar
+                                                                        class="mt-6 mx-5"
+                                                                        size="100"> <img
+                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
+                                                                        alt="Juan"
+                                                                ></v-avatar>
+                                                            </v-card>
+                                                        </v-col>
+                                                        <v-col cols="1">
+                                                            <v-card height="150" color="secondary">
+                                                                <v-avatar
+                                                                        class="mt-6 mx-5"
+                                                                        size="100"> <img
+                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
+                                                                        alt="Juan"
+                                                                ></v-avatar>
+                                                            </v-card>
+                                                        </v-col>
+                                                        <v-col cols="1">
+                                                            <v-card height="150" color="secondary">
+                                                                <v-avatar
+                                                                        class="mt-6 mx-5"
+                                                                        size="100"> <img
+                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
+                                                                        alt="Juan"
+                                                                ></v-avatar>
                                                             </v-card>
                                                         </v-col>
 
@@ -351,63 +343,8 @@
                                                                         src="https://randomuser.me/api/portraits/lego/6.jpg"
                                                                         alt="Juan"
                                                                 ></v-avatar>
-
-
                                                             </v-card>
                                                         </v-col>
-
-                                                        <v-col cols="1">
-                                                            <v-card height="150" color="secondary">
-                                                                <v-avatar
-                                                                        class="mt-6 mx-5"
-                                                                        size="100"> <img
-                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                        alt="Juan"
-                                                                ></v-avatar>
-
-
-                                                            </v-card>
-                                                        </v-col>
-
-                                                        <v-col cols="1">
-                                                            <v-card height="150" color="secondary">
-                                                                <v-avatar
-                                                                        class="mt-6 mx-5"
-                                                                        size="100"> <img
-                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                        alt="Juan"
-                                                                ></v-avatar>
-
-
-                                                            </v-card>
-                                                        </v-col>
-
-                                                        <v-col cols="1">
-                                                            <v-card height="150" color="secondary">
-                                                                <v-avatar
-                                                                        class="mt-6 mx-5"
-                                                                        size="100"> <img
-                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                        alt="Juan"
-                                                                ></v-avatar>
-
-
-                                                            </v-card>
-                                                        </v-col>
-
-                                                        <v-col cols="1">
-                                                            <v-card height="150" color="secondary">
-                                                                <v-avatar
-                                                                        class="mt-6 mx-5"
-                                                                        size="100"> <img
-                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                        alt="Juan"
-                                                                ></v-avatar>
-
-
-                                                            </v-card>
-                                                        </v-col>
-
                                                         <v-col cols="1" >
                                                             <v-card height="150" color="secondary">
                                                                 <v-avatar
@@ -416,72 +353,51 @@
                                                                         src="https://randomuser.me/api/portraits/lego/6.jpg"
                                                                         alt="Juan"
                                                                 ></v-avatar>
-
-
                                                             </v-card>
-
                                                         </v-col>
-
                                                     </v-row>
-
                                                 </v-container>
-
                                             </v-main>
-
+           <!-- Chatportal Links-->
                                             <v-card-title> Chatportal</v-card-title>
                                             <v-card-text>Hier geht es in unser Chatportal</v-card-text>
                                             <v-btn
                                                     color="#286BF9"
                                                     class="mt-2 mx-5 mb-5"
-                                                    @click="overlay = !overlay"
-                                            >
+                                                    @click="overlay = !overlay">
                                                 Finde neue Gruppen
                                             </v-btn>
                                             <v-btn
                                                     color="#286BF9"
                                                     class="mt-2 mx-5 mb-5"
-                                                    @click="overlay = !overlay"
-                                            >
+                                                    @click="overlay = !overlay">
+
                                                 Meine Chats
                                             </v-btn>
                                             </v-btn>
                                             <v-btn
                                                     color="#286BF9"
                                                     class="mt-2 mx-5 mb-5"
-                                                    @click="overlay = !overlay"
-                                            >
+                                                    @click="overlay = !overlay">
                                                 Meine Chatanfragen
                                             </v-btn>
-
-
-
                                         </v-card>
                                     </v-tab-item>
-
                                 </v-tabs>
-
-
-
                             </v-toolbar>
-
                     </v-col>
-
-                </v-row>
+                    </v-row>
             </v-container>
         </v-main>
 
+            <!-- Footer-->
         <v-footer padless>
-            <v-col
-                    class="text-center"
-                    cols="16"
-            >
+            <v-col class="text-center"
+                    cols="16">
                 {{ new Date().getFullYear() }} — <strong>Gruppe A4</strong>
             </v-col>
         </v-footer>
     </v-app>
-
-
-
 </div>
 
 
@@ -497,7 +413,9 @@
                 { title: 'My Account', icon: 'mdi-account-outline' },
                 { title: 'Users', icon: 'mdi-account-group-outline' },
             ],
-            Student: [],
+            Student: [
+                { title: 'Geburtstag' },
+            ],
 
         },
         methods:{
