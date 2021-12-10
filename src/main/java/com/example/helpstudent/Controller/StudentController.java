@@ -58,4 +58,8 @@ public class StudentController {
         return studentData.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @RequestMapping("/chat")
+    public String viewChat(){
+        return "chat";
+    }
 }
