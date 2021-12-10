@@ -3,17 +3,15 @@ package com.example.helpstudent.registrierung.token;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
-@Entity
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
-@Component
-public class TokenError extends BestaetigungsToken{
+@Entity
+public class TokenError{
 
     @Id
     @SequenceGenerator(
@@ -23,13 +21,9 @@ public class TokenError extends BestaetigungsToken{
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "TokenError"
+            generator = "tokenerror_sequence"
     )
     private long id;
-    @JoinColumn(
-            nullable = false,
-            name = "token"
-    )
     private String token;
     private String errortxt;
 

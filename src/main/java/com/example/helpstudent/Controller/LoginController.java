@@ -1,17 +1,12 @@
 package com.example.helpstudent.Controller;
 
-import com.example.helpstudent.Repository.BestaetigungsTokenRepository;
-import com.example.helpstudent.Service.BestaetigungsTokenService;
-import com.example.helpstudent.Service.LoginService;
-import com.example.helpstudent.Service.RegistrationService;
-import com.example.helpstudent.Service.StudentService;
+import com.example.helpstudent.Service.*;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.registrierung.token.TokenError;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +21,7 @@ public class LoginController {
     private final RegistrationService registrierService;
     private final LoginService loginservice;
     private final StudentService studentService;
-    private final BestaetigungsTokenService bestaetService;
-    private final TokenError tokenError;
+    TokenErrorService tokenerrservice;
 
     @GetMapping()
     public String viewlogin(@RequestParam(value = "error", required = false) String error,
@@ -68,6 +62,7 @@ public class LoginController {
         }
         if (!pwcheck){
             System.out.println("Login wurde nicht validiert");
+            myMap.put("errorMessage", "Bitte zuerst registrieren/Falsches PW");
             return new ResponseEntity<>(myMap, HttpStatus.OK);
         }
         else {
@@ -76,7 +71,6 @@ public class LoginController {
             myMap.put("url", "http://localhost:8080/home/");
             myMap.put("studentInformation", studentService.loadUserByUsername(body.get("mail").toString()));
             return new ResponseEntity<Object>(myMap, HttpStatus.OK);
-//            return new ResponseEntity<>("http://localhost:8080/home/", HttpStatus.OK);
             }
         }
 
@@ -86,7 +80,6 @@ public class LoginController {
         Map<String, Object> myMap = new HashMap<>();
         myMap.put("url","http://localhost:8080/Login/");
         System.out.println(student.toString());
-//        registrierService.registrierenValidierung(student);
         try {
             registrierService.registrierenValidierung(student);
         } catch (Exception e){
@@ -98,24 +91,23 @@ public class LoginController {
 
     @GetMapping(path = "/Register/bestaetigt")
     public String bestaetigen(@RequestParam String token) {
-        String msg = "";
-        Map<String, Object> myMap = new HashMap<>();
-        myMap.put("url","http://localhost:8080/Login/");
         System.out.println("Bestätige Token...");
         try {
-            msg = registrierService.bestaetigeToken(token);
-            tokenError.setErrortxt(msg);
+            registrierService.bestaetigeToken(token);
+           // bestaetService.saveTokenErrortxt(msg);
         } catch (Exception e){
-         bestaetService.saveTokenError(new TokenError(token,e.getMessage()));
+            System.out.println(e.getMessage());
+            tokenerrservice.saveTokenErrortxt(new TokenError(token,e.getMessage()));
         }
-        myMap.put("tokentext",msg);
         return "Login";
     }
 
     @PostMapping("/Register/checktoken")
-    public ResponseEntity<?> checkToken(String token){
+    public ResponseEntity<?> checkToken(@RequestParam String token){
         Map<String, Object> myMap = new HashMap<>();
-        System.out.println(bestaetService.getStudentIDbyToken(token));
+        if(tokenerrservice.getTokenErrortxtbyToken(token) != null) {
+            myMap.put("errorMessage", tokenerrservice.getTokenErrortxtbyToken(token));
+        }
         return new ResponseEntity<Object>(myMap, HttpStatus.OK);
 
     }

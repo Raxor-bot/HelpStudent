@@ -1,6 +1,7 @@
 package com.example.helpstudent.Service;
 
 import com.example.helpstudent.Repository.BestaetigungsTokenRepository;
+import com.example.helpstudent.Repository.TokenErrorRepository;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
 import com.example.helpstudent.registrierung.token.TokenError;
 import lombok.AllArgsConstructor;
@@ -18,10 +19,6 @@ public class BestaetigungsTokenService {
 
     public void saveBestaetigungsToken(BestaetigungsToken token){
         bestaetrepo.save(token);
-    }
-
-    public void saveTokenError(TokenError e){
-        bestaetrepo.save(e);
     }
 
     public Optional<BestaetigungsToken> getToken(String token) {

@@ -274,26 +274,31 @@
                     this.loginerror = true;
                     this.loginerrortext = errorMessage;
                 }
-                // open(data)
             },
             handleToken(){
-                //data = JSON.parse(data);
-                const urlParams = new URLSearchParams(document.URL)
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString)
                 if(urlParams.has("token")){
                     this.requestOptions.body = {"token":urlParams.get("token")}
-                    fetch("http://localhost:8080/Login/Register/checktoken", this.requestOptions)
+                    fetch("http://localhost:8080/Login/Register/checktoken?token="+urlParams.get("token"), this.requestOptions)
                         .then((res) => res.text())
                         .then(data => (
-                           console.log("Dreck")
+                            this.displayToken(data)
                         ));
-                    // if(errorMessage === "") {this.tokenconfirm = true
-                    //    this.tokentext = data.tokentext;
-                    // } else {
-                    //     this.loginerror = true;
-                    //     this.loginerrortext = errorMessage;
-                    // }
                 }
             },
+
+            displayToken(data){
+                daten = JSON.parse(data);
+                if(daten.errorMessage === "" || daten.errorMessage === undefined) {
+                    this.tokenconfirm = true
+                    this.tokentext = "Token wurde bestätigt!";
+                } else {
+                    this.loginerror = true;
+                    this.loginerrortext = daten.errorMessage;
+                }
+            },
+
             initSession(){
                 sessionStorage.setItem("id", "");
                 sessionStorage.setItem("svorname", "");
