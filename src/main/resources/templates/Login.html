@@ -263,8 +263,8 @@
                 data = JSON.parse(data);
 
                 this.errorMessage = data.errorMessage;
-                console.log(errorMessage)
-                if(errorMessage === "") {
+                console.log(this.errorMessage)
+                if(this.errorMessage === "") {
                     sessionStorage.setItem("id", data.studentInformation.nlfdstudent);
                     sessionStorage.setItem("svorname", data.studentInformation.svorname);
                     sessionStorage.setItem("snachname", data.studentInformation.sname);
@@ -272,7 +272,7 @@
                 }
                 else {
                     this.loginerror = true;
-                    this.loginerrortext = errorMessage;
+                    this.loginerrortext = this.errorMessage;
                 }
             },
             handleToken(){

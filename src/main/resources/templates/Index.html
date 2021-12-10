@@ -150,6 +150,7 @@
     },
     created: function () {
       if(this.sessionEmpty){
+        open("http://localhost:8080/Login")
         this.initSession();
       }
       this.session = sessionStorage;

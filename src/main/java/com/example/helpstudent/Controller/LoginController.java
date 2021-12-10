@@ -80,6 +80,7 @@ public class LoginController {
         Map<String, Object> myMap = new HashMap<>();
         myMap.put("url","http://localhost:8080/Login/");
         System.out.println(student.toString());
+//        registrierService.registrierenValidierung(student);
         try {
             registrierService.registrierenValidierung(student);
         } catch (Exception e){
