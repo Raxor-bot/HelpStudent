@@ -51,7 +51,7 @@
                             <img src="https://randomuser.me/api/portraits/lego/6.jpg">
                         </v-list-item-avatar>
                         <v-list-item-content>
-                            <v-list-item-title>{{ student.svorname }}</v-list-item-title>
+                            <v-list-item-title>Name</v-list-item-title>
                             <v-list-item-subtitle>Angemeldet</v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
@@ -109,7 +109,7 @@
                     </v-col>
 
                     <!-- Start von Toolbox und Untermenüs-->
-                    <v-col cols="12" align-self="stretch" >
+                    <v-col cols="12" align-self="stretch" color="secondary">
                         <v-card class="mt-n12 mx-auto"
                                 elevation="15"
                                 height="1000"
@@ -164,7 +164,7 @@
                                             <v-combobox
                                                     rounded
                                                     v-model="chips"
-                                                    :items="items"
+
                                                     chips
                                                     clearable
                                                     label="Wähle deinen Studiengang"
@@ -200,7 +200,7 @@
                                     </v-tab-item>
 
                                     <!--Content Meine Fächer-->
-                                    <v-tab-item>
+                                    <v-tab-item  background-color="secondary">
 
                                         <v-card
                                                 dark
@@ -214,19 +214,19 @@
                                                         height="100"
                                                         width="500"
                                                         class="mx-4 mb-4"
-                                                        rounded>
-                                                </v-sheet>
-                                                <v-sheet
-                                                        color="light-blue accent-1"
-                                                        elevation="1"
-                                                        height="100"
-                                                        width="500"
-                                                        class="mx-4 mb-4"
                                                         rounded
-                                                >
+                                                > <v-avatar
+
+                                                        class="mr-16 mt-3 float-right    "
+                                                        size="80">
+                                                    <img
+                                                            src="https://randomuser.me/api/portraits/lego/6.jpg"
+                                                            alt="Juan">
+                                                </v-avatar>
                                                     <v-card-title class="">
                                                         XY kennt sich aus mit Fach 1
                                                     </v-card-title>
+
 
                                                     <v-btn
                                                             small
@@ -238,56 +238,169 @@
                                                     </v-btn>
 
 
-                                                    <v-avatar
-
-                                                            class="mr-8 pb-2 float-right"
-                                                            size="40">
-                                                        <img
-                                                                src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                alt="Juan">
-                                                    </v-avatar>                                      </v-sheet>
+                                                </v-sheet>
                                                 <v-sheet
                                                         color="light-blue accent-1"
                                                         elevation="1"
                                                         height="100"
                                                         width="500"
                                                         class="mx-4 mb-4"
-                                                        rounded>
+                                                        rounded
+                                                > <v-avatar
+
+                                                        class="mr-16 mt-3 float-right    "
+                                                        size="80">
+                                                    <img
+                                                            src="https://randomuser.me/api/portraits/lego/6.jpg"
+                                                            alt="Juan">
+                                                </v-avatar>
+                                                    <v-card-title class="">
+                                                        XY kennt sich aus mit Fach 1
+                                                    </v-card-title>
+
+
+                                                    <v-btn
+                                                            small
+                                                            color="success"
+                                                            dark
+                                                            class=" ma-1"
+                                                    >
+                                                        Fragen
+                                                    </v-btn>
+
+
+                                                </v-sheet>
+                                                <v-sheet
+                                                        color="light-blue accent-1"
+                                                        elevation="1"
+                                                        height="100"
+                                                        width="500"
+                                                        class="mx-4 mb-4"
+                                                        rounded
+                                                > <v-avatar
+
+                                                        class="mr-16 mt-3 float-right    "
+                                                        size="80">
+                                                    <img
+                                                            src="https://randomuser.me/api/portraits/lego/6.jpg"
+                                                            alt="Juan">
+                                                </v-avatar>
+                                                    <v-card-title class="">
+                                                        XY kennt sich aus mit Fach 1
+                                                    </v-card-title>
+
+
+                                                    <v-btn
+                                                            small
+                                                            color="success"
+                                                            dark
+                                                            class=" ma-1"
+                                                    >
+                                                        Fragen
+                                                    </v-btn>
+
+
                                                 </v-sheet>
 
 
                                         </v-card>
 
-                                            <v-card
-                                                    dark
-                                                    tile>
-                                                <v-card-title > Hilf diesen Personen auf die Sprünge</v-card-title>
-                                                <v-card-title class="mx-5"> Fach 2 <v-card-title>
-                                                    <v-sheet
-                                                            color="deep-orange lighten-1"
-                                                            elevation="1"
-                                                            height="100"
-                                                            width="500"
-                                                            class="mx-4 mb-4"
-                                                            rounded
-                                                    ></v-sheet>
-                                                    <v-sheet
-                                                            color="deep-orange lighten-1"
-                                                            elevation="1"
-                                                            height="100"
-                                                            width="500"
-                                                            class="mx-4 mb-4"
-                                                            rounded
-                                                    ></v-sheet>
-                                                    <v-sheet
-                                                            color="deep-orange lighten-1"
-                                                            elevation="1"
-                                                            height="100"
-                                                            width="500"
-                                                            class="mx-4 mb-4"
-                                                            rounded
-                                                    ></v-sheet>
-                                            </v-card>
+                                        <v-card
+                                                dark
+                                                tile>
+                                            <v-card-title > Hilf diesen Personen auf die Sprünge</v-card-title>
+                                            <v-card-title class="mx-5"> Fach 2 <v-card-title>
+                                                <v-sheet
+                                                        color="deep-orange lighten-1"
+                                                        elevation="1"
+                                                        height="100"
+                                                        width="500"
+                                                        class="mx-4 mb-4"
+                                                        rounded
+                                                >
+                                                    <v-avatar
+
+                                                            class="mr-16 mt-3 float-right    "
+                                                            size="80">
+                                                        <img
+                                                                src="https://randomuser.me/api/portraits/lego/6.jpg"
+                                                                alt="Juan">
+                                                    </v-avatar>
+                                                    <v-card-title class="">
+                                                        XY braucht deine Hilfe in Fach 1
+                                                    </v-card-title>
+
+
+                                                    <v-btn
+                                                            small
+                                                            color="success"
+                                                            dark
+                                                            class=" ma-1"
+                                                    >
+                                                        Fragen
+                                                    </v-btn>
+                                                </v-sheet>
+                                                <v-sheet
+                                                        color="deep-orange lighten-1"
+                                                        elevation="1"
+                                                        height="100"
+                                                        width="500"
+                                                        class="mx-4 mb-4"
+                                                        rounded
+                                                >
+                                                    <v-avatar
+
+                                                            class="mr-16 mt-3 float-right    "
+                                                            size="80">
+                                                        <img
+                                                                src="https://randomuser.me/api/portraits/lego/6.jpg"
+                                                                alt="Juan">
+                                                    </v-avatar>
+                                                    <v-card-title class="">
+                                                        XY braucht deine Hilfe in Fach 1
+                                                    </v-card-title>
+
+
+                                                    <v-btn
+                                                            small
+                                                            color="success"
+                                                            dark
+                                                            class=" ma-1"
+                                                    >
+                                                        Fragen
+                                                    </v-btn>
+                                                </v-sheet>
+                                                <v-sheet
+                                                        color="deep-orange lighten-1"
+                                                        elevation="1"
+                                                        height="100"
+                                                        width="500"
+                                                        class="mx-4 mb-4"
+                                                        rounded
+                                                >
+                                                    <v-avatar
+
+                                                            class="mr-16 mt-3 float-right    "
+                                                            size="80">
+                                                        <img
+                                                                src="https://randomuser.me/api/portraits/lego/6.jpg"
+                                                                alt="Juan">
+                                                    </v-avatar>
+                                                    <v-card-title class="">
+                                                        XY braucht deine Hilfe in Fach 1
+                                                    </v-card-title>
+
+
+                                                    <v-btn
+                                                            small
+                                                            color="success"
+                                                            dark
+                                                            class=" ma-1"
+                                                    >
+                                                        Fragen
+                                                    </v-btn>
+                                                </v-sheet>
+                                        </v-card>
                                     </v-tab-item>
                                     <v-tab-item>
 
@@ -427,17 +540,18 @@
             navdraw: 'false',
             items: [
                 { title: 'Home', icon: 'mdi-home-variant-outline' },
-                { title: 'My Account', icon: 'mdi-account-outline' },
+                { title: 'Mein Profil', icon: 'mdi-account-outline' },
                 { title: 'Users', icon: 'mdi-account-group-outline' },
             ],
             student: null,
             studenten2: [
                 {sname: "Jannik"}
             ],
+
         },
         methods:{
             getStudent(data){
-              this.student = data;
+                this.student = data;
                 console.log(this.student);
             },
         },
