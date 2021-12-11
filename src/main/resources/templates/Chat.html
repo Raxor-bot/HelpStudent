@@ -78,6 +78,7 @@
             <div id="app">
                     <v-app id="HSHL" :style="backgroundImage">
                         <v-card
+                                v-for="n in 60"
                                 class="mx-auto"
                                 color="#3b00db"
                                 dark
@@ -172,16 +173,18 @@
 
         computed: {
             backgroundImage() {
-                if (this.$vuetify.theme.light) {
+                if (this.$vuetify.theme.dark) {
                     return {
-                        "background-image": "url('bg.jpg')",
+                        "background-image": "url('/bg.png')",
                         "background-position": "center",
                         "background-repeat": "no-repeat",
                         "background-attachment": "fixed",
                     }
-                } else {
+                }
+
+                if (!this.$vuetify.theme.light) {
                     return {
-                        "background-image": "url('bg_white_new.png')",
+                        "background-image": "url('/bg1.png')",
                         "background-position": "center",
                         "background-repeat": "no-repeat",
                         "background-attachment": "fixed",
