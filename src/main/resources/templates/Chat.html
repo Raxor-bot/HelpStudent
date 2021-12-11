@@ -21,9 +21,9 @@
 
 
 </head>
-<body>
+<body >
 
-<div id="app">
+<div id="app" >
     <v-app id="inspire"
     >
         <v-system-bar app
@@ -63,7 +63,7 @@
 
             <v-spacer></v-spacer>
 
-            <v-responsive max-width="156">
+            <v-responsive max-width="100">
                 <v-text-field
                         dense
                         flat
@@ -76,7 +76,7 @@
 
         <v-main>
             <div id="app">
-                    <v-app id="HSHL" >
+                    <v-app id="HSHL" :style="backgroundImage">
                         <v-card
                                 class="mx-auto"
                                 color="#3b00db"
@@ -165,33 +165,35 @@
         },
         methods:{
             darkMode() {
-
                 this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-
-                let el = document.getElementById("HSHL").style;
-                console.log(el)
-                if(el === "url(BG_dark.png)") { // full value is provided
-                    el.style.backgroundImage = "url(BG_white.png)"; // change it
-                }
-
-                else{
-                    el.style.backgroundImage = "url(BG_dark.png)";
-                }
             },
 
         },
+
+        computed: {
+            backgroundImage() {
+                if (this.$vuetify.theme.light) {
+                    return {
+                        "background-image": "url('bg.jpg')",
+                        "background-position": "center",
+                        "background-repeat": "no-repeat",
+                        "background-attachment": "fixed",
+                    }
+                } else {
+                    return {
+                        "background-image": "url('bg_white_new.png')",
+                        "background-position": "center",
+                        "background-repeat": "no-repeat",
+                        "background-attachment": "fixed",
+                    }
+                }
+            }
+        }
     })
 </script>
 </body>
 
 <style>
-    #HSHL{
-        background-image: url("BG_white.png");
-        height: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
 </style>
 
 

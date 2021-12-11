@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<div id="app">
+<div id="app" onload="getStudent">
     <v-app class="grey lighten-4">
 
         <nav> <!-- Kopfzeile der Webseite -->
@@ -51,7 +51,7 @@
                             <img src="https://randomuser.me/api/portraits/lego/6.jpg">
                         </v-list-item-avatar>
                         <v-list-item-content>
-                            <v-list-item-title>Juan Pablo</v-list-item-title>
+                            <v-list-item-title>{{ student.svorname }}</v-list-item-title>
                             <v-list-item-subtitle>Angemeldet</v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
@@ -237,12 +237,11 @@
                                                         Fragen
                                                     </v-btn>
 
+
                                                     <v-avatar
-                                                            class="mx-16 "
 
-
-
-                                                            size="60">
+                                                            class="mr-8 pb-2 float-right"
+                                                            size="40">
                                                         <img
                                                                 src="https://randomuser.me/api/portraits/lego/6.jpg"
                                                                 alt="Juan">
@@ -259,42 +258,36 @@
 
                                         </v-card>
 
-
-                                        <v-card
-                                                dark
-                                                tile>
-                                            <v-card-title > Hilf diesen Personen auf die Sprünge</v-card-title>
-                                            <v-card-title class="mx-5"> Fach 2 <v-card-title>
-                                                <v-sheet
-                                                        color="deep-orange lighten-1"
-                                                        elevation="1"
-                                                        height="100"
-                                                        width="500"
-                                                        class="mx-4 mb-4"
-                                                        rounded
-                                                ></v-sheet>
-                                                <v-sheet
-                                                        color="deep-orange lighten-1"
-                                                        elevation="1"
-                                                        height="100"
-                                                        width="500"
-                                                        class="mx-4 mb-4"
-                                                        rounded
-                                                ></v-sheet>
-                                                <v-sheet
-                                                        color="deep-orange lighten-1"
-                                                        elevation="1"
-                                                        height="100"
-                                                        width="500"
-                                                        class="mx-4 mb-4"
-                                                        rounded
-                                                ></v-sheet>
-                                        </v-card>
-
-
-
-
-
+                                            <v-card
+                                                    dark
+                                                    tile>
+                                                <v-card-title > Hilf diesen Personen auf die Sprünge</v-card-title>
+                                                <v-card-title class="mx-5"> Fach 2 <v-card-title>
+                                                    <v-sheet
+                                                            color="deep-orange lighten-1"
+                                                            elevation="1"
+                                                            height="100"
+                                                            width="500"
+                                                            class="mx-4 mb-4"
+                                                            rounded
+                                                    ></v-sheet>
+                                                    <v-sheet
+                                                            color="deep-orange lighten-1"
+                                                            elevation="1"
+                                                            height="100"
+                                                            width="500"
+                                                            class="mx-4 mb-4"
+                                                            rounded
+                                                    ></v-sheet>
+                                                    <v-sheet
+                                                            color="deep-orange lighten-1"
+                                                            elevation="1"
+                                                            height="100"
+                                                            width="500"
+                                                            class="mx-4 mb-4"
+                                                            rounded
+                                                    ></v-sheet>
+                                            </v-card>
                                     </v-tab-item>
                                     <v-tab-item>
 
@@ -425,9 +418,11 @@
 
 
 <script>
+
     var app = new Vue({
         el: '#app',
         vuetify: new Vuetify(),
+
         data: {
             navdraw: 'false',
             items: [
@@ -435,15 +430,25 @@
                 { title: 'My Account', icon: 'mdi-account-outline' },
                 { title: 'Users', icon: 'mdi-account-group-outline' },
             ],
-            Student: [
-                { title: 'Geburtstag' },
+            student: null,
+            studenten2: [
+                {sname: "Jannik"}
             ],
-
         },
         methods:{
-            getStudent(){
-                fetch("Profil/meineInfos/1").then(rep => rep.json()).then(data => this.Student = data).catch(err => console.log(err.message))
-            }
+            getStudent(data){
+              this.student = data;
+                console.log(this.student);
+            },
+        },
+
+        created() {
+            fetch("Profil/meineInfos/1")
+                .then(rep => rep.json())
+                .then(data => (
+                    this.getStudent(data)
+                ));
+
         },
     })
 </script>
