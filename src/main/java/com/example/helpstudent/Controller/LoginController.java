@@ -28,7 +28,7 @@ public class LoginController {
     public String viewlogin(@RequestParam(value = "error", required = false) String error,
                             @RequestParam(value = "logout", required = false) String logout,
                             Model model) {
-       String errorMessge = null;
+        String errorMessge = null;
         if(error != null) {
             errorMessge = "E-Mail oder Passwort ist falsch!";
         }
@@ -57,7 +57,7 @@ public class LoginController {
             pwcheck = loginservice.validate(body.get("mail").toString(), body.get("passwort").toString());
             {
 
-        }} catch (Exception e){
+            }} catch (Exception e){
             System.out.println(e.getMessage());
             myMap.put("errorMessage", "Bitte registriere dich zuerst!");
         }
@@ -72,8 +72,8 @@ public class LoginController {
             myMap.put("url", "http://localhost:8080/home/");
             myMap.put("studentInformation", studentService.loadUserByUsername(body.get("mail").toString()));
             return new ResponseEntity<Object>(myMap, HttpStatus.OK);
-            }
         }
+    }
 
 
     @PostMapping(path = "/Register/new_user")
@@ -96,7 +96,7 @@ public class LoginController {
         System.out.println("Bestätige Token...");
         try {
             registrierService.bestaetigeToken(token);
-           // bestaetService.saveTokenErrortxt(msg);
+            // bestaetService.saveTokenErrortxt(msg);
         } catch (Exception e){
             System.out.println(e.getMessage());
             tokenerrservice.saveTokenErrortxt(new TokenError(token,e.getMessage()));
