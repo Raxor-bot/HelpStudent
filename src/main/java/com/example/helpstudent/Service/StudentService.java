@@ -2,35 +2,68 @@ package com.example.helpstudent.Service;
 
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.Repository.StudentRepository;
+import com.example.helpstudent.registrierung.token.BestaetigungsToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
-public class StudentService {
-
-    private final StudentRepository repo;
+public class StudentService implements UserDetailsService {
 
     @Autowired
-    public StudentService(StudentRepository repo) {
+    private final StudentRepository repo;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BestaetigungsTokenService bestaetigungsTokenService;
+
+    @Autowired
+    public StudentService(StudentRepository repo,
+                          BCryptPasswordEncoder bCryptPasswordEncoder,
+                          BestaetigungsTokenService bestaetigungsTokenService) {
         this.repo = repo;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.bestaetigungsTokenService = bestaetigungsTokenService;
     }
 
     public List<Student> getStudents(){
         return repo.findAll();
     }
 
-    public void addNewStudent(Student student) {
+    public Optional<Student> getStudentByID(Long id){
+        return repo.findById(id);
+    }
+
+
+    public String addNewStudent(Student student) {
         Optional<Student> studentOptional = repo.findStudentByMail(student.getMail());
         if (studentOptional.isPresent()){
             throw new IllegalStateException("email ist bereits vorhanden");
         }
+        String encodedPassword = bCryptPasswordEncoder
+                .encode(student.getPassword());
+        student.setPasswort(encodedPassword);
         repo.save(student);
-        System.out.println(student);
+
+        String token = UUID.randomUUID().toString();
+        BestaetigungsToken bestaetigungsToken = new BestaetigungsToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15), // 15 min Zeit die Registrierung in der Mail zu bestätigen
+                student
+        );
+        bestaetigungsTokenService.saveBestaetigungsToken(
+                bestaetigungsToken);
+        return token;
     }
 
     public void deleteStudent(String mail) {
@@ -68,5 +101,15 @@ public class StudentService {
 
     public Optional<Student> getStudent(Long id){
        return repo.findStudentByNlfdstudent(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+        return repo.findStudentByMail(mail)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("Student mit E-Mail %s nicht gefunden!",mail)));
+    }
+
+    public int enableStudent(String mail) {
+        return repo.enableStudent(mail);
     }
 }

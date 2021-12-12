@@ -1,13 +1,25 @@
 package com.example.helpstudent.Tabellen.Student;
 
 
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table
-public class Student {
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+public class Student implements UserDetails {
     @Id
     @SequenceGenerator(
             name = "student_sequence",
@@ -27,13 +39,33 @@ public class Student {
     private String mail;
     private String passwort;
     private String bilderpfad;
-
+    @Enumerated(EnumType.STRING)
+    private StudentRolle rolle = StudentRolle.USER;
+    private Boolean locked = false; //gebannt oder gesperrt
+    private Boolean enabled = false; //Bestätigungslink in Bestätingungsmail geklickt (account verifiziert)
 
 
     public Student() {
     }
 
-    public Student(String sname, String svorname, LocalDate geburtstag, int nsemester, String mail, String passwort, String bilderpfad) {
+    public Student(String sname,        //Login Konstruktor
+                   String svorname,
+                   String mail,
+                   String passwort) {
+        this.sname = sname;
+        this.svorname = svorname;
+        this.mail = mail;
+        this.passwort = passwort;
+    }
+
+    public Student(String sname,
+                   String svorname,
+                   LocalDate geburtstag,
+                   int nsemester,
+                   String mail,
+                   String passwort,
+                   String bilderpfad,
+                   StudentRolle rolle) {
         this.sname = sname;
         this.svorname = svorname;
         this.geburtstag = geburtstag;
@@ -41,82 +73,74 @@ public class Student {
         this.mail = mail;
         this.passwort = passwort;
         this.bilderpfad = bilderpfad;
+        this.rolle = rolle;
     }
 
-    public long getNlfdstudent() {
-        return nlfdstudent;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Interessen> interessen;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority rang = new SimpleGrantedAuthority(rolle.name());
+        return Collections.singletonList(rang);
     }
+
+    @Override
+    public String getUsername() {
+        return mail;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    } //Zu testzwecken erstmal unbeachtet
 
     public String getSname() {
         return sname;
-    }
-
-    public void setSname(String sname) {
-        this.sname = sname;
     }
 
     public String getSvorname() {
         return svorname;
     }
 
-    public void setSvorname(String svorname) {
-        this.svorname = svorname;
-    }
-
     public LocalDate getGeburtstag() {
         return geburtstag;
-    }
-
-    public void setGeburtstag(LocalDate geburtstag) {
-        this.geburtstag = geburtstag;
     }
 
     public int getNsemester() {
         return nsemester;
     }
 
-    public void setNsemester(int nsemester) {
-        this.nsemester = nsemester;
-    }
-
     public String getMail() {
         return mail;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getPasswort() {
+    @Override
+    public String getPassword() {
         return passwort;
-    }
-
-    public void setPasswort(String passwort) {
-        this.passwort = passwort;
     }
 
     public String getBilderpfad() {
         return bilderpfad;
     }
 
-    public void setBilderpfad(String bilderpfad) {
-        this.bilderpfad = bilderpfad;
+    public StudentRolle getRolle() {
+        return rolle;
     }
 
     @Override
-    public String toString() {
-        return "Student{" +
-                "nlfdbenutzer=" + nlfdstudent +
-                ", sname='" + sname + '\'' +
-                ", svorname='" + svorname + '\'' +
-                ", geburtstag=" + geburtstag +
-                ", nsemester=" + nsemester +
-                ", mail='" + mail + '\'' +
-                ", passwort='" + passwort + '\'' +
-                ", bilderpfad='" + bilderpfad + '\'' +
-                '}';
+    public boolean isAccountNonLocked() {
+        return !locked;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Interessen> interessen;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    } // Ebenso zu testzwecken
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 }

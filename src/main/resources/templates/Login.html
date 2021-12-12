@@ -1,10 +1,326 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" >
+
+    <title>HelpStudent</title>
+
 </head>
 <body>
 
+<div id="app">
+    <v-app id="app">
+        <v-main>
+            <v-container class="fill-height" fluid>
+                <v-row align="center" justify="center">
+                    <v-col cols="12" sm="8" md="8">
+                        <v-card class="elevation-12">
+                            <v-window v-model="step">
+                                <v-window-item :value="1">
+                                    <v-row>
+                                        <v-col cols="12" md="8">
+                                            <v-card-text class="mt-12">
+<!--                                                <h1 class="text-center display-2 teal&#45;&#45;text text&#45;&#45;accent-3">{{totalVuePackages}}</h1>-->
+                                                <h1 class="text-center display-2 teal--text text--accent-3">Anmelden in HelpStudents</h1>
+                                                <div class="text-center mt-4">
+                                                    <v-btn class="mx-2" fab color="black" outlined>
+                                                        <v-icon>mdi-google-plus</v-icon>
+                                                    </v-btn>
+                                                </div>
+                                                <h4 class="text-center mt-4">Geben sie ihre Email-Adresse und ihr Passwort an um sich anzumelden</h4>
+                                                <v-alert
+                                                        v-show="loginerror"
+                                                        border="bottom"
+                                                        color="red"
+                                                        dismissible
+                                                        elevation="5"
+                                                        type="error"
+                                                        v-model="loginerror"
+                                                >{{loginerrortext}}</v-alert>
+                                                <v-alert
+                                                        v-show="tokenconfirm"
+                                                        v-model="tokenconfirm"
+                                                        color="blue"
+                                                        border="bottom"
+                                                        type="success"
+                                                >{{tokentext}}</v-alert>
+                                                <v-form>
+                                                    <v-text-field
+                                                            v-model="mail"
+                                                            label="Email"
+                                                            name="Email"
+                                                            prepend-icon="mdi-email"
+                                                            type="text"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+
+                                                    <v-text-field
+                                                            v-model="passwort"
+                                                            id="password"
+                                                            label="Password"
+                                                            name="password"
+                                                            prepend-icon="mdi-lock"
+                                                            type="password"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+                                                </v-form>
+                                                <h3 class="text-center mt-4">Passwort vergessen?</h3>
+                                            </v-card-text>
+                                            <v-card
+                                                    class="d-flex align-center justify-center mb-6"
+                                                    flat
+                                                    tile
+                                            >
+                                                <v-btn rounded color="teal accent-3" dark @click="login()">Einloggen</v-btn>
+                                            </v-card>
+                                        </v-col>
+                                        <v-col cols="12" md="4" class="teal accent-3">
+                                            <v-card-text class="white--text mt-12">
+                                                <h1 class="text-center display-1">Hallo!</h1>
+                                                <h5
+                                                        class="text-center"
+                                                >Registriere dich und starte mit HelpStudents!</h5>
+                                            </v-card-text>
+                                            <div class="text-center">
+                                                <v-btn rounded outlined dark @click="step++">Registrieren</v-btn>
+                                            </div>
+                                        </v-col>
+                                    </v-row>
+                                </v-window-item>
+                                <v-window-item :value="2">
+                                    <v-row class="fill-height">
+                                        <v-col cols="12" md="4" class="teal accent-3">
+                                            <v-card-text class="white--text mt-12">
+                                                <h1 class="text-center display-1">Willkommen zurück!</h1>
+                                                <h5
+                                                        class="text-center"
+                                                >Hier kannst du dich anmelden!</h5>
+                                            </v-card-text>
+                                            <div class="text-center">
+                                                <v-btn rounded outlined dark @click="step--">Anmelden</v-btn>
+                                            </div>
+                                        </v-col>
+
+                                        <v-col cols="12" md="8">
+                                            <v-card-text class="mt-12">
+                                                <h1 class="text-center display-2 teal--text text--accent-3">Account erstellen</h1>
+                                                <div class="text-center mt-4">
+                                                    <v-btn class="mx-2" fab color="black" outlined>
+                                                        <v-icon>mdi-google-plus</v-icon>
+                                                    </v-btn>
+                                                </div>
+                                                <h4 class="text-center mt-4">Gib deine Email-Adresse für die Registrierung ein</h4>
+                                                <v-alert
+                                                        v-show="regerror"
+                                                        border="bottom"
+                                                        color="red"
+                                                        dismissible
+                                                        elevation="5"
+                                                        type="error"
+                                                        v-model="regerror"
+                                                >{{regerrortext}}</v-alert>
+                                                <v-form>
+                                                    <v-text-field
+                                                            v-model="vorname"
+                                                            label="Vorname"
+                                                            prepend-icon="mdi-account"
+                                                            type="text"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+                                                    <v-text-field
+                                                            v-model="name"
+                                                            label="Name"
+                                                            prepend-icon="mdi-account"
+                                                            type="text"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+                                                    <v-text-field
+                                                            v-model="mail"
+                                                            label="Email"
+                                                            prepend-icon="mdi-email"
+                                                            type="text"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+
+                                                    <v-text-field
+                                                            v-model="passwort"
+                                                            label="Password"
+                                                            prepend-icon="mdi-lock"
+                                                            type="password"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+                                                </v-form>
+                                            </v-card-text>
+                                            <v-card
+                                                    class="d-flex align-center justify-center mb-6"
+                                                    flat
+                                                    tile
+                                            >
+                                                <v-btn rounded color="teal accent-3" dark @click="registrieren()">Registrieren</v-btn>
+                                            </v-card>
+                                        </v-col>
+                                    </v-row>
+                                </v-window-item>
+                            </v-window>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-main>
+    </v-app>
+
+
+
+</div>
+
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data: {
+            loginerror: false,
+            loginerrortext: "",
+            regerror: false,
+            regerrortext: "",
+            tokenconfirm: false,
+            tokentext: "",
+            step: 1,
+            model: 0,
+            vorname: "",
+            name: "",
+            mail: "",
+            passwort: "",
+            requestOptions: {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: {}
+            },
+            totalVuePackages:"",
+            session:"",
+        },
+        methods:{
+            //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+            registrieren(){
+
+                if (this.mail !== "" && this.name !== "" && this.svorname !== "" && this.passwort !== "") {
+                    this.requestOptions.body = JSON.stringify({
+                        svorname: this.vorname,
+                        sname: this.name,
+                        mail: this.mail,
+                        passwort: this.passwort
+                    });
+                    fetch("http://localhost:8080/Login/Register/new_user", this.requestOptions)
+                        .then((res) => res.text())
+                        .then(data => (
+                            //Diese Daten (data) sind JSON und müssen zur Verwendung als String erst konvertiert werden
+                            this.handleError(data)
+                        ));
+
+                }else {
+                    this.regerror = true;
+                    this.regerrortext = "Bitte gib zuerst deine Daten ein!";
+                }
+            },
+            handleError(data){
+                daten = JSON.parse(data);
+                errorMessage = daten.errorMessage;
+                if(errorMessage === "" || errorMessage === undefined){
+                    location.reload();
+                    return;
+                }
+                this.regerror = true;
+                this.regerrortext = errorMessage;
+            },
+            login(){
+                if (this.mail !== "" && this.passwort !== "") {
+                    this.requestOptions.body = JSON.stringify({
+                        mail: this.mail,
+                        passwort: this.passwort
+                    });
+
+                    fetch("http://localhost:8080/Login/perform_login", this.requestOptions)
+                        .then((res) => res.text())
+                        .then(data => (
+                            this.handleData(data)
+                        ));
+                } else {
+                    this.loginerror = true;
+                    this.loginerrortext = "Bitte gib zuerst deine Anmeldedaten ein!";
+                }
+                console.log(this.error)
+            },
+            handleData(data){
+                console.log("Hier die Map:")
+
+                data = JSON.parse(data);
+
+                this.errorMessage = data.errorMessage;
+                console.log(this.errorMessage)
+                if(this.errorMessage === "") {
+                    sessionStorage.setItem("id", data.studentInformation.nlfdstudent);
+                    sessionStorage.setItem("svorname", data.studentInformation.svorname);
+                    sessionStorage.setItem("snachname", data.studentInformation.sname);
+                    open(data.url)
+                }
+                else {
+                    this.loginerror = true;
+                    this.loginerrortext = this.errorMessage;
+                }
+            },
+            handleToken(){
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString)
+                if(urlParams.has("token")){
+                    this.requestOptions.body = {"token":urlParams.get("token")}
+                    fetch("http://localhost:8080/Login/Register/checktoken?token="+urlParams.get("token"), this.requestOptions)
+                        .then((res) => res.text())
+                        .then(data => (
+                            this.displayToken(data)
+                        ));
+                }
+            },
+
+            displayToken(data){
+                daten = JSON.parse(data);
+                if(daten.errorMessage === "" || daten.errorMessage === undefined) {
+                    this.tokenconfirm = true
+                    this.tokentext = "Token wurde bestätigt!";
+                } else {
+                    console.log(data)
+                    this.loginerror = true;
+                    this.loginerrortext = daten.errorMessage;
+                }
+            },
+
+            initSession(){
+                sessionStorage.setItem("id", "");
+                sessionStorage.setItem("svorname", "");
+                sessionStorage.setItem("snachname", "");
+                sessionStorage.setItem("sbilderpfad", "");
+            },
+        },
+        computed:{
+            sessionEmpty(){
+                return sessionStorage.length === 0;
+            }
+        },
+        created: function () {
+            this.handleToken()
+            if(this.sessionEmpty){
+                this.initSession();
+            }
+            this.session = sessionStorage;
+            console.log(sessionStorage);
+        },
+    })
+</script>
 </body>
 </html>
