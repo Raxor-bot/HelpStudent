@@ -49,13 +49,10 @@ public class StudentController{
     }
     @RequestMapping("/Faecher")
     public String viewFaecher(){
-        Student test = new Student("Test","Musterfest", LocalDate.now(),3,"test@stud.hshl.de","passwort","/src/Bild");
-        service.addNewStudent(test);
         return "index";
     }
     @RequestMapping("/Gruppen")
     public String viewGruppen(){
-        service.deleteStudent("test@stud.hshl.de");
         return "index";
     }
     @RequestMapping("/Register")
@@ -72,7 +69,9 @@ public class StudentController{
     public ResponseEntity<Student> getStudent(@PathVariable("id") Long id){
         Optional<Student> studentData = service.getStudent(id);
 
-        return studentData.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return studentData.map(value ->
+                new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() ->
+                new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping("/chat")
