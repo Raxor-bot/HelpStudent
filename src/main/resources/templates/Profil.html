@@ -498,7 +498,7 @@
                                             <v-btn
                                                     color="#286BF9"
                                                     class="mt-2 mx-5 mb-5"
-                                                    @click="overlay = !overlay">
+                                                    @click="openUrl(chaturl, '')">
 
                                                 Meine Chats
                                             </v-btn>
@@ -544,15 +544,16 @@
                 { title: 'Users', icon: 'mdi-account-group-outline' },
             ],
             student: null,
-            studenten2: [
-                {sname: "Jannik"}
-            ],
+            chaturl:"http://localhost:8080/chat",
 
         },
         methods:{
             getStudent(data){
                 this.student = data;
                 console.log(this.student);
+            },
+            openUrl(url, method){
+                window.open(url, method);
             },
         },
 

@@ -68,7 +68,7 @@ public class LoginController {
         }
         else {
             myMap.clear();
-            System.out.println("Er versucht auf Index zu kommen");
+            System.out.println("Er versucht auf Home zu kommen");
             myMap.put("url", "http://localhost:8080/home/");
             myMap.put("studentInformation", studentService.loadUserByUsername(body.get("mail").toString()));
             return new ResponseEntity<Object>(myMap, HttpStatus.OK);
