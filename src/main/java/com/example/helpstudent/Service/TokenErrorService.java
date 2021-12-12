@@ -19,6 +19,10 @@ public class TokenErrorService {
     }
 
     public String getTokenErrortxtbyToken(String token){
-       return tokenerrorrepo.findByToken(token).get().getErrortxt();
+        if(tokenerrorrepo.findByToken(token).isPresent())
+            return tokenerrorrepo.findByToken(token).get().getErrortxt();
+
+        else
+            return null;
     }
 }

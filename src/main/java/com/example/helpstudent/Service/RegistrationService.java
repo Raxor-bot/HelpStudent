@@ -44,28 +44,24 @@ public String registrierenValidierung(@ModelAttribute("Student") Student student
 
 }
 @Transactional
-public String bestaetigeToken(String token){
+public void bestaetigeToken(String token){
     BestaetigungsToken bestaetigungsToken = bestaetigungsTokenService
             .getToken(token).
             orElseThrow(() -> new IllegalStateException("Token nicht gefunden"));
 
     if(bestaetigungsToken.getBestaetigtUm() != null){
-        //return "Token wurde schon bestaetigt!";
         throw new IllegalStateException("Token wurde schon bestaetigt!");
     }
 
     LocalDateTime verfallenUm = bestaetigungsToken.getVerfaelltUm();
 
     if(verfallenUm.isBefore(LocalDateTime.now())){
-        //return "Token abgelaufen!";
         throw new IllegalStateException("Token abgelaufen!");
 
     }
 
     bestaetigungsTokenService.setConfirmedAt(token);
     studentService.enableStudent(bestaetigungsToken.getStudent().getMail());
-
-    return "E-Mail Adresse Bestätigt!";
 }
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +

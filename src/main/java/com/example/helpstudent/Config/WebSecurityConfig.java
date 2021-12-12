@@ -1,6 +1,7 @@
 package com.example.helpstudent.Config;
 
 import com.example.helpstudent.Service.StudentService;
+import com.example.helpstudent.Tabellen.Student.StudentRolle;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/**").permitAll()
-                    .antMatchers("/Login/**").permitAll()
+                .antMatchers("/Login/**").permitAll()
+                .antMatchers("/**").hasAnyRole("USER","ADMIN")
                 .anyRequest()
                 .authenticated().and()
                 .formLogin()

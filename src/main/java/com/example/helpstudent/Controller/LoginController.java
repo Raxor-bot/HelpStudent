@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Controller
@@ -107,8 +108,10 @@ public class LoginController {
     public ResponseEntity<?> checkToken(@RequestParam String token){
         Map<String, Object> myMap = new HashMap<>();
         if(tokenerrservice.getTokenErrortxtbyToken(token) != null) {
+            System.out.println(myMap);
             myMap.put("errorMessage", tokenerrservice.getTokenErrortxtbyToken(token));
         }
+        System.out.println(myMap);
         return new ResponseEntity<Object>(myMap, HttpStatus.OK);
 
     }
