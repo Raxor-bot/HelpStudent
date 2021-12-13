@@ -18,7 +18,15 @@ public class StudentConfig {
                   "996460"
                   );
 
+            Student armin = new Student(
+                    "Reimann",
+                    "Armin",
+                    "reimann.armin2@gmail.com",
+                    "passwort123"
+            );
+
           repository.save(jannik);
+          repository.save(armin);
         };
 
     }
