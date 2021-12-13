@@ -495,10 +495,18 @@
                                                     @click="overlay = !overlay">
                                                 Finde neue Gruppen
                                             </v-btn>
+                                            <v-text-field
+                                                    v-model="fusch"
+                                                    dense
+                                                    flat
+                                                    hide-details
+                                                    rounded
+                                                    solo-inverted
+                                            ></v-text-field>
                                             <v-btn
                                                     color="#286BF9"
                                                     class="mt-2 mx-5 mb-5"
-                                                    @click="openUrl(chaturl, '')">
+                                                    @click="openChat()">
 
                                                 Meine Chats
                                             </v-btn>
@@ -537,6 +545,7 @@
         vuetify: new Vuetify(),
 
         data: {
+            fusch:"",
             navdraw: 'false',
             items: [
                 { title: 'Home', icon: 'mdi-home-variant-outline' },
@@ -554,6 +563,17 @@
             },
             openUrl(url, method){
                 window.open(url, method);
+            },
+            openChat(){
+                this.initSession();
+                sessionStorage.setItem("svorname", this.fusch);
+                this.openUrl(this.chaturl, '');
+            },
+            initSession(){
+                sessionStorage.setItem("id", "");
+                sessionStorage.setItem("svorname", "");
+                sessionStorage.setItem("snachname", "");
+                sessionStorage.setItem("sbilderpfad", "");
             },
         },
 
