@@ -95,12 +95,12 @@
                                 </v-list-item-avatar>
 
                                 <v-list-item-content>
-                                    <v-list-item-title>Evan You</v-list-item-title>
+                                    <v-list-item-title>{{item.username}}</v-list-item-title>
                                 </v-list-item-content>
                             </v-card-title>
 
                             <v-card-text class="text-h5 font-weight-bold">
-                                "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well."
+                                {{item.inhalt}}
                             </v-card-text>
                         </v-card>
                     </v-app>
@@ -116,6 +116,7 @@
                 inset
         >
             <v-text-field
+                    v-model="messageInput"
                     background-color="grey lighten-1"
                     dense
                     flat
@@ -161,6 +162,7 @@
             username:null,
             messageInput:null,
             receivedMessage:null,
+            messages:[],
 
         },
         methods:{
@@ -170,21 +172,23 @@
             closeWindow(){
                 window.close();
             },
-            connect(event) {
+            connect() {
                 //todo im html code muss noch ein v-model="username" rein
-                if(this.username) {
-
+                console.log("außerhalbv")
+                console.log(this.username)
+                if(this.username != null) {
+                    console.log("innerhalb")
                     var socket = new SockJS('/ws');
                     stompClient = Stomp.over(socket);
 
-                    stompClient.connect({}, onConnected, onError);
+                    stompClient.connect({}, this.onConnected, this.onError);
                 }
             },
 
 
             onConnected() {
                 // Subscribe to the Public Topic
-                stompClient.subscribe('/topic/public', onMessageReceived);
+                stompClient.subscribe('/topic/public', this.onMessageReceived);
 
                 // Tell your username to the server
                 stompClient.send("/app/chat.addUser",
@@ -201,56 +205,63 @@
             },
 
 
-             sendMessage(event) {
+             sendMessage() {
                 let messageContent = this.messageInput.trim();
-                if(messageContent && stompClient) {
+                if(messageContent !== "" && stompClient) {
                     let chatMessage = {
-                        sender: username,
-                        content: messageInput.value,
+                        sender: this.username,
+                        content: messageContent,
                         type: 'CHAT'
                     };
                     stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-                    messageInput.value = '';
+                    this.messageInput = "";
                 }
             },
 
              onMessageReceived(payload) {
                 //todo @jannik müssten wir nochmal zusammen drüber schauen
 
+
+
                 var message = JSON.parse(payload.body);
 
-                var messageElement = document.createElement('li');
+                console.log(message)
 
-                if(message.type === 'JOIN') {
-                    messageElement.classList.add('event-message');
-                    message.content = message.sender + ' joined!';
-                } else if (message.type === 'LEAVE') {
-                    messageElement.classList.add('event-message');
-                    message.content = message.sender + ' left!';
-                } else {
-                    messageElement.classList.add('chat-message');
+                this.messages.push({username: message.sender, inhalt: message.content});
 
-                    var avatarElement = document.createElement('i');
-                    var avatarText = document.createTextNode(message.sender[0]);
-                    avatarElement.appendChild(avatarText);
-                    avatarElement.style['background-color'] = getAvatarColor(message.sender);
 
-                    messageElement.appendChild(avatarElement);
-
-                    var usernameElement = document.createElement('span');
-                    var usernameText = document.createTextNode(message.sender);
-                    usernameElement.appendChild(usernameText);
-                    messageElement.appendChild(usernameElement);
-                }
-
-                var textElement = document.createElement('p');
-                var messageText = document.createTextNode(message.content);
-                textElement.appendChild(messageText);
-
-                messageElement.appendChild(textElement);
-
-                messageArea.appendChild(messageElement);
-                messageArea.scrollTop = messageArea.scrollHeight;
+                // var messageElement = document.createElement('li');
+                //
+                // if(message.type === 'JOIN') {
+                //     messageElement.classList.add('event-message');
+                //     message.content = message.sender + ' joined!';
+                // } else if (message.type === 'LEAVE') {
+                //     messageElement.classList.add('event-message');
+                //     message.content = message.sender + ' left!';
+                // } else {
+                //     messageElement.classList.add('chat-message');
+                //
+                //     var avatarElement = document.createElement('i');
+                //     var avatarText = document.createTextNode(message.sender[0]);
+                //     avatarElement.appendChild(avatarText);
+                //     avatarElement.style['background-color'] = getAvatarColor(message.sender);
+                //
+                //     messageElement.appendChild(avatarElement);
+                //
+                //     var usernameElement = document.createElement('span');
+                //     var usernameText = document.createTextNode(message.sender);
+                //     usernameElement.appendChild(usernameText);
+                //     messageElement.appendChild(usernameElement);
+                // }
+                //
+                // var textElement = document.createElement('p');
+                // var messageText = document.createTextNode(message.content);
+                // textElement.appendChild(messageText);
+                //
+                // messageElement.appendChild(textElement);
+                //
+                // messageArea.appendChild(messageElement);
+                // messageArea.scrollTop = messageArea.scrollHeight;
             },
 
 
@@ -264,7 +275,12 @@
             },
 
 
-            },
+        },
+        created(){
+
+            this.username = sessionStorage.getItem("svorname");
+            this.connect();
+        },
 
         computed: {
             backgroundImage() {
