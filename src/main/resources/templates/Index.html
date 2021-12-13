@@ -23,6 +23,8 @@
 <body>
 
 <div id="app">
+  <v-app id="inspire"
+  >
   <v-app class="grey lighten-4">
     <nav>
       <v-app-bar app flat color="grey lighten-4">
@@ -33,10 +35,6 @@
           <span>Students</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn depressed  class="grey--text">
-          <span>Ausloggen</span>
-          <v-icon right>mdi-exit-to-app</v-icon>
-        </v-btn>
       </v-app-bar>
 
       <v-navigation-drawer
@@ -75,10 +73,11 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
+        </v-tooltip>
       </v-navigation-drawer>
 
     </nav>
-    <v-main>
+    <v-main id="HSHL" :style="backgroundImage">
       <v-container>
         <v-row>
           <v-col cols="6">
@@ -121,7 +120,17 @@
 <script>
   var app = new Vue({
     el: '#app',
-    vuetify: new Vuetify(),
+    vuetify:
+            new Vuetify({
+      theme: {
+        themes: {
+          light: {
+          },
+          dark: {
+          }
+        }
+      }
+    }),
     data: {
       navdraw: 'false',
       items: [
@@ -146,10 +155,32 @@
         sessionStorage.setItem("snachname", "");
         sessionStorage.setItem("sbilderpfad", "");
       },
+      darkMode() {
+        this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      },
     },
     computed:{
       sessionEmpty(){
         return sessionStorage.length === 0;
+      }
+    },
+    backgroundImage() {
+      if (this.$vuetify.theme.dark) {
+        return {
+          "background-image": "url('/bg.png')",
+          "background-position": "center",
+          "background-repeat": "no-repeat",
+          "background-attachment": "fixed",
+        }
+      }
+
+      if (!this.$vuetify.theme.light) {
+        return {
+          "background-image": "url('/bg1.png')",
+          "background-position": "center",
+          "background-repeat": "no-repeat",
+          "background-attachment": "fixed",
+        }
       }
     },
     created: function () {
@@ -162,6 +193,11 @@
   })
 </script>
 
+<style>
+  #HSHL{
+    background-image: url("/bg1.png");
+  }
+</style>
 
 </body>
 </html>
