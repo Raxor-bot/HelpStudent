@@ -47,7 +47,7 @@ public class StudentService implements UserDetailsService {
     public String addNewStudent(Student student) {
         Optional<Student> studentOptional = repo.findStudentByMail(student.getMail());
         if (studentOptional.isPresent()){
-            throw new IllegalStateException("email ist bereits vorhanden");
+            throw new IllegalStateException("E-mail ist bereits vorhanden!");
         }
         String encodedPassword = bCryptPasswordEncoder
                 .encode(student.getPassword());

@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png"/> // favicon was oben im Tab angezeigt werden kann
     <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" >
 
     <title>HelpStudent</title>
@@ -251,6 +252,8 @@
                         .then(data => (
                             this.handleData(data)
                         ));
+                    console.log("Er versucht home zu öffnen")
+                    open("http://localhost:8080/home/","_self")
                 } else {
                     this.loginerror = true;
                     this.loginerrortext = "Bitte gib zuerst deine Anmeldedaten ein!";
@@ -264,13 +267,16 @@
                 console.log(data);
                 this.errorMessage = data.errorMessage;
                 console.log(this.errorMessage)
-                if(this.errorMessage === "") {
+                if(this.errorMessage === "" || this.errorMessage === undefined) {
+                    console.log("keine Errormessage")
                     sessionStorage.setItem("id", data.studentInformation.nlfdstudent);
                     sessionStorage.setItem("svorname", data.studentInformation.svorname);
                     sessionStorage.setItem("snachname", data.studentInformation.sname);
                     open(data.url)
                 }
                 else {
+                    console.log("irgendwie eine Errormessage")
+
                     this.loginerror = true;
                     this.loginerrortext = this.errorMessage;
                 }
