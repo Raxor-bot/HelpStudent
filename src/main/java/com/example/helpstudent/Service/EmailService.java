@@ -32,7 +32,7 @@ public class EmailService implements EmailSender {
             helper.setText(email,true);
             helper.setTo(to);
             helper.setSubject("HelpStudents E-mail Bestätigen");
-            helper.setFrom(new InternetAddress("mail@HelpStudent.com"));
+            helper.setFrom(new InternetAddress("helpstudents@linusu.de"));
             mailsender.send(msg);
         } catch (MessagingException e) {
             LOGGER.error("Nachricht konnte nicht gesendet werden", e);
