@@ -99,6 +99,8 @@ public class StudentService implements UserDetailsService {
         }
     }
 
+
+
     public Optional<Student> getStudent(Long id){
        return repo.findStudentByNlfdstudent(id);
     }
