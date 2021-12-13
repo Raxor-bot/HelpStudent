@@ -63,7 +63,7 @@
                             v-for="item in items"
                             :key="item.title"
                             link
-                            @click="sendPostRequest()">
+                            @click="openUrl(item.url, '_self')">
                         <v-list-item-icon>
                             <v-icon>{{ item.icon }}</v-icon>
                         </v-list-item-icon>
@@ -539,9 +539,9 @@
         data: {
             navdraw: 'false',
             items: [
-                { title: 'Home', icon: 'mdi-home-variant-outline' },
-                { title: 'Mein Profil', icon: 'mdi-account-outline' },
-                { title: 'Users', icon: 'mdi-account-group-outline' },
+                { title: 'Home', icon: 'mdi-home-variant-outline', url:   "http://localhost:8080/home"},
+                { title: 'Mein Profil', icon: 'mdi-account-outline', url: "http://localhost:8080/Profil"},
+                { title: 'Users', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Profil"},
             ],
             student: null,
             chaturl:"http://localhost:8080/chat",
