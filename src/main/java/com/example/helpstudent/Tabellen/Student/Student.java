@@ -1,6 +1,7 @@
 package com.example.helpstudent.Tabellen.Student;
 
 
+import com.example.helpstudent.chat.ChatRoom;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,10 +12,9 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
-@Table
+@Table(name = "student")
 @Getter
 @Setter
 @ToString
@@ -87,47 +87,20 @@ public class Student implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return mail;
+    public String getPassword() {
+        return passwort;
     }
+
+    @Override
+    public String getUsername() {
+        return svorname;
+    }
+
 
     @Override
     public boolean isAccountNonExpired() {
         return true;
     } //Zu testzwecken erstmal unbeachtet
-
-    public String getSname() {
-        return sname;
-    }
-
-    public String getSvorname() {
-        return svorname;
-    }
-
-    public LocalDate getGeburtstag() {
-        return geburtstag;
-    }
-
-    public int getNsemester() {
-        return nsemester;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    @Override
-    public String getPassword() {
-        return passwort;
-    }
-
-    public String getBilderpfad() {
-        return bilderpfad;
-    }
-
-    public StudentRolle getRolle() {
-        return rolle;
-    }
 
     @Override
     public boolean isAccountNonLocked() {
@@ -143,4 +116,6 @@ public class Student implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
+
 }

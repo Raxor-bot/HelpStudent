@@ -3,7 +3,7 @@ package com.example.helpstudent.Tabellen.Student;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "intressen")
 public class Interessen {
     @Id
     @SequenceGenerator(

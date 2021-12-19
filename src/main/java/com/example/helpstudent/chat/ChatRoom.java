@@ -1,44 +1,55 @@
 package com.example.helpstudent.chat;
 
+import com.example.helpstudent.Model.ChatMessage;
+import com.example.helpstudent.Tabellen.Student.Student;
+
 import javax.persistence.*;
+import java.util.List;
 
-
+@Entity
+@Table(name = "chatRoom")
 public class ChatRoom {
+
     @Id
-    private String id;
-    private String chatId;
-    private String senderId;
-    private String empfaengerId;
+    @SequenceGenerator(
+            name = "chatRoom_sequence",
+            sequenceName = "chatRoom_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "chatRoom_sequence"
+    )
 
-    public String getId() {
-        return id;
+
+    private Long chatRoomid;
+
+
+    @OneToMany
+    private List<ChatMessage> nachrichten;
+
+    @OneToOne
+    private Student sender;
+
+    @OneToOne
+    private Student empfaenger;
+
+
+
+
+    public Long getChatRoomid() {
+        return chatRoomid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setChatRoomid(Long chatRoomid) {
+        this.chatRoomid = chatRoomid;
     }
 
-    public String getChatId() {
-        return chatId;
+    public List<ChatMessage> getNachrichten() {
+        return nachrichten;
     }
 
-    public void setChatId(String chatId) {
-        this.chatId = chatId;
-    }
-
-    public String getSenderId() {
-        return senderId;
-    }
-
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
-    }
-
-    public String getEmpfaengerId() {
-        return empfaengerId;
-    }
-
-    public void setEmpfaengerId(String empfaengerId) {
-        this.empfaengerId = empfaengerId;
+    public void setNachrichten(List<ChatMessage> nachrichten) {
+        this.nachrichten = nachrichten;
     }
 }

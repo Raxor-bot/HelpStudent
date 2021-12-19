@@ -154,33 +154,11 @@
         sessionStorage.setItem("svorname", "");
         sessionStorage.setItem("snachname", "");
         sessionStorage.setItem("sbilderpfad", "");
-      },
-      darkMode() {
-        this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-      },
+      }
     },
     computed:{
       sessionEmpty(){
         return sessionStorage.length === 0;
-      }
-    },
-    backgroundImage() {
-      if (this.$vuetify.theme.dark) {
-        return {
-          "background-image": "url('/bg.png')",
-          "background-position": "center",
-          "background-repeat": "no-repeat",
-          "background-attachment": "fixed",
-        }
-      }
-
-      if (!this.$vuetify.theme.light) {
-        return {
-          "background-image": "url('/bg1.png')",
-          "background-position": "center",
-          "background-repeat": "no-repeat",
-          "background-attachment": "fixed",
-        }
       }
     },
     created: function () {

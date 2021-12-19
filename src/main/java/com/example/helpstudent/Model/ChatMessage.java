@@ -1,38 +1,38 @@
 package com.example.helpstudent.Model;
 
 
+
+import com.example.helpstudent.Tabellen.Student.Student;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Table()
 public class ChatMessage {
-    private MessageType type;
-    private String content;
-    private String sender;
 
-    public enum MessageType {
-        CHAT,
-        JOIN,
-        LEAVE
-    }
+        @Id
+        @SequenceGenerator(
+                name = "chatMessage_sequence",
+                sequenceName = "chatMessage_sequence",
+                allocationSize = 1
+        )
+        @GeneratedValue(
+                strategy = GenerationType.SEQUENCE,
+                generator = "chatMessage_sequence"
+        )
 
-    public MessageType getType() {
-        return type;
-    }
+        private Long chatId;
 
-    public void setType(MessageType type) {
-        this.type = type;
-    }
 
-    public String getContent() {
-        return content;
-    }
+        private String nachricht;
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+        public Long getChatId() {
+                return chatId;
+        }
 
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
+        public void setChatId(Long chatId) {
+                this.chatId = chatId;
+        }
 }
