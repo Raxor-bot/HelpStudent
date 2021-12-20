@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
 
@@ -164,7 +165,7 @@
                                             <v-combobox
                                                     rounded
                                                     v-model="chips"
-
+                                                    :items="studiengaenge"
                                                     chips
                                                     clearable
                                                     label="Wähle deinen Studiengang"
@@ -547,10 +548,14 @@
         data: {
             fusch:"",
             navdraw: 'false',
+            studiengaenge:[
+                title= 'Angewandte Informatik nd Soziale Medien',
+                title= 'Betriebswirtschaftslehre',
+            ],
             items: [
                 { title: 'Home', icon: 'mdi-home-variant-outline', url:   "http://localhost:8080/home"},
                 { title: 'Mein Profil', icon: 'mdi-account-outline', url: "http://localhost:8080/Profil"},
-                { title: 'Users', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Profil"},
+                { title: 'Gruppen', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Gruppen"},
             ],
             student: null,
             chaturl:"http://localhost:8080/chat",

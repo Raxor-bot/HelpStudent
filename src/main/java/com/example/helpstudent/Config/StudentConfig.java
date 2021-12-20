@@ -26,7 +26,9 @@ public class StudentConfig {
             );
 
           repository.save(jannik);
+          repository.enableStudent("Jannik.markau01@gmail.com");
           repository.save(armin);
+          repository.enableStudent("reimann.armin2@gmail.com");
         };
 
     }

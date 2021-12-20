@@ -40,7 +40,7 @@ public class Student implements UserDetails {
     private String passwort;
     private String bilderpfad;
     @Enumerated(EnumType.STRING)
-    private StudentRolle rolle = StudentRolle.USER;
+    private StudentRolle rolle = StudentRolle.DEFAULT;
     private Boolean locked = false; //gebannt oder gesperrt
     private Boolean enabled = false; //Bestätigungslink in Bestätingungsmail geklickt (account verifiziert)
 

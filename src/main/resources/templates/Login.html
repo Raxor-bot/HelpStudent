@@ -234,7 +234,8 @@
                 daten = JSON.parse(data);
                 errorMessage = daten.errorMessage;
                 if(errorMessage === "" || errorMessage === undefined){
-                    location.reload();
+                    //location.reload();
+                    window.open("http://localhost:8080/Login","_self") //Hier damit eventuelle Error aus der URL entfernt werden
                     return;
                 }
                 this.regerror = true;
@@ -246,14 +247,15 @@
                         mail: this.mail,
                         passwort: this.passwort
                     });
-
                     fetch("http://localhost:8080/Login/perform_login", this.requestOptions)
                         .then((res) => res.text())
                         .then(data => (
                             this.handleData(data)
                         ));
-                    console.log("Er versucht home zu öffnen")
-                    open("http://localhost:8080/home/","_self")
+                    console.log("HIer die id"+ this.id)
+                    if (this.id !== undefined || this.id !== "") {
+                        console.log("Er versucht home zu öffnen")
+                    }
                 } else {
                     this.loginerror = true;
                     this.loginerrortext = "Bitte gib zuerst deine Anmeldedaten ein!";
@@ -267,15 +269,13 @@
                 console.log(data);
                 this.errorMessage = data.errorMessage;
                 console.log(this.errorMessage)
-                if(this.errorMessage === "" || this.errorMessage === undefined) {
-                    console.log("keine Errormessage")
+                if(this.errorMessage === "" || this.errorMessage === undefined ) {
                     sessionStorage.setItem("id", data.studentInformation.nlfdstudent);
                     sessionStorage.setItem("svorname", data.studentInformation.svorname);
                     sessionStorage.setItem("snachname", data.studentInformation.sname);
-                    open(data.url)
+                    window.open(data.url,"_self")
                 }
                 else {
-                    console.log("irgendwie eine Errormessage")
 
                     this.loginerror = true;
                     this.loginerrortext = this.errorMessage;
@@ -292,13 +292,18 @@
                             this.displayToken(data)
                         ));
                 }
-            },
+                else if(urlParams.has("error")){
+                    this.loginerror = true
+                    this.loginerrortext = "Sie sind nicht eingeloggt!"
+                }
+
+                },
 
             displayToken(data){
                 daten = JSON.parse(data);
                 if(daten.errorMessage === "" || daten.errorMessage === undefined) {
                     this.tokenconfirm = true
-                    this.tokentext = "Token wurde bestätigt!";
+                    this.tokentext = "E-Mail wurde bestätigt!";
                 } else {
                     console.log(data)
                     this.loginerror = true;

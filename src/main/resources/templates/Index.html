@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png"/> // favicon was oben im Tab angezeigt werden kann
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
 
@@ -136,12 +136,18 @@
       items: [
         { title: 'Home', icon: 'mdi-home-variant-outline', url:   "http://localhost:8080/home"},
         { title: 'Mein Profil', icon: 'mdi-account-outline', url: "http://localhost:8080/Profil"},
-        { title: 'Users', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Profil"},
+        { title: 'Gruppen', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Gruppen"},
       ],
       session:"",
 
     },
     methods:{
+
+      getStudent(data){
+        this.student = data;
+        console.log(this.student);
+      },
+
       sendPostRequest(){
         alert("test");
         window.open("http://localhost:8080/Login");
@@ -183,12 +189,20 @@
         }
       }
     },
-    created: function () {
+  created: function () {
+    fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
+            .then(rep => rep.json())
+            .then(data => (
+                    this.getStudent(data)
+            ));
       if(this.sessionEmpty){
         this.initSession();
       }
       this.session = sessionStorage;
       console.log(sessionStorage);
+
+      if(sessionStorage.getItem("id") === "")
+        window.open("http://localhost:8080/Login?error=True","_self")
     },
   })
 </script>

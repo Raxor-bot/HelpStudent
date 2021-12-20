@@ -112,6 +112,7 @@ public class StudentService implements UserDetailsService {
     }
 
     public int enableStudent(String mail) {
+        repo.setStudentRolleUSER(mail);
         return repo.enableStudent(mail);
     }
 }

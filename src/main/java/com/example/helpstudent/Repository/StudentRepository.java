@@ -21,5 +21,10 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             "SET student.enabled = TRUE WHERE student.mail = ?1")
     int enableStudent(String mail);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE Student student "+"SET student.rolle = 'USER' WHERE student.mail = ?1")
+    void setStudentRolleUSER(String mail);
+
     Optional<Student> findStudentByNlfdstudent(long nlfdstudent);
 }

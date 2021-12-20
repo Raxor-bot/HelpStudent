@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 
 @Controller
@@ -66,9 +65,14 @@ public class LoginController {
             myMap.put("errorMessage", "Bitte zuerst registrieren/Falsches PW");
             return new ResponseEntity<>(myMap, HttpStatus.OK);
         }
-        else {
+        else if(studentService.loadUserByUsername(body.get("mail").toString()).getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("DEFAULT"))) {
             myMap.clear();
-            System.out.println("Er versucht auf Home zu kommen");
+            System.out.println("Email noch nicht bestätigt. Rolle:"+studentService.loadUserByUsername(body.get("mail").toString()).getAuthorities());
+            myMap.put("errorMessage", "Bitte bestätige zuerst deine E-Mail Adresse!");
+            return new ResponseEntity<Object>(myMap, HttpStatus.OK);
+        } else {
+            myMap.clear();
+            System.out.println("Er versucht auf Home zu kommen! Rolle:"+studentService.loadUserByUsername(body.get("mail").toString()).getAuthorities());
             myMap.put("url", "http://localhost:8080/home/");
             myMap.put("studentInformation", studentService.loadUserByUsername(body.get("mail").toString()));
             return new ResponseEntity<Object>(myMap, HttpStatus.OK);
@@ -96,7 +100,6 @@ public class LoginController {
         System.out.println("Bestätige Token...");
         try {
             registrierService.bestaetigeToken(token);
-            // bestaetService.saveTokenErrortxt(msg);
         } catch (Exception e){
             System.out.println(e.getMessage());
             tokenerrservice.saveTokenErrortxt(new TokenError(token,e.getMessage()));

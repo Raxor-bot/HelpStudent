@@ -40,11 +40,11 @@ public class StudentController{
     }
     @RequestMapping("/Faecher")
     public String viewFaecher(){
-        return "index";
+        return "Index";
     }
     @RequestMapping("/Gruppen")
     public String viewGruppen(){
-        return "index";
+        return "Gruppen";
     }
     @RequestMapping("/Register")
     public String viewRegister(){
@@ -59,7 +59,7 @@ public class StudentController{
     @GetMapping("Profil/meineInfos/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable("id") Long id){
         Optional<Student> studentData = service.getStudent(id);
-
+        System.out.print("Daten angekommen");
         return studentData.map(value ->
                 new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() ->
                 new ResponseEntity<>(HttpStatus.NOT_FOUND));
