@@ -53,7 +53,7 @@
                             <img src="https://randomuser.me/api/portraits/lego/6.jpg">
                         </v-list-item-avatar>
                         <v-list-item-content>
-                            <v-list-item-title> {{student.svorname}} {{student.sname}} </v-list-item-title>
+                            <v-list-item-title> {{ session.svorname}} {{ session.snachname}} </v-list-item-title>
                             <v-list-item-subtitle>Angemeldet</v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
@@ -94,7 +94,7 @@
                             </v-avatar>
 
                             <div class="mt-n16 mb-16 mx-16 white--text">
-                                <p class="font-weight-black text-center mt-n16 mx-auto "> Juan Pablo</p>
+                                <p class="font-weight-black text-center mt-n16 mx-auto "> {{ session.svorname}} {{ session.snachname}}</p>
                                 <p class="text-center">Studiengang - Semester - Standort</p>
 
                                 <v-chip
@@ -560,6 +560,7 @@
             ],
             student: null,
             chaturl:"http://localhost:8080/chat",
+            session: null,
 
         },
         methods:{
@@ -575,19 +576,20 @@
                 window.open(url, method);
             },
             openChat(){
-                this.initSession();
-                sessionStorage.setItem("svorname", this.fusch);
+                // this.initSession();
+                // sessionStorage.setItem("svorname", this.fusch);
                 this.openUrl(this.chaturl, '');
             },
             initSession(){
-                sessionStorage.setItem("id", "");
-                sessionStorage.setItem("svorname", "");
-                sessionStorage.setItem("snachname", "");
-                sessionStorage.setItem("sbilderpfad", "");
+                // sessionStorage.setItem("id", "");
+                // sessionStorage.setItem("svorname", "");
+                // sessionStorage.setItem("snachname", "");
+                // sessionStorage.setItem("sbilderpfad", "");
             },
         },
 
         created() {
+            this.session = sessionStorage;
             fetch("Profil/meineInfos/1")
                 .then(rep => rep.json())
                 .then(data => (

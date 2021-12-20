@@ -193,7 +193,7 @@
                 // Tell your username to the server
                 stompClient.send("/app/chat.addUser",
                     {},
-                    JSON.stringify({sender: username, type: 'JOIN'})
+                    JSON.stringify({sender: this.username, type: 'JOIN'})
                 )
 
             },
@@ -226,6 +226,7 @@
                 var message = JSON.parse(payload.body);
 
                 console.log(message)
+                console.log("test")
 
                 this.messages.push({username: message.sender, inhalt: message.content});
 
