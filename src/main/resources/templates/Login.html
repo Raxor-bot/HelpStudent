@@ -295,6 +295,9 @@
                 else if(urlParams.has("error")){
                     this.loginerror = true
                     this.loginerrortext = "Sie sind nicht eingeloggt!"
+                }else if(urlParams.has("logout")){
+                    this.tokenconfirm = true
+                    this.tokentext = "Erfolgreich ausgeloggt!"
                 }
 
                 },

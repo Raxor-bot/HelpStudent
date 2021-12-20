@@ -35,6 +35,11 @@
           <span>Students</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-btn depressed  class="grey--text"
+               @click="logout()">
+          <span>Ausloggen</span>
+          <v-icon right>mdi-exit-to-app</v-icon>
+        </v-btn>
       </v-app-bar>
 
       <v-navigation-drawer
@@ -49,7 +54,7 @@
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>sessionStorage.getItem('svorname') sessionStorage.getItem('sname')</v-list-item-title>
+              <v-list-item-title>{{session.svorname}} {{session.sname}}</v-list-item-title>
               <v-list-item-subtitle>Angemeldet</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -83,7 +88,7 @@
           <v-col cols="6">
             <v-card height="200" color="blue">
 
-              <v-card-title>Hallo sessionStorage.getItem('svorname')!</v-card-title>
+              <v-card-title>Hallo {{session.svorname}}!</v-card-title>
               <v-card-text>Lerne Neue Gruppen und Lernpartner kennen!</v-card-text>
 
             </v-card>
@@ -142,6 +147,10 @@
 
     },
     methods:{
+      logout(){
+        sessionStorage.clear()
+        window.open("http://localhost:8080/Login?logout=true","_self");
+      },
 
       getStudent(data){
         this.student = data;

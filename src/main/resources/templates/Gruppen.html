@@ -34,10 +34,20 @@
                         <span>Gruppen</span>
                     </v-toolbar-title>
                     <v-spacer></v-spacer>
+                    <v-text-field
+                            v-model="searchCLosed"
+                            label="Suchen"
+                            solo
+                            clearable
+                            rounded
+                            dense
+                            absolute
+                    ></v-text-field>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
                                     <v-btn icon v-bind="attrs"
-                                           v-on="on">
+                                           v-on="on"
+                                           @focus="!searchCLosed">
                                         <v-icon>mdi-magnify</v-icon>
                                     </v-btn>
                             </template>
@@ -153,6 +163,7 @@
                 }
             }),
         data: {
+            searchCLosed : 'true',
             navdraw: 'false',
             items: [
                 { title: 'Home', icon: 'mdi-home-variant-outline', url:   "http://localhost:8080/home"},

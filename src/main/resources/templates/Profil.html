@@ -34,7 +34,8 @@
                     <span>Students</span>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn depressed  class="grey--text">
+                <v-btn depressed  class="grey--text"
+                @click="logout()">
                     <span>Ausloggen</span>
                     <v-icon right>mdi-exit-to-app</v-icon>
                 </v-btn>
@@ -562,6 +563,10 @@
 
         },
         methods:{
+            logout(){
+                sessionStorage.clear()
+                window.open("http://localhost:8080/Login?logout=true","_self");
+            },
             getStudent(data){
                 this.student = data;
                 console.log(this.student);
