@@ -46,8 +46,7 @@
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn icon v-bind="attrs"
-                                   v-on="on"
-                                    @click="createGroup">
+                                   v-on="on">
                                 <v-icon>mdi-plus</v-icon>
                             </v-btn>
                         </template>
@@ -102,16 +101,17 @@
                             class="mx-auto"
                             max-width="860"
                             outlined
+                            v-for="gruppe in groups"
                     >
-                        <v-list-item three-line>
+                        <v-list-item three-line >
                             <v-list-item-content>
                                 <div class="text-overline mb-4">
-                                    Studiengang
+                                    {{gruppe.studiengang}}
                                 </div>
                                 <v-list-item-title class="text-h5 mb-1">
-                                    Gruppenname
+                                    {{gruppe.gruppenname}}
                                 </v-list-item-title>
-                                <v-list-item-subtitle>anzMitglieder undso</v-list-item-subtitle>
+                                <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.mitgliederanzahl}}</v-list-item-subtitle>
                             </v-list-item-content>
                         </v-list-item>
 
@@ -119,6 +119,7 @@
                             <v-btn
                                     outlined
                                     text
+                                    @click="openChatroom(gruppe.groupId)"
                             >
                                 Ansehen
                             </v-btn>
@@ -159,9 +160,19 @@
                 { title: 'Users', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Profil"},
             ],
             session:"",
+            groups:[
+                { studiengang: "AIS", gruppenname:"Programmieren", mitgliederanzahl: "22", groupId:1},
+                { studiengang: "AIS", gruppenname:"Mathe", mitgliederanzahl: "16", groupId:2},
+            ],
+            chaturl:"http://localhost:8080/chat",
 
         },
         methods:{
+            openChatroom(id){
+                //todo id benutzen um in den richtigen chatraum zu kommen
+                console.log("etst");
+                this.openUrl(this.chaturl, '')
+            },
             openUrl(url, method){
                 window.open(url, method);
             },
@@ -200,6 +211,16 @@
             }
         },
         created: function () {
+            fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
+                .then(rep => rep.json())
+                .then(data => (
+                    this.getStudent(data)
+                ));
+
+
+
+
+
             if(this.sessionEmpty){
                 this.initSession();
             }
