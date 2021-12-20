@@ -15,7 +15,7 @@ public class StudentConfig {
                   "Markau",
                   "Jannik",
                   "Jannik.markau01@gmail.com",
-                  "996460"
+                  "$2a$10$8dhqPyJEt3ebX5zg.A1YXeor4/A5gDIWdb4Z3ERC0S5mT5RTBqZn2"
                   );
 
             Student armin = new Student(
@@ -27,6 +27,7 @@ public class StudentConfig {
 
           repository.save(jannik);
           repository.enableStudent("Jannik.markau01@gmail.com");
+          repository.setStudentRolleUSER("Jannik.markau01@gmail.com");
           repository.save(armin);
           repository.enableStudent("reimann.armin2@gmail.com");
         };
