@@ -34,8 +34,7 @@
                     <span>Students</span>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn depressed  class="grey--text"
-                @click="logout()">
+                <v-btn depressed  class="grey--text">
                     <span>Ausloggen</span>
                     <v-icon right>mdi-exit-to-app</v-icon>
                 </v-btn>
@@ -53,7 +52,7 @@
                             <img src="https://randomuser.me/api/portraits/lego/6.jpg">
                         </v-list-item-avatar>
                         <v-list-item-content>
-                            <v-list-item-title> {{ session.svorname}} {{ session.snachname}} </v-list-item-title>
+                            <v-list-item-title> {{student.svorname}} {{student.sname}} </v-list-item-title>
                             <v-list-item-subtitle>Angemeldet</v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
@@ -94,8 +93,8 @@
                             </v-avatar>
 
                             <div class="mt-n16 mb-16 mx-16 white--text">
-                                <p class="font-weight-black text-center mt-n16 mx-auto "> {{ session.svorname}} {{ session.snachname}}</p>
-                                <p class="text-center">Studiengang - Semester - Standort</p>
+                                <p class="font-weight-black text-center mt-n16 mx-auto "> Juan Pablo</p>
+                                <p class="text-center">{{session.sstudiengang}} - {{session.ssemester}} - {{session.sstandort}}</p>
 
                                 <v-chip
                                         class="mt-n16 mx-16"
@@ -153,10 +152,10 @@
                                                 Persönliches
                                             </v-card-title>
                                             <v-card-text>
-                                                Geburtstag am
+                                                Geburtstag am {{session.sgeburtstag}}
                                             </v-card-text>
                                             <v-card-text>
-                                                Geschlecht
+                                                Geschlecht: {{session.sgeschlecht}}
                                             </v-card-text>
                                             <v-card-text>
                                                 Studiengang
@@ -171,17 +170,15 @@
 
 
                                             <v-card-text>
-                                                Eingeschrieben seit
+                                                Eingeschrieben seit {{session.ssemester}} Semester(n)
                                             </v-card-text>
                                             <v-card-text>
-                                                Meine Stärken
+                                                Meine Stärken: {{session.sstärken}}
                                             </v-card-text>
                                             <v-card-text>
-                                                Meine Schwächen
+                                                Meine Schwächen: {{session.sschwächen}}
                                             </v-card-text>
-                                            <v-card-text>
-                                                Weiteres über mich
-                                            </v-card-text>
+
                                         </v-card>
                                     </v-tab-item>
 
@@ -210,7 +207,7 @@
                                                             alt="Juan">
                                                 </v-avatar>
                                                     <v-card-title class="">
-                                                        XY kennt sich aus mit Fach 1
+                                                        XY kennt sich aus mit {{session.sschwächen}}
                                                     </v-card-title>
 
 
@@ -241,7 +238,7 @@
                                                             alt="Juan">
                                                 </v-avatar>
                                                     <v-card-title class="">
-                                                        XY kennt sich aus mit Fach 1
+                                                        XY kennt sich aus mit {{session.sschwächen}}
                                                     </v-card-title>
 
 
@@ -272,7 +269,7 @@
                                                             alt="Juan">
                                                 </v-avatar>
                                                     <v-card-title class="">
-                                                        XY kennt sich aus mit Fach 1
+                                                        XY kennt sich aus mit {{session.sschwächen}}
                                                     </v-card-title>
 
 
@@ -313,7 +310,7 @@
                                                                 alt="Juan">
                                                     </v-avatar>
                                                     <v-card-title class="">
-                                                        XY braucht deine Hilfe in Fach 1
+                                                        XY braucht deine Hilfe in {{session.sstärken}}
                                                     </v-card-title>
 
 
@@ -343,7 +340,7 @@
                                                                 alt="Juan">
                                                     </v-avatar>
                                                     <v-card-title class="">
-                                                        XY braucht deine Hilfe in Fach 1
+                                                        XY braucht deine Hilfe in {{session.sstärken}}
                                                     </v-card-title>
 
 
@@ -373,7 +370,7 @@
                                                                 alt="Juan">
                                                     </v-avatar>
                                                     <v-card-title class="">
-                                                        XY braucht deine Hilfe in Fach 1
+                                                        XY braucht deine Hilfe in {{session.sstärken}}
                                                     </v-card-title>
 
 
@@ -534,6 +531,30 @@
             fusch:"",
             navdraw: 'false',
             studiengaenge:[
+                title= 'Angewandte Informatik und Soziale Medien',
+                title= 'Betriebswirtschaftslehre',
+                title= 'Biomedizinische Technologie',
+                title= 'Computervisualistik und Design',
+                title= 'Electronic Engineering',
+                title= 'Energietechnik und Ressourcenoptimierung',
+                title= 'Intelligent Systems Design',
+                title= 'Interkulturelle Wirtschaftspsychologie',
+                title= 'Materialdesign - Bionik und Photonik',
+                title= 'Mechatronik',
+                title= 'Sport- und Gesundheitstechnik',
+                title= 'Technisches Management und Marketing',
+                title= 'Umweltmonitoring und Forensische Chemie',
+                title= 'Wirtschaftsingenieurwesen',
+                title= 'Angewandte Biomedizintechnik',
+                title= 'Betriebswirtschaftslehre (Master)',
+                title= 'Biomedizinisches Management und Marketing',
+                title= 'Business and Systems Engineering',
+                title= 'Intercultural Business Psychology',
+                title= 'Technical Consulting and Management',
+                title= 'Product Developement and Business Studies',
+                title= 'Product and Asset Management',
+                title= 'Technical Entrepreneurship and Innovation',
+                title= 'Umwelt- und Gefahrstoffanalytik',
             ],
             items: [
                 { title: 'Home', icon: 'mdi-home-variant-outline', url:   "http://localhost:8080/home"},
@@ -542,17 +563,11 @@
             ],
             student: null,
             chaturl:"http://localhost:8080/chat",
-            session: null,
 
         },
         methods:{
-            logout(){
-                sessionStorage.clear()
-                window.open("http://localhost:8080/Login?logout=true","_self");
-            },
             getStudent(data){
                 this.student = data;
-                console.log(data.studiengaenge)
                 console.log(this.student);
             },
             getStudiengaenge(data){
@@ -563,22 +578,20 @@
                 window.open(url, method);
             },
             openChat(){
-                // this.initSession();
-                // sessionStorage.setItem("svorname", this.fusch);
+                this.initSession();
+                sessionStorage.setItem("svorname", this.fusch);
                 this.openUrl(this.chaturl, '');
             },
             initSession(){
-                // sessionStorage.setItem("id", "");
-                // sessionStorage.setItem("svorname", "");
-                // sessionStorage.setItem("snachname", "");
-                // sessionStorage.setItem("sbilderpfad", "");
+                sessionStorage.setItem("id", "");
+                sessionStorage.setItem("svorname", "");
+                sessionStorage.setItem("snachname", "");
+                sessionStorage.setItem("sbilderpfad", "");
             },
         },
 
         created() {
-            this.session = sessionStorage;
-
-            fetch("Profil/meineInfos/" + sessionStorage.getItem("id"))
+            fetch("Profil/meineInfos/1")
                 .then(rep => rep.json())
                 .then(data => (
                     this.getStudent(data)
