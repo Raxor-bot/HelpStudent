@@ -1,7 +1,7 @@
 package com.example.helpstudent.Repository;
 
 import com.example.helpstudent.Tabellen.Student.Student;
-import org.springframework.data.domain.Example;
+import com.example.helpstudent.Tabellen.Student.Studiengang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +27,9 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     void setStudentRolleUSER(String mail);
 
     Optional<Student> findStudentByNlfdstudent(long nlfdstudent);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Student student "+"SET student.studiengang = 1 WHERE student.mail = ?1")
+    void setStudentStudienGang(String mail);
 }

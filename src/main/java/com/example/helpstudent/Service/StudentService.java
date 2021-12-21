@@ -2,6 +2,7 @@ package com.example.helpstudent.Service;
 
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.Repository.StudentRepository;
+import com.example.helpstudent.Tabellen.Student.Studiengang;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -101,7 +103,7 @@ public class StudentService implements UserDetailsService {
 
 
 
-    public Optional<Student> getStudent(Long id){
+    public Optional<Student> getStudentById(Long id){
        return repo.findStudentByNlfdstudent(id);
     }
 

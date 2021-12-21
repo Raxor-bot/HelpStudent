@@ -550,8 +550,6 @@
             fusch:"",
             navdraw: 'false',
             studiengaenge:[
-                title= 'Angewandte Informatik nd Soziale Medien',
-                title= 'Betriebswirtschaftslehre',
             ],
             items: [
                 { title: 'Home', icon: 'mdi-home-variant-outline', url:   "http://localhost:8080/home"},
@@ -570,6 +568,7 @@
             },
             getStudent(data){
                 this.student = data;
+                console.log(data.studiengaenge)
                 console.log(this.student);
             },
             openUrl(url, method){
@@ -590,7 +589,8 @@
 
         created() {
             this.session = sessionStorage;
-            fetch("Profil/meineInfos/1")
+
+            fetch("Profil/meineInfos/" + sessionStorage.getItem("id"))
                 .then(rep => rep.json())
                 .then(data => (
                     this.getStudent(data)

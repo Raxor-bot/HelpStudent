@@ -59,7 +59,8 @@ public class StudentController{
 
     @GetMapping("Profil/meineInfos/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable("id") Long id){
-        Optional<Student> studentData = service.getStudent(id);
+        Optional<Student> studentData = service.getStudentByID(id);
+        System.out.println(studentData);
         System.out.print("Daten angekommen");
         return studentData.map(value ->
                 new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() ->

@@ -19,7 +19,7 @@ import java.util.Optional;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Student implements UserDetails {
+public class Student implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -75,6 +75,7 @@ public class Student implements UserDetails {
     private List<Gruppe> gruppe;
 
     @ManyToOne
+    @JoinColumn(name = "studiengang_id")
     private Studiengang studiengang;
 
 
