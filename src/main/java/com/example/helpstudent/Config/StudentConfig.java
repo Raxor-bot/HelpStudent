@@ -27,25 +27,12 @@ public class StudentConfig {
                     "passwort123"
             );
 
-            repositoryGang.save(new Studiengang("Angewandte Informatik und Sozialemedien"));
-            repositoryGang.save(new Studiengang("Betriebswirtschaftslehre"));
-            repositoryGang.save(new Studiengang("Biomedizinische Technologie"));
-            repositoryGang.save(new Studiengang("Electronic Engineering"));
-            repositoryGang.save(new Studiengang("Intelligent Systems Design"));
-            repositoryGang.save(new Studiengang("Materialdesign - Bionik und Photonik"));
-            repositoryGang.save(new Studiengang("Mechatronik"));
-            repositoryGang.save(new Studiengang("Sport- und Gesundheitstechnik"));
-            repositoryGang.save(new Studiengang("Technisches Management und Marketing"));
-            repositoryGang.save(new Studiengang("Umweltmonitoring und Forensische Chemie"));
-            repositoryGang.save(new Studiengang("Wirtschaftsingenieurwesen"));
 
           repository.save(jannik);
           repository.enableStudent("Jannik.markau01@gmail.com");
           repository.setStudentRolleUSER("Jannik.markau01@gmail.com");
           repository.save(armin);
           repository.enableStudent("reimann.armin2@gmail.com");
-          repository.setStudentStudienGang("jannik.markau01@gmail.com");
-
         };
 
     }

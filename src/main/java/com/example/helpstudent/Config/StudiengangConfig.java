@@ -13,7 +13,17 @@ public class StudiengangConfig {
     @Bean
     CommandLineRunner commandLineRunner2(StudiengangRepository repo){
         return args -> {
-
+            repo.save(new Studiengang("Angewandte Informatik und Sozialemedien"));
+            repo.save(new Studiengang("Betriebswirtschaftslehre"));
+            repo.save(new Studiengang("Biomedizinische Technologie"));
+            repo.save(new Studiengang("Electronic Engineering"));
+            repo.save(new Studiengang("Intelligent Systems Design"));
+            repo.save(new Studiengang("Materialdesign - Bionik und Photonik"));
+            repo.save(new Studiengang("Mechatronik"));
+            repo.save(new Studiengang("Sport- und Gesundheitstechnik"));
+            repo.save(new Studiengang("Technisches Management und Marketing"));
+            repo.save(new Studiengang("Umweltmonitoring und Forensische Chemie"));
+            repo.save(new Studiengang("Wirtschaftsingenieurwesen"));
         };
 
     }
