@@ -11,16 +11,8 @@ public class GruppenConfig {
     @Bean
     CommandLineRunner commandLineRunner3(GruppenRepository repository){
         return args -> {
-//            Gruppe gruppe
-//
-//
-//
-//
-//
-//
-//
-//
-//            repository.save(gruppe);
+            Gruppe programmieren = new Gruppe(16, "Programmieren");
+            repository.save(programmieren);
         };
     }
 }

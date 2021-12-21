@@ -19,7 +19,6 @@ import java.util.Optional;
 public class StudentController{
 
     private final StudentService service ;
-//    private final GruppenService ;
 
     @Autowired
     public StudentController(StudentService service) {
@@ -64,13 +63,6 @@ public class StudentController{
         return studentData.map(value ->
                 new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() ->
                 new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @PostMapping("/getGruppen")
-    public ResponseEntity<?> getGruppen() {
-        Map<String, Object> myMap = new HashMap<>();
-        myMap.put("url","http://localhost:8080/Login/perform_Login");
-        return new ResponseEntity<Object>(myMap, HttpStatus.OK);
     }
 
     @RequestMapping("/chat")

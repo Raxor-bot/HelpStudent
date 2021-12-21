@@ -17,10 +17,9 @@ public class Gruppe {
     private Long studentenId;
 
 
-    public Gruppe(int teilnehmeranzahl, String gruppenname, Long studentenId) {
+    public Gruppe(int teilnehmeranzahl, String gruppenname) {
         this.teilnehmeranzahl = teilnehmeranzahl;
         this.gruppenname = gruppenname;
-        this.studentenId = studentenId;
     }
 
     public Gruppe() {
@@ -55,13 +54,5 @@ public class Gruppe {
 
     public void setGruppenname(String gruppenname) {
         this.gruppenname = gruppenname;
-    }
-
-    public Long getStudentenId() {
-        return studentenId;
-    }
-
-    public void setStudentenId(Long studentenId) {
-        this.studentenId = studentenId;
     }
 }
