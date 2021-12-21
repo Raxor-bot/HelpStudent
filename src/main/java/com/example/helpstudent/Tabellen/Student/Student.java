@@ -79,6 +79,9 @@ public class Student implements UserDetails {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Interessen> interessen;
 
+    @ManyToMany
+    private List<Gruppe> gruppe;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
