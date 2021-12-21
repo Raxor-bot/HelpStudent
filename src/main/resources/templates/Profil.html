@@ -94,7 +94,7 @@
 
                             <div class="mt-n16 mb-16 mx-16 white--text">
                                 <p class="font-weight-black text-center mt-n16 mx-auto "> Juan Pablo</p>
-                                <p class="text-center">{{session.sstudiengang}} - {{session.ssemester}} - {{session.sstandort}}</p>
+                                <p class="text-center"></p>
 
                                 <v-chip
                                         class="mt-n16 mx-16"
@@ -152,31 +152,32 @@
                                                 Persönliches
                                             </v-card-title>
                                             <v-card-text>
-                                                Geburtstag am {{session.sgeburtstag}}
+                                                Geburtstag am
                                             </v-card-text>
                                             <v-card-text>
-                                                Geschlecht: {{session.sgeschlecht}}
+                                                Geschlecht:
                                             </v-card-text>
                                             <v-card-text>
-                                                Studiengang
+                                                Studiengang: {{aktuellerStudiengang}}
                                             </v-card-text>
 
                                             <v-select
-                                                    :items="studiengaenge.Studiengang"
+                                                    :items="studiengangsnamen"
                                                     label="Studiengang auswählen"
                                                     dense
                                                     outlined
+                                                    v-model="aktuellerStudiengang"
                                             ></v-select>
 
 
                                             <v-card-text>
-                                                Eingeschrieben seit {{session.ssemester}} Semester(n)
+                                                Eingeschrieben seit  Semester(n)
                                             </v-card-text>
                                             <v-card-text>
-                                                Meine Stärken: {{session.sstärken}}
+                                                Meine Stärken:
                                             </v-card-text>
                                             <v-card-text>
-                                                Meine Schwächen: {{session.sschwächen}}
+                                                Meine Schwächen:
                                             </v-card-text>
 
                                         </v-card>
@@ -207,7 +208,7 @@
                                                             alt="Juan">
                                                 </v-avatar>
                                                     <v-card-title class="">
-                                                        XY kennt sich aus mit {{session.sschwächen}}
+                                                        XY kennt sich aus mit
                                                     </v-card-title>
 
 
@@ -238,7 +239,7 @@
                                                             alt="Juan">
                                                 </v-avatar>
                                                     <v-card-title class="">
-                                                        XY kennt sich aus mit {{session.sschwächen}}
+                                                        XY kennt sich aus mit
                                                     </v-card-title>
 
 
@@ -269,7 +270,7 @@
                                                             alt="Juan">
                                                 </v-avatar>
                                                     <v-card-title class="">
-                                                        XY kennt sich aus mit {{session.sschwächen}}
+                                                        XY kennt sich aus mit
                                                     </v-card-title>
 
 
@@ -310,7 +311,7 @@
                                                                 alt="Juan">
                                                     </v-avatar>
                                                     <v-card-title class="">
-                                                        XY braucht deine Hilfe in {{session.sstärken}}
+                                                        XY braucht deine Hilfe in
                                                     </v-card-title>
 
 
@@ -340,7 +341,7 @@
                                                                 alt="Juan">
                                                     </v-avatar>
                                                     <v-card-title class="">
-                                                        XY braucht deine Hilfe in {{session.sstärken}}
+                                                        XY braucht deine Hilfe in
                                                     </v-card-title>
 
 
@@ -370,7 +371,7 @@
                                                                 alt="Juan">
                                                     </v-avatar>
                                                     <v-card-title class="">
-                                                        XY braucht deine Hilfe in {{session.sstärken}}
+                                                        XY braucht deine Hilfe in
                                                     </v-card-title>
 
 
@@ -531,30 +532,30 @@
             fusch:"",
             navdraw: 'false',
             studiengaenge:[
-                title= 'Angewandte Informatik und Soziale Medien',
-                title= 'Betriebswirtschaftslehre',
-                title= 'Biomedizinische Technologie',
-                title= 'Computervisualistik und Design',
-                title= 'Electronic Engineering',
-                title= 'Energietechnik und Ressourcenoptimierung',
-                title= 'Intelligent Systems Design',
-                title= 'Interkulturelle Wirtschaftspsychologie',
-                title= 'Materialdesign - Bionik und Photonik',
-                title= 'Mechatronik',
-                title= 'Sport- und Gesundheitstechnik',
-                title= 'Technisches Management und Marketing',
-                title= 'Umweltmonitoring und Forensische Chemie',
-                title= 'Wirtschaftsingenieurwesen',
-                title= 'Angewandte Biomedizintechnik',
-                title= 'Betriebswirtschaftslehre (Master)',
-                title= 'Biomedizinisches Management und Marketing',
-                title= 'Business and Systems Engineering',
-                title= 'Intercultural Business Psychology',
-                title= 'Technical Consulting and Management',
-                title= 'Product Developement and Business Studies',
-                title= 'Product and Asset Management',
-                title= 'Technical Entrepreneurship and Innovation',
-                title= 'Umwelt- und Gefahrstoffanalytik',
+                // title= 'Angewandte Informatik und Soziale Medien',
+                // title= 'Betriebswirtschaftslehre',
+                // title= 'Biomedizinische Technologie',
+                // title= 'Computervisualistik und Design',
+                // title= 'Electronic Engineering',
+                // title= 'Energietechnik und Ressourcenoptimierung',
+                // title= 'Intelligent Systems Design',
+                // title= 'Interkulturelle Wirtschaftspsychologie',
+                // title= 'Materialdesign - Bionik und Photonik',
+                // title= 'Mechatronik',
+                // title= 'Sport- und Gesundheitstechnik',
+                // title= 'Technisches Management und Marketing',
+                // title= 'Umweltmonitoring und Forensische Chemie',
+                // title= 'Wirtschaftsingenieurwesen',
+                // title= 'Angewandte Biomedizintechnik',
+                // title= 'Betriebswirtschaftslehre (Master)',
+                // title= 'Biomedizinisches Management und Marketing',
+                // title= 'Business and Systems Engineering',
+                // title= 'Intercultural Business Psychology',
+                // title= 'Technical Consulting and Management',
+                // title= 'Product Developement and Business Studies',
+                // title= 'Product and Asset Management',
+                // title= 'Technical Entrepreneurship and Innovation',
+                // title= 'Umwelt- und Gefahrstoffanalytik',
             ],
             items: [
                 { title: 'Home', icon: 'mdi-home-variant-outline', url:   "http://localhost:8080/home"},
@@ -563,6 +564,8 @@
             ],
             student: null,
             chaturl:"http://localhost:8080/chat",
+            aktuellerStudiengang:"",
+
 
         },
         methods:{
@@ -572,7 +575,9 @@
             },
             getStudiengaenge(data){
                 this.studiengaenge = data;
-                console.log(this.studiengaenge);
+                // console.log(this.studiengaenge);
+                let test = this.studiengangsnamen;
+
             },
             openUrl(url, method){
                 window.open(url, method);
@@ -588,6 +593,18 @@
                 sessionStorage.setItem("snachname", "");
                 sessionStorage.setItem("sbilderpfad", "");
             },
+        },
+        computed:{
+            studiengangsnamen(){
+                // console.log()
+                let namen = [];
+                if(this.studiengaenge.Studiengang !== undefined){
+                    this.studiengaenge.Studiengang.forEach(function(einArrayElement) {
+                        namen.push(einArrayElement.stName);
+                    });
+                }
+                return namen;
+            }
         },
 
         created() {
