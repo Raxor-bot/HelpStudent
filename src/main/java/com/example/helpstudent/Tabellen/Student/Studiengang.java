@@ -14,6 +14,10 @@ public class Studiengang {
     @Column(name = "studiengang_id", nullable = false)
     private Long studiengangid;
 
+    public String getStName() {
+        return stName;
+    }
+
     private String stName;
 
     public Studiengang(String stName){

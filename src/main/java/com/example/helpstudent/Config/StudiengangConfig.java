@@ -25,6 +25,5 @@ public class StudiengangConfig {
             repo.save(new Studiengang("Umweltmonitoring und Forensische Chemie"));
             repo.save(new Studiengang("Wirtschaftsingenieurwesen"));
         };
-
     }
 }

@@ -162,29 +162,13 @@
                                                 Studiengang
                                             </v-card-text>
 
-                                            <!--Auswahl Studiengang -->
-                                            <v-combobox
-                                                    rounded
-                                                    v-model="chips"
-                                                    :items="studiengaenge"
-                                                    chips
-                                                    clearable
-                                                    label="Wähle deinen Studiengang"
-                                                    solo>
-                                                <template
-                                                        v-slot:selection="{ attrs, item, select, selected }">
-                                                    <v-chip
-                                                            v-bind="attrs"
-                                                            :input-value="selected"
-                                                            close
-                                                            @click="select"
-                                                            @click:close="remove(item)">
-                                                        <strong>{{ item }}</strong>&nbsp;
-                                                        <span>(interest)</span>
-                                                    </v-chip>
-                                                </template>
-                                            </v-combobox>
-                                            <!--Auswahl Studiengang Ende -->
+                                            <v-select
+                                                    :items="studiengaenge.Studiengang"
+                                                    label="Studiengang auswählen"
+                                                    dense
+                                                    outlined
+                                            ></v-select>
+
 
                                             <v-card-text>
                                                 Eingeschrieben seit
@@ -571,6 +555,10 @@
                 console.log(data.studiengaenge)
                 console.log(this.student);
             },
+            getStudiengaenge(data){
+                this.studiengaenge = data;
+                console.log(this.studiengaenge);
+            },
             openUrl(url, method){
                 window.open(url, method);
             },
@@ -595,6 +583,8 @@
                 .then(data => (
                     this.getStudent(data)
                 ));
+
+            fetch("/studiengaenge").then(rep => rep.json().then(data => this.getStudiengaenge(data)));
 
         },
     })
