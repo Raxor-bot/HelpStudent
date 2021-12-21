@@ -8,15 +8,7 @@ import java.util.List;
 @Table
 public class Gruppe {
     @Id
-    @SequenceGenerator(
-            name = "Gruppe_sequence",
-            sequenceName = "Gruppe_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "Gruppe"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
 
     private Long gruppenId;

@@ -1,4 +1,4 @@
-package com.example.helpstudent.Config;
+package com.example.helpstudent.security;
 
 import com.example.helpstudent.Service.StudentService;
 import com.example.helpstudent.Tabellen.Student.StudentRolle;

@@ -21,15 +21,7 @@ import java.util.Optional;
 @EqualsAndHashCode
 public class Student implements UserDetails {
     @Id
-    @SequenceGenerator(
-            name = "student_sequence",
-            sequenceName = "student_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "student_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private long nlfdstudent;
     private String sname;
@@ -81,6 +73,9 @@ public class Student implements UserDetails {
 
     @ManyToMany
     private List<Gruppe> gruppe;
+
+    @ManyToOne
+    private Studiengang studiengang;
 
 
     @Override

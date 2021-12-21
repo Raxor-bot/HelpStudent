@@ -12,18 +12,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class TokenError{
-
     @Id
-    @SequenceGenerator(
-            name = "tokenerror_sequence",
-            sequenceName = "tokenerror_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "tokenerror_sequence"
-    )
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+    private long tokenErrorid;
     private String token;
     private String errortxt;
 

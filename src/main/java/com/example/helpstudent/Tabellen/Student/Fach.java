@@ -7,15 +7,7 @@ import java.util.List;
 @Table
 public class Fach {
     @Id
-    @SequenceGenerator(
-            name = "Fach_sequence",
-            sequenceName = "Fach_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "Fach"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private long nlfdFach;
     private String fachName;

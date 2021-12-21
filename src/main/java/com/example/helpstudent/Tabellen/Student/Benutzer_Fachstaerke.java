@@ -7,15 +7,7 @@ import java.util.List;
 @Table
 public class Benutzer_Fachstaerke {
     @Id
-    @SequenceGenerator(
-            name = "Fach_sequence",
-            sequenceName = "Fach_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "Fach"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private long StudentenFachstaerkenEintrag;
     private long staerke;

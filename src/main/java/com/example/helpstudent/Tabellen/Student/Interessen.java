@@ -6,15 +6,7 @@ import javax.persistence.*;
 @Table
 public class Interessen {
     @Id
-    @SequenceGenerator(
-            name = "Interessen_sequence",
-            sequenceName = "Interessen_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "Interessen"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private long nlfdInteressen;
     private String iName;

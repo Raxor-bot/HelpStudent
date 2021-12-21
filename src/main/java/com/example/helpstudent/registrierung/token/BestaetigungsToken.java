@@ -15,17 +15,9 @@ import java.time.LocalDateTime;
 public class BestaetigungsToken {
 
     @Id
-    @SequenceGenerator(
-            name = "bestaetigungs_token_sequence",
-            sequenceName = "bestaetigungs_token_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "bestaetigungs_token_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private long id;
+    private long bestaetigungsTokenid;
 
     @Column(nullable = false)
     private String token;

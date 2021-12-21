@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GruppenConfig {
     @Bean
-    CommandLineRunner commandLineRunner(GruppenRepository repository){
+    CommandLineRunner commandLineRunner3(GruppenRepository repository){
         return args -> {
 //            Gruppe gruppe
 //
