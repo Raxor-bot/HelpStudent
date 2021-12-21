@@ -28,35 +28,30 @@
         <v-app class="grey lighten-4">
             <nav>
                 <v-app-bar app flat color="grey lighten-4">
-                    <v-app-bar-nav-icon class="text-uppercase grey--text" @click="navdraw = !navdraw"></v-app-bar-nav-icon>
+                    <v-app-bar-nav-icon
+                            class="text-uppercase grey--text"                                    @click="navdraw = !navdraw"
+                    ></v-app-bar-nav-icon>
 
                     <v-toolbar-title class="text-uppercase grey--text grey lighten-4">
                         <span>Gruppen</span>
                     </v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-text-field
-                            v-model="searchCLosed"
-                            label="Suchen"
-                            solo
+                            @focus="searchClosed = false"
+                            @blur="searchClosed = true"
+                            class="expanding-search mt-6"
+                            :class="{ 'closed' : searchClosed}"
+                            placeholder="Gruppe Suchen"
+                            prepend-inner-icon="mdi-magnify"
                             clearable
-                            rounded
                             dense
-                            absolute
+
                     ></v-text-field>
-                        <v-tooltip bottom>
-                            <template v-slot:activator="{ on, attrs }">
-                                    <v-btn icon v-bind="attrs"
-                                           v-on="on"
-                                           @focus="!searchCLosed">
-                                        <v-icon>mdi-magnify</v-icon>
-                                    </v-btn>
-                            </template>
-                            <span>Suchen</span>
-                        </v-tooltip>
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn icon v-bind="attrs"
-                                   v-on="on">
+                                   v-on="on"
+                                    @click="">
                                 <v-icon>mdi-plus</v-icon>
                             </v-btn>
                         </template>
@@ -163,7 +158,7 @@
                 }
             }),
         data: {
-            searchCLosed : 'true',
+            searchClosed: 'false',
             navdraw: 'false',
             items: [
                 { title: 'Home', icon: 'mdi-home-variant-outline', url:   "http://localhost:8080/home"},
@@ -244,6 +239,12 @@
 <style>
     #HSHL{
         background-image: url("/bg1.png");
+    }
+
+    .v-input.expanding-search.closed {
+        transition: max-width 0.2s;
+        max-width: 30px
+
     }
 </style>
 
