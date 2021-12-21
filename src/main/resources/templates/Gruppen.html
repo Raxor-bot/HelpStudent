@@ -27,19 +27,19 @@
     >
         <v-app class="grey lighten-4">
             <nav>
-                <v-app-bar app flat color="grey lighten-4">
+                <v-app-bar app flat color="green lighten-1" dark>
                     <v-app-bar-nav-icon
-                            class="text-uppercase grey--text"                                    @click="navdraw = !navdraw"
+                            class="text-uppercase text"  @click="navdraw = !navdraw"
                     ></v-app-bar-nav-icon>
 
-                    <v-toolbar-title class="text-uppercase grey--text grey lighten-4">
+                    <v-toolbar-title class="text-uppercase text green lighten-1">
                         <span>Gruppen</span>
                     </v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-text-field
                             @focus="searchClosed = false"
                             @blur="searchClosed = true"
-                            class="expanding-search mt-6"
+                            class="expanding-search mt-6 "
                             :class="{ 'closed' : searchClosed}"
                             placeholder="Gruppe Suchen"
                             prepend-inner-icon="mdi-magnify"
@@ -47,17 +47,59 @@
                             dense
 
                     ></v-text-field>
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn icon v-bind="attrs"
-                                   v-on="on"
-                                    @click="">
-                                <v-icon>mdi-plus</v-icon>
-                            </v-btn>
+                    <v-dialog
+                            transition="dialog-top-transition"
+                            max-width="600"
+                    >
+
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                        icon
+                                        v-bind="attrs"
+                                        v-on="on"
+                                > <v-icon>mdi-plus</v-icon></v-btn>
+                            </template>
+
+                        <template v-slot:default="dialog">
+                            <v-card>
+                                <v-toolbar
+                                        color="green"
+                                        dark
+                                >Neue Gruppe Erstellen</v-toolbar>
+                                <v-card-text>
+                                    <form>
+                                        <v-text-field
+                                                v-model="email"
+                                                label="Gruppenname"
+                                                required
+                                        ></v-text-field>
+                                        <v-select
+                                                v-model="select"
+                                                :items="studiengaenge"
+                                                label="Studiengang"
+                                                required
+                                        ></v-select>
+
+                                        <v-btn
+                                                class="mr-4"
+                                                @click="submit"
+                                        >
+                                            submit
+                                        </v-btn>
+                                        <v-btn @click="clear">
+                                            clear
+                                        </v-btn>
+                                    </form>
+                                </v-card-text>
+                                <v-card-actions class="justify-end">
+                                    <v-btn
+                                            text
+                                            @click="dialog.value = false"
+                                    >Close</v-btn>
+                                </v-card-actions>
+                            </v-card>
                         </template>
-                        <span>Neue Gruppe</span>
-                    </v-tooltip>
-                </v-app-bar>
+                    </v-dialog>
 
                 <v-navigation-drawer
                         app
