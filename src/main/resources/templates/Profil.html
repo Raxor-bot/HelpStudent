@@ -93,7 +93,7 @@
                             </v-avatar>
 
                             <div class="mt-n16 mb-16 mx-16 white--text">
-                                <p class="font-weight-black text-center mt-n16 mx-auto "> Juan Pablo</p>
+                                <p class="font-weight-black text-center mt-n16 mx-auto ">{{student.svorname}} {{student.sname}}</p>
                                 <p class="text-center"></p>
 
                                 <v-chip
@@ -572,6 +572,7 @@
             getStudent(data){
                 this.student = data;
                 console.log(this.student);
+                console.log("asdf");
             },
             getStudiengaenge(data){
                 this.studiengaenge = data;
