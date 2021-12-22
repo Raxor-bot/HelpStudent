@@ -32,6 +32,9 @@ public class Studiengang {
                mappedBy = "studiengang")
     private List<Student> students;
 
+    @ManyToMany
+    private List<Fach> faecher;
+
     public Long getStudiengangid() {
         return studiengangid;
     }
@@ -40,5 +43,23 @@ public class Studiengang {
         this.studiengangid = studiengangid;
     }
 
+    public void setStName(String stName) {
+        this.stName = stName;
+    }
 
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public List<Fach> getFaecher() {
+        return faecher;
+    }
+
+    public void setFaecher(List<Fach> faecher) {
+        this.faecher = faecher;
+    }
 }

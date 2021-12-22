@@ -2,30 +2,62 @@ package com.example.helpstudent.Config;
 
 import com.example.helpstudent.Repository.FachRepository;
 import com.example.helpstudent.Repository.GruppenRepository;
+import com.example.helpstudent.Repository.StudiengangRepository;
 import com.example.helpstudent.Tabellen.Student.Fach;
 import com.example.helpstudent.Tabellen.Student.Gruppe;
+import com.example.helpstudent.Tabellen.Student.Studiengang;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Configuration
 public class FachConfig {
     @Bean
-    CommandLineRunner commandLineRunner4(FachRepository repository){
+    CommandLineRunner commandLineRunner4(FachRepository repository, StudiengangRepository stRepository){
         return args -> {
-            repository.save(new Fach("Arbeitstechniken u. Selbstmanagement",1));
-            repository.save(new Fach("Schriftl. Kommunikation u. wissenschaftl.",1));
-            repository.save(new Fach("Programmieren 1 VL",1));
-            repository.save(new Fach("Webtechnologien VL",1));
-            repository.save(new Fach("Webtechnologien ÜB ",1));
-            repository.save(new Fach("Datenbanken VL",1));
-            repository.save(new Fach("Grundlagen der Sozialen Medien VL",1));
-            repository.save(new Fach("Mathematik 1 VL",1));
-            repository.save(new Fach("Grundlagen der Sozialen Medien SE ",1));
-            repository.save(new Fach("Mathematik 1 ÜB",1));
-            repository.save(new Fach("Datenbanken ÜB",1));
-            repository.save(new Fach("Programmieren 1 PR",1));
-            repository.save(new Fach("Programmieren 1 VL",1));
+
+
+
+
+
+            Studiengang ais = stRepository.getById(1L);
+
+            List<Fach> fachliste = new ArrayList<Fach>();
+            fachliste.add(new Fach("Arbeitstechniken u. Selbstmanagement",1));
+            fachliste.add(new Fach("Schriftl. Kommunikation u. wissenschaftl.",1));
+            fachliste.add(new Fach("Programmieren 1 VL",1));
+            fachliste.add(new Fach("Webtechnologien VL",1));
+            fachliste.add(new Fach("Webtechnologien ÜB ",1));
+            fachliste.add(new Fach("Datenbanken VL",1));
+            fachliste.add(new Fach("Grundlagen der Sozialen Medien VL",1));
+            fachliste.add(new Fach("Mathematik 1 VL",1));
+            fachliste.add(new Fach("Grundlagen der Sozialen Medien SE ",1));
+            fachliste.add(new Fach("Mathematik 1 ÜB",1));
+            fachliste.add(new Fach("Datenbanken ÜB",1));
+            fachliste.add(new Fach("Programmieren 1 PR",1));
+            fachliste.add(new Fach("Programmieren 1 VL",1));
+            repository.saveAll(fachliste);
+
+
+            ais.getFaecher().addAll(fachliste);
+
+            stRepository.save(ais);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             repository.save(new Fach("Mathematik 3 VL",3));
             repository.save(new Fach("Mathematik 3 ÜB",3));
@@ -48,8 +80,6 @@ public class FachConfig {
             repository.save(new Fach("Informationsvisualisierung SE",7));
             repository.save(new Fach("Gestenbasierte Systeme SE",7));
 
-
-
             repository.save(new Fach("Unternehmensführung VL",1));
             repository.save(new Fach("Kundenmanagement",1));
             repository.save(new Fach("Unternehmensführung ÜB",1));
@@ -65,8 +95,6 @@ public class FachConfig {
             repository.save(new Fach("Externes Rechnungswesen SE",3));
             repository.save(new Fach("Finance VL/ÜB",3));
             repository.save(new Fach("Externes Rechnungswesen",3));
-
-
 
             repository.save(new Fach("Marketing VL",1));
             repository.save(new Fach("VWL VL/ÜB",1));

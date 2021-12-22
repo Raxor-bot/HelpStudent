@@ -20,7 +20,6 @@ public class StudiengangController {
 
     private final StudiengangService studiengangService;
 
-
     public StudiengangController(StudiengangService studiengangService) {
         this.studiengangService = studiengangService;
     }

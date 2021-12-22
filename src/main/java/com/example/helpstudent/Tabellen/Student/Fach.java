@@ -1,7 +1,7 @@
 package com.example.helpstudent.Tabellen.Student;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table
@@ -17,6 +17,7 @@ public class Fach {
         this.fachName = fachName;
         this.semester = semester;
     }
+
 
 
     public Fach() {
