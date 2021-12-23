@@ -28,7 +28,9 @@ public class StudentConfig {
             );
 
 
-          repository.save(jannik);
+
+
+            repository.save(jannik);
           repository.enableStudent("Jannik.markau01@gmail.com");
           repository.setStudentRolleUSER("Jannik.markau01@gmail.com");
           repository.save(armin);

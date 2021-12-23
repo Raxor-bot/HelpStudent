@@ -18,4 +18,9 @@ public class StudiengangService {
     public List<Studiengang> getAllStudiengaenge(){
         return studentrep.findAll();
     }
+
+    public Studiengang getStudiengangById(Long id){
+        System.out.println(studentrep.getStudiengaenge(id));
+        return  studentrep.getStudiengaenge(id);
+    }
 }

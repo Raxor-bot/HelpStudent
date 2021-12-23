@@ -68,10 +68,19 @@
                                 >Neue Gruppe Erstellen</v-toolbar>
                                 <v-card-text>
                                     <form>
+                                        <v-btn @click="test">Modus wechseln</v-btn>
                                         <v-text-field
                                                 v-model="email"
                                                 label="Gruppenname"
                                                 required
+                                                disabled
+                                                v-if="editMode == true"
+                                        ></v-text-field>
+                                        <v-text-field
+                                                v-model="email"
+                                                label="Gruppenname"
+                                                required
+                                                v-else
                                         ></v-text-field>
                                         <v-select
                                                 v-model="select"
@@ -200,6 +209,7 @@
                 }
             }),
         data: {
+            editMode:false,
             searchClosed: 'false',
             navdraw: 'false',
             items: [
@@ -216,6 +226,9 @@
 
         },
         methods:{
+            test(){
+              this.editMode = !this.editMode;
+            },
             openChatroom(id){
                 //todo id benutzen um in den richtigen chatraum zu kommen
                 console.log("etst");

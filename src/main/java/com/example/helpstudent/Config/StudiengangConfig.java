@@ -24,6 +24,13 @@ public class StudiengangConfig {
             repo.save(new Studiengang("Technisches Management und Marketing"));
             repo.save(new Studiengang("Umweltmonitoring und Forensische Chemie"));
             repo.save(new Studiengang("Wirtschaftsingenieurwesen"));
+
+
+
+
+            System.out.println("###################repositoryGang.getStudiengaenge(1L)#######################");
+            System.out.println(repo.getStudiengaenge(1L));
+            System.out.println("##########################################");
         };
     }
 }
