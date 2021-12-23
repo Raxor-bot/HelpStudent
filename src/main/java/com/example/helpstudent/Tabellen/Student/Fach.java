@@ -12,6 +12,8 @@ public class Fach {
     private long nlfdFach;
     private String fachName;
     private int semester;
+   // @ManyToMany(mappedBy = "faecher")
+    //private List<Studiengang> stdList;
 
     public Fach(String fachName, int semester) {
         this.fachName = fachName;

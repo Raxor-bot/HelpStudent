@@ -24,6 +24,12 @@ public class Studiengang {
         this.stName = stName;
     }
 
+    public Studiengang(String name,List<Fach> faecher){
+        this.stName = name;
+        this.faecher = faecher;
+
+    }
+
     public Studiengang() {
 
     }

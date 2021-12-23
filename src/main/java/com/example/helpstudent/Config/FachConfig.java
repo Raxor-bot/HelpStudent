@@ -9,6 +9,7 @@ import com.example.helpstudent.Tabellen.Student.Studiengang;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,19 +38,7 @@ public class FachConfig {
             repository.saveAll(fachliste);
 
 
-            ais.getFaecher().addAll(fachliste);
-
-            stRepository.save(ais);
-
-
-
-
-
-
-
-
-
-
+            stRepository.save(new Studiengang("Test",fachliste));
 
 
 
