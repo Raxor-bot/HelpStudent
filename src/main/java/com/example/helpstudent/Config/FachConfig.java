@@ -38,7 +38,7 @@ public class FachConfig {
             repository.saveAll(fachliste);
 
 
-            stRepository.save(new Studiengang("Test",fachliste));
+            stRepository.save(new Studiengang("Ais",fachliste));
 
 
 
