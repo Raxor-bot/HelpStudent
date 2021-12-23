@@ -140,16 +140,28 @@
 
                                     <!--Content Meine Infos -->
                                     <v-tab-item>
-                                        <v-card dark
+      <!-- Versuch form-->                          <form class="" @submit.prevent="onSubmit">        <v-card dark
                                                 tile
                                         >
                                             <v-card-title>
                                                 Persönliches
                                             </v-card-title>
-                                            <v-card-text>
-                                                Geburtstag am
-                                            </v-card-text>
-                                            <v-card-text>
+                                        <v-btn @click="saveinfo" float="right"> Bearbeiten</v-btn>
+                                        <v-card-text>Geburtstag:</v-card-text>
+                                        <v-text-field
+                                                for="geburtstag"
+                                                v-model="geburtstag"
+                                                label="Geburtstag"
+                                                background-color="blue"
+                                                required
+
+
+                                                v-if="editMode == true"
+                                        > </v-text-field>
+
+
+
+                                            <v-card-text >
                                                 Geschlecht:
                                             </v-card-text>
                                             <v-card-text>
@@ -174,8 +186,13 @@
                                             <v-card-text>
                                                 Meine Schwächen:
                                             </v-card-text>
+                                        <v-card-text>
 
+                                        </v-card-text>
                                         </v-card>
+                                    <info @info-submitted="addInfo"></info>
+                                    Infos:[]
+                                </form>
                                     </v-tab-item>
 
                                     <!--Content Meine Fächer-->
@@ -186,7 +203,7 @@
 
                                                 tile>
                                             <v-card-title> Frag diese Personen nach Rat</v-card-title>
-                                            <v-card-title class="mx-5"> Fach 1 <v-card-title>
+                                            <v-card-title class="mx-5"> <v-card-title>
                                                 <v-sheet
                                                         color="light-blue accent-1"
                                                         elevation="1"
@@ -203,7 +220,7 @@
                                                             alt="Juan">
                                                 </v-avatar>
                                                     <v-card-title class="">
-                                                        XY kennt sich aus mit
+                                                        Sprich mit Experten über Fach 1
                                                     </v-card-title>
 
 
@@ -213,7 +230,7 @@
                                                             dark
                                                             class=" ma-1"
                                                     >
-                                                        Fragen
+                                                        Zur Gruppe
                                                     </v-btn>
 
 
@@ -234,7 +251,7 @@
                                                             alt="Juan">
                                                 </v-avatar>
                                                     <v-card-title class="">
-                                                        XY kennt sich aus mit
+                                                        Sprich mit Experten über Fach 2
                                                     </v-card-title>
 
 
@@ -244,7 +261,7 @@
                                                             dark
                                                             class=" ma-1"
                                                     >
-                                                        Fragen
+                                                        Zur Gruppe
                                                     </v-btn>
 
 
@@ -265,7 +282,7 @@
                                                             alt="Juan">
                                                 </v-avatar>
                                                     <v-card-title class="">
-                                                        XY kennt sich aus mit
+                                                        Sprich mit Experten über Fach 3
                                                     </v-card-title>
 
 
@@ -275,7 +292,7 @@
                                                             dark
                                                             class=" ma-1"
                                                     >
-                                                        Fragen
+                                                        Zur Gruppe
                                                     </v-btn>
 
 
@@ -288,7 +305,7 @@
                                                 dark
                                                 tile>
                                             <v-card-title > Hilf diesen Personen auf die Sprünge</v-card-title>
-                                            <v-card-title class="mx-5"> Fach 2 <v-card-title>
+                                            <v-card-title class="mx-5">  <v-card-title>
                                                 <v-sheet
                                                         color="deep-orange lighten-1"
                                                         elevation="1"
@@ -306,7 +323,7 @@
                                                                 alt="Juan">
                                                     </v-avatar>
                                                     <v-card-title class="">
-                                                        XY braucht deine Hilfe in
+                                                        Hilf Personen in Fach 1
                                                     </v-card-title>
 
 
@@ -316,7 +333,7 @@
                                                             dark
                                                             class=" ma-1"
                                                     >
-                                                        Fragen
+                                                        Zur Gruppe
                                                     </v-btn>
                                                 </v-sheet>
                                                 <v-sheet
@@ -336,7 +353,7 @@
                                                                 alt="Juan">
                                                     </v-avatar>
                                                     <v-card-title class="">
-                                                        XY braucht deine Hilfe in
+                                                        Hilf Personen in Fach 2
                                                     </v-card-title>
 
 
@@ -346,7 +363,7 @@
                                                             dark
                                                             class=" ma-1"
                                                     >
-                                                        Fragen
+                                                        Zur Gruppe
                                                     </v-btn>
                                                 </v-sheet>
                                                 <v-sheet
@@ -366,7 +383,7 @@
                                                                 alt="Juan">
                                                     </v-avatar>
                                                     <v-card-title class="">
-                                                        XY braucht deine Hilfe in
+                                                        Hilf Personen in Fach 3
                                                     </v-card-title>
 
 
@@ -376,7 +393,7 @@
                                                             dark
                                                             class=" ma-1"
                                                     >
-                                                        Fragen
+                                                        Zur Gruppe
                                                     </v-btn>
                                                 </v-sheet>
                                         </v-card>
@@ -524,6 +541,7 @@
         vuetify: new Vuetify(),
 
         data: {
+            editMode:false,
             fusch:"",
             navdraw: 'false',
             studiengaenge:[
@@ -560,34 +578,46 @@
             student: null,
             chaturl:"http://localhost:8080/chat",
             aktuellerStudiengang:"",
+            geburtstag: "",
 
 
         },
-        methods:{
-            getStudent(data){
+        methods: {
+            getStudent(data) {
                 this.student = data;
                 console.log(this.student);
                 console.log("asdf");
             },
-            getStudiengaenge(data){
+            getStudiengaenge(data) {
                 this.studiengaenge = data;
                 // console.log(this.studiengaenge);
                 let test = this.studiengangsnamen;
 
             },
-            openUrl(url, method){
+            openUrl(url, method) {
                 window.open(url, method);
             },
-            openChat(){
+            openChat() {
                 this.initSession();
                 sessionStorage.setItem("svorname", this.fusch);
                 this.openUrl(this.chaturl, '');
             },
-            initSession(){
+            initSession() {
                 sessionStorage.setItem("id", "");
                 sessionStorage.setItem("svorname", "");
                 sessionStorage.setItem("snachname", "");
                 sessionStorage.setItem("sbilderpfad", "");
+            },
+            onSubmit() {
+                fetch("/geburtstag").then(rep => rep.json().then(data => this.geburtstag(data)));
+                console.log(this.geburtstag);
+            },
+            addInfo(info){
+                this.info.push(info)
+
+            },
+            saveinfo(){
+                this.editMode = !this.editMode;
             },
         },
         computed:{
