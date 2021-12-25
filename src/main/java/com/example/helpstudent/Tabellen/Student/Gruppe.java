@@ -1,25 +1,34 @@
 package com.example.helpstudent.Tabellen.Student;
 
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table
+@Getter
 public class Gruppe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
 
-    private Long gruppenId;
+    private long gruppenId;
     private int teilnehmeranzahl;
     private String gruppenname;
-    private Long studentenId;
+    private long studentenId;
 
 
     public Gruppe(int teilnehmeranzahl, String gruppenname) {
         this.teilnehmeranzahl = teilnehmeranzahl;
         this.gruppenname = gruppenname;
+    }
+
+    public Gruppe(int teilnehmeranzahl, String gruppenname, long erstelltvonnlfdstudent) {
+        this.teilnehmeranzahl = teilnehmeranzahl;
+        this.gruppenname = gruppenname;
+        this.studentenId = erstelltvonnlfdstudent;
     }
 
     public Gruppe() {

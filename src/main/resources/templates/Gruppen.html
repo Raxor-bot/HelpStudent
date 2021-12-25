@@ -7,8 +7,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link href="/favicon.png" rel="shortcut icon" type="image/x-icon"/>
+    <meta charset = "UTF-8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" name="viewport">
 
 
     <title>HelpStudent</title>
@@ -16,54 +16,50 @@
     <!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
 
 
-
-
-
 </head>
 <body>
 
 <div id="app">
-    <v-app id="inspire"
-    >
-        <v-app class="grey lighten-4">
-            <nav>
-                <v-app-bar app flat color="green">
+    <v-app class="grey lighten-4" id="inspire">
+        <nav>
+                <v-app-bar app color="green" flat>
                     <v-app-bar-nav-icon
-                            class="white--text text-uppercase text"  @click="navdraw = !navdraw"
-                    ></v-app-bar-nav-icon>
+                            @click="navdraw = !navdraw"  class="white--text text-uppercase text"></v-app-bar-nav-icon>
 
                     <v-toolbar-title class="white--text text-uppercase">
                         <span >Gruppen</span>
                     </v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-text-field
-                            @focus="searchClosed = false"
-                            @blur="searchClosed = true"
-                            class="expanding-search mt-6 "
+                            v-model="responsiveSearch"
                             :class="{ 'closed' : searchClosed}"
+                            @blur="searchClose()"
+                            @focus="searchClosed = false"
+                            class="expanding-search mt-6"
+                            clearable
+                            dark
+                            dense
                             placeholder="Gruppe Suchen"
                             prepend-inner-icon="mdi-magnify"
-                            clearable
-                            dense
-                            dark
 
                     ></v-text-field>
                     <v-dialog
-                            transition="dialog-top-transition"
                             max-width="600"
+                            transition="dialog-top-transition"
                     >
 
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                        icon
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        class="white--text"
-                                > <v-icon>mdi-plus</v-icon></v-btn>
-                            </template>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                                    class="white--text"
+                                    icon
+                                    v-bind="attrs"
+                                    v-on="on"
+                            > <v-icon>mdi-plus</v-icon>
+                            </v-btn>
+                        </template>
 
                         <template v-slot:default="dialog">
-                            <v-card>
+                            <v-card id="grpcreate">
 
                                 <v-toolbar
                                         color="green"
@@ -75,86 +71,78 @@
 
                                     <v-form ref="form">
                                         <v-row
-                                        justify="space-between">
+                                                justify="space-between"
+                                                overflow-visible="true">
                                             <v-col cols="10">
-                                                <v-btn @click="test">Modus wechseln</v-btn>
-                                        <v-text-field
-                                                class="mt-3"
-                                                v-model="gruppenname"
-                                                label="Gruppenname"
-                                                required
-                                                disabled
-                                                v-if="editMode == true"
-                                        ></v-text-field>
-                                        <v-text-field
-                                                v-model="email"
-                                                label="Gruppenname"
-                                                required
-                                                v-else
-                                        ></v-text-field>
+                                                <v-text-field
+                                                        label="Gruppenname"
+                                                        required
+                                                        v-model="gruppenname"
+                                                ></v-text-field>
 
-                                        <v-select
-                                                v-model="stdgangid"
-                                                :items="studiengaenge"
-                                                label="Studiengang"
-                                                required
-                                        ></v-select>
+                                                <v-select
+                                                        :items="studiengangsnamen"
+                                                        label="Studiengang"
+                                                        required
+                                                        v-model="stdgangid"
+                                                ></v-select>
                                                 <v-alert
-                                                v-show="gruppenerror"
-                                                v-model="gruppenerror"
-                                                color="red"
-                                                type="error">
+                                                        color="red"
+                                                        type="error"
+                                                        dismissible
+                                                        v-model="gruppenerror"
+                                                        v-show="gruppenerror">
                                                 </v-alert>
 
                                             </v-col>
 
                                             <v-col cols="2">
                                                 <v-slider
-                                                        v-model="gruppengroesse"
+                                                        class="mr-5"
                                                         color="green lighten-2"
-                                                        value="12"
+                                                        max="64"
+                                                        min="4"
                                                         thumb-label="always"
                                                         ticks
+                                                        v-model="gruppengroesse"
+                                                        value="12"
                                                         vertical
-                                                        min="4"
-                                                        max="64"
                                                 ></v-slider>
-                                                <v-textfield>Größe</v-textfield>
+                                                <p class="mt-2"> Größe </p>
                                             </v-col>
-                                    </v-row>
+                                        </v-row>
                                         <v-row>
                                             <v-btn
+                                                    @click="erstelleGruppe()"
                                                     class="mr-4"
                                                     color="green lighten-1"
                                                     dark
-                                                    @click="erstelleGruppe()"
                                             >
                                                 Erstellen
                                             </v-btn>
                                             <v-btn @click="reset()"
-                                             color="red lighten-1"
-                                            dark>
+                                                   color="red lighten-1"
+                                                   dark>
                                                 Zurücksetzten
                                             </v-btn>
-
-
                                         </v-row>
                                     </v-form>
                                 </v-card-text>
                                 <v-card-actions class="justify-end">
                                     <v-btn
-                                            text
                                             @click="dialog.value = false"
+                                            text
                                     >Schliessen</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </template>
                     </v-dialog>
+                </v-app-bar>
 
-                <v-navigation-drawer
+
+            <v-navigation-drawer
                         app
                         v-model="navdraw"
-
                 >
                     <template v-slot:prepend>
                         <v-list-item two-line>
@@ -173,10 +161,10 @@
 
                     <v-list dense nav>
                         <v-list-item
-                                v-for="item in items"
                                 :key="item.title"
-                                link
                                 @click="openUrl(item.url, '_self')"
+                                link
+                                v-for="item in items"
                         >
                             <v-list-item-icon>
                                 <v-icon>{{ item.icon }}</v-icon>
@@ -187,12 +175,10 @@
                             </v-list-item-content>
                         </v-list-item>
                     </v-list>
-                    </v-tooltip>
                 </v-navigation-drawer>
-
             </nav>
 
-            <v-main id="HSHL" :style="backgroundImage">
+            <v-main :style="backgroundImage" id="HSHL">
                 <v-container>
                     <v-card
                             class="mx-auto"
@@ -214,9 +200,9 @@
 
                         <v-card-actions>
                             <v-btn
+                                    @click="openChatroom(gruppe.groupId)"
                                     outlined
                                     text
-                                    @click="openChatroom(gruppe.groupId)"
                             >
                                 Ansehen
                             </v-btn>
@@ -230,8 +216,9 @@
                     </v-card>
                 </v-container>
             </v-main>
+        </v-app>
 </div>
-</v-app>
+
 
 
 
@@ -250,13 +237,13 @@
                 }
             }),
         data: {
-            editMode:false,
-            searchClosed: 'false',
-            navdraw: 'false',
+            searchClosed: true,
+            navdraw: false,
 
+            responsiveSearch: "",
             gruppenname:"",
-            stdgang:"",
-            gruppengroessee: 0,
+            stdgangid:"",
+            gruppengroesse: 0,
 
             gruppenerror: false,
             gruppentext: "",
@@ -281,15 +268,23 @@
 
         },
         methods:{
-            test(){
-                this.editMode = !this.editMode;
+            getStudent(data) {
+                this.student = data;
+                console.log(this.student);
+            },
+            searchClose(){
+                if (this.responsiveSearch == "" || this.responsiveSearch == null) { //Bitte nicht durch === ersetzen
+                    this.searchClosed = true;
+                }
             },
             erstelleGruppe(){
-                if (this.gruppenname !== "" && this.gruppengroessee !== 0) {
+                if (this.gruppenname !== "" && this.gruppengroesse !== 0) {
                     this.requestOptions.body = JSON.stringify({
                         gruppenname: this.gruppenname,
                         gruppengroesse: this.gruppengroesse,
                         stdgangid: this.stdgangid,
+                        studentenid: this.sessionStorage.getItem("id")
+
                     });
                     fetch("http://localhost:8080/Gruppen/creategroup", this.requestOptions)
                         .then((res) => res.text())
@@ -297,9 +292,8 @@
                             this.handleData(data)
                         ));
                 } else {
-                    daten = JSON.parse(data);
                     gruppenerror = true;
-                    gruppentext = daten.gruppentext;
+                    gruppentext = "kack";
                 }
 
             },
@@ -313,17 +307,17 @@
             },
             openChatroom(id){
                 //todo id benutzen um in den richtigen chatraum zu kommen
-                console.log("etst");
+                console.log("Chatroom öffnen ");
                 this.openUrl(this.chaturl, '')
             },
             openUrl(url, method){
                 window.open(url, method);
             },
             initSession(){
-                // sessionStorage.setItem("id", "");
-                // sessionStorage.setItem("svorname", "");
-                // sessionStorage.setItem("snachname", "");
-                // sessionStorage.setItem("sbilderpfad", "");
+                 sessionStorage.setItem("id", "");
+                 sessionStorage.setItem("svorname", "");
+                 sessionStorage.setItem("snachname", "");
+                 sessionStorage.setItem("sbilderpfad", "");
             },
             darkMode() {
                 this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
@@ -332,57 +326,76 @@
             reset () {
                 this.$refs.form.reset()
             },
+            getStudiengaenge(data) {
+                this.studiengaenge = data;
+                 console.log("stdgng"+this.studiengaenge);
+                let test = this.studiengangsnamen;
 
+            },
         },
-        computed:{
-            sessionEmpty(){
+        computed: {
+            studiengangsnamen() {
+                let namen = [];
+                if (this.studiengaenge.Studiengang !== undefined) {
+                    this.studiengaenge.Studiengang.forEach(function (einArrayElement) {
+                        namen.push(einArrayElement.stName);
+                    });
+                }
+                return namen;
+            },
+            sessionEmpty() {
                 return sessionStorage.length === 0;
-            }
-        },
-        backgroundImage() {
-            if (this.$vuetify.theme.dark) {
-                return {
-                    "background-image": "url('/bg.png')",
-                    "background-position": "center",
-                    "background-repeat": "no-repeat",
-                    "background-attachment": "fixed",
+            },
+            backgroundImage() {
+                if (this.$vuetify.theme.dark) {
+                    return {
+                        "background-image": "url('/bg.png')",
+                        "background-position": "center",
+                        "background-repeat": "no-repeat",
+                        "background-attachment": "fixed",
+                    }
+                }
+
+                if (!this.$vuetify.theme.light) {
+                    return {
+                        "background-image": "url('/bg1.png')",
+                        "background-position": "center",
+                        "background-repeat": "no-repeat",
+                        "background-attachment": "fixed",
+                    }
                 }
             }
-
-            if (!this.$vuetify.theme.light) {
-                return {
-                    "background-image": "url('/bg1.png')",
-                    "background-position": "center",
-                    "background-repeat": "no-repeat",
-                    "background-attachment": "fixed",
+        },
+            created: function () {
+                if (this.sessionEmpty) {
+                    this.initSession();
                 }
-            }
-        },
-        created: function () {
-            fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
-                .then(rep => rep.json())
-                .then(data => (
-                    this.getStudent(data)
-                ));
+                this.session = sessionStorage;
+                console.log(sessionStorage);
 
+                fetch("Profil/meineInfos/" + sessionStorage.getItem("id"))
+                    .then(rep => rep.json())
+                    .then(data => (
+                        this.getStudent(data)
+                    ));
 
-
-
-
-            if(this.sessionEmpty){
-                this.initSession();
-            }
-            this.session = sessionStorage;
-            console.log(sessionStorage);
-        },
+                fetch("/studiengaenge")
+                    .then(rep => rep.json()
+                        .then(data =>
+                            this.getStudiengaenge(data)
+                        ));
+            },
     })
 </script>
 
 <style>
     #HSHL{
-        background-image: url("/bg1.png");
+        background-image: url("bg1.png");
     }
-
+    #grpcreate{
+        overflow: visible; /* Scrollbars Entfernen */
+        overflow-x: hidden;
+    }
     .v-input.expanding-search.closed {
         transition: max-width 0.2s;
         max-width: 30px

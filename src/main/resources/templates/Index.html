@@ -114,9 +114,7 @@
       </v-container>
     </v-main>
   </v-app>
-
-
-
+  </v-app>
 </div>
 
 
@@ -198,18 +196,21 @@
       }
     },
   created: function () {
-    fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
+    if(this.sessionEmpty){
+      this.initSession();
+    }
+      fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
             .then(rep => rep.json())
             .then(data => (
                     this.getStudent(data)
             ));
-      if(this.sessionEmpty){
-        this.initSession();
-      }
+
       this.session = sessionStorage;
       console.log(sessionStorage);
 
-      if(sessionStorage.getItem("id") === "")
+
+     // Das hier auskommentieren wenn man ohne Login weiter möchte
+    if(sessionStorage.getItem("id") === "" || this.sessionEmpty)
         window.open("http://localhost:8080/Login?error=True","_self")
     },
   })
