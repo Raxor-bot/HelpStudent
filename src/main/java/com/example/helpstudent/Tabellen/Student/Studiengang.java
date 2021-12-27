@@ -11,27 +11,34 @@ public class Studiengang {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "studiengang_id", nullable = false)
     private Long studiengangid;
+    private String stName;
+    private String stAbkuerzung;
+
+    public Studiengang() {
+
+    }
+
+    public Studiengang(String name, String abkuerzung, List<Fach> fachListe) {
+        this.stName = name;
+        this.stAbkuerzung = abkuerzung;
+        this.faecher = fachListe;
+    }
 
     public String getStName() {
         return stName;
     }
 
-    private String stName;
-
     public Studiengang(String stName){
         this.stName = stName;
     }
-
-    public Studiengang(String name,List<Fach> faecher){
-        this.stName = name;
-        this.faecher = faecher;
-
+    public Studiengang(String stName, String stAbkuerzung){
+        this.stName = stName;
+        this.stAbkuerzung = stAbkuerzung;
     }
-
-    public Studiengang() {
-
+    public Studiengang(String stName, List<Fach> fachList) {
+            this.stName = stName;
+            this.faecher = fachList;
     }
 
     @OneToMany(cascade =  CascadeType.ALL,

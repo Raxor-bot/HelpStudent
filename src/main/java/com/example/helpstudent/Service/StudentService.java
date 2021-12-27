@@ -4,6 +4,8 @@ import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.Repository.StudentRepository;
 import com.example.helpstudent.Tabellen.Student.Studiengang;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,6 +23,8 @@ import java.util.UUID;
 
 @Service
 public class StudentService implements UserDetailsService {
+
+    private Logger logger = LoggerFactory.getLogger(StudentService.class);
 
     @Autowired
     private final StudentRepository repo;
@@ -47,10 +51,14 @@ public class StudentService implements UserDetailsService {
 
 
     public String addNewStudent(Student student) {
+        logger.info("Neuer Student wird angelegt");
+
         Optional<Student> studentOptional = repo.findStudentByMail(student.getMail());
+
         if (studentOptional.isPresent()){
             throw new IllegalStateException("E-mail ist bereits vorhanden!");
         }
+
         String encodedPassword = bCryptPasswordEncoder
                 .encode(student.getPassword());
         student.setPasswort(encodedPassword);
@@ -69,27 +77,38 @@ public class StudentService implements UserDetailsService {
     }
 
     public void deleteStudent(String mail) {
-        Long id = repo.findStudentByMail(mail).get().getNlfdstudent();
-        if (!repo.existsById(id)){
+        logger.info("Student wird gelöscht" + mail);
+
+
+        if(repo.findStudentByMail(mail).isPresent()) {
+            logger.info("Student wurde erfolgreich gelöscht");
+
+            repo.deleteByMail(repo.findStudentByMail(mail).get().getMail());
+        }
+
+        else{
+           logger.info("Student ist nicht vorhanden");
+
             throw new IllegalStateException(
-                    "Der Student mit der ID: "+id+" existiert nicht"
+                    "Der Student mit der mail: " + mail + " existiert nicht"
             );
         }
-        repo.deleteById(repo.findStudentByMail(mail).get().getNlfdstudent());
     }
 
 
     @Transactional
     public void updateStudent(Long studentId, String name, String email) {
+        logger.info("Student wird geupdatet");
+
         Student student = repo.findById(studentId).orElseThrow(()-> new IllegalStateException(
                 "Der Student mit der ID: "+studentId+" existiert nicht"
         ));
 
-        if(name != null && name.length() > 0 && !Objects.equals(student.getSname(), name)){
+        if(nameGueltig(student,name)){
             student.setSname(name);
         }
 
-        if(email != null && email.length() > 0 && !Objects.equals(student.getMail(), email)){
+        if(emailGueltig(student, email)){
             this.checkMail(email);
             student.setMail(email);
         }
@@ -99,6 +118,14 @@ public class StudentService implements UserDetailsService {
         if(repo.findStudentByMail(email).isPresent()){
             throw new IllegalStateException("Email ist bereits vorhanden");
         }
+    }
+
+    private Boolean nameGueltig(Student student, String name){
+        return name != null && name.length() > 0 && !Objects.equals(student.getSname(), name);
+    }
+
+    private Boolean emailGueltig(Student student, String email){
+        return email != null && email.length() > 0 && !Objects.equals(student.getMail(), email);
     }
 
 
@@ -116,5 +143,15 @@ public class StudentService implements UserDetailsService {
     public int enableStudent(String mail) {
         repo.setStudentRolleUSER(mail);
         return repo.enableStudent(mail);
+    }
+
+
+
+    public void save(Student student){
+        repo.save(student);
+    }
+
+    public void setStudentRolleUSER(String s) {
+        repo.setStudentRolleUSER(s);
     }
 }

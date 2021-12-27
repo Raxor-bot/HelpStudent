@@ -23,4 +23,8 @@ public class StudiengangService {
         System.out.println(studentrep.getStudiengaenge(id));
         return  studentrep.getStudiengaenge(id);
     }
+
+    public void save(Studiengang studiengang) {
+        studentrep.save(studiengang);
+    }
 }
