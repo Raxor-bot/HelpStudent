@@ -161,9 +161,18 @@
 
 
 
-                                            <v-card-text >
-                                                Geschlecht:
-                                            </v-card-text>
+                                        <v-card-text>Geschlecht:</v-card-text>
+                                        <v-text-field
+                                                for="geschlecht"
+                                                v-model="geschlecht"
+                                                label="Geschlecht"
+                                                background-color="blue"
+                                                required
+
+
+                                                v-if="editMode == true"
+                                        > </v-text-field>
+
                                             <v-card-text>
                                                 Studiengang: {{aktuellerStudiengang}}
                                             </v-card-text>
@@ -173,22 +182,49 @@
                                                     label="Studiengang auswählen"
                                                     dense
                                                     outlined
+                                                    required
                                                     v-model="aktuellerStudiengang"
+                                                    v-if="editMode == true"
                                             ></v-select>
 
 
-                                            <v-card-text>
-                                                Eingeschrieben seit  Semester(n)
-                                            </v-card-text>
-                                            <v-card-text>
-                                                Meine Stärken:
-                                            </v-card-text>
-                                            <v-card-text>
-                                                Meine Schwächen:
-                                            </v-card-text>
-                                        <v-card-text>
+                                        <v-card-text>Eingeschriebene Semester:</v-card-text>
+                                        <v-text-field
+                                                for="semester"
+                                                v-model="semester"
+                                                label="semester"
+                                                background-color="blue"
+                                                required
 
-                                        </v-card-text>
+
+                                                v-if="editMode == true"
+                                        > </v-text-field>
+
+                                        <v-card-text>Meine Stärken:</v-card-text>
+                                        <v-text-field
+                                                for="stärken"
+                                                v-model="stärken"
+                                                label="stärken"
+                                                background-color="blue"
+                                                required
+
+
+                                                v-if="editMode == true"
+                                        > </v-text-field>
+
+                                        <v-card-text>Meine Schwächen:</v-card-text>
+                                        <v-text-field
+                                                for="schwächen"
+                                                v-model="schwächen"
+                                                label="schwächen"
+                                                background-color="blue"
+                                                required
+
+
+                                                v-if="editMode == true"
+                                        > </v-text-field>
+
+
                                         </v-card>
                                     <info @info-submitted="addInfo"></info>
                                     Infos:[]
@@ -579,6 +615,10 @@
             chaturl:"http://localhost:8080/chat",
             aktuellerStudiengang:"",
             geburtstag: "",
+            geschlecht: "",
+            semester: "",
+            stärken: "",
+            schwächen: "",
 
 
         },
@@ -611,6 +651,16 @@
             onSubmit() {
                 fetch("/geburtstag").then(rep => rep.json().then(data => this.geburtstag(data)));
                 console.log(this.geburtstag);
+                fetch("/geschlecht").then(rep => rep.json().then(data => this.geschlecht(data)));
+                console.log(this.geschlecht);
+                fetch("/semester").then(rep => rep.json().then(data => this.semester(data)));
+                console.log(this.semester);
+                fetch("/stärken").then(rep => rep.json().then(data => this.stärken(data)));
+                console.log(this.stärken);
+                fetch("/schwächen").then(rep => rep.json().then(data => this.schwächen(data)));
+                console.log(this.schwächen);
+
+
             },
             addInfo(info){
                 this.info.push(info)
