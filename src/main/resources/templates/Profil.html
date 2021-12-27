@@ -226,7 +226,8 @@
 
 
                                         </v-card>
-                                    <info @info-submitted="addInfo"></info>
+                                    <info>    <v-btn v-if="editMode == true" @click="addInfo" > Speichern</v-btn> </info>
+
                                     Infos:[]
                                 </form>
                                     </v-tab-item>
