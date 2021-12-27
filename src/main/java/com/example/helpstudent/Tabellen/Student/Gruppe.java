@@ -17,6 +17,7 @@ public class Gruppe {
     private long gruppenId;
     private int teilnehmeranzahl;
     private String gruppenname;
+    private long studiengangid;
     private long studentenId;
 
 
@@ -25,9 +26,10 @@ public class Gruppe {
         this.gruppenname = gruppenname;
     }
 
-    public Gruppe(int teilnehmeranzahl, String gruppenname, long erstelltvonnlfdstudent) {
+    public Gruppe(int teilnehmeranzahl, String gruppenname,long studiengangid, long erstelltvonnlfdstudent) {
         this.teilnehmeranzahl = teilnehmeranzahl;
         this.gruppenname = gruppenname;
+        this.studiengangid = studiengangid;
         this.studentenId = erstelltvonnlfdstudent;
     }
 

@@ -8,7 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
     <link href="/favicon.png" rel="shortcut icon" type="image/x-icon"/>
-    <meta charset = "UTF-8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" name="viewport">
+    <meta charset="UTF-8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+          name="viewport">
 
 
     <title>HelpStudent</title>
@@ -22,204 +23,204 @@
 <div id="app">
     <v-app class="grey lighten-4" id="inspire">
         <nav>
-                <v-app-bar app color="green" flat>
-                    <v-app-bar-nav-icon
-                            @click="navdraw = !navdraw"  class="white--text text-uppercase text"></v-app-bar-nav-icon>
+            <v-app-bar app color="green" flat>
+                <v-app-bar-nav-icon
+                        @click="navdraw = !navdraw" class="white--text text-uppercase text"></v-app-bar-nav-icon>
 
-                    <v-toolbar-title class="white--text text-uppercase">
-                        <span >Gruppen</span>
-                    </v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-text-field
-                            v-model="responsiveSearch"
-                            :class="{ 'closed' : searchClosed}"
-                            @blur="searchClose()"
-                            @focus="searchClosed = false"
-                            class="expanding-search mt-6"
-                            clearable
-                            dark
-                            dense
-                            placeholder="Gruppe Suchen"
-                            prepend-inner-icon="mdi-magnify"
+                <v-toolbar-title class="white--text text-uppercase">
+                    <span>Gruppen</span>
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-text-field
+                        v-model="responsiveSearch"
+                        :class="{ 'closed' : searchClosed}"
+                        @blur="searchClose()"
+                        @focus="searchClosed = false"
+                        class="expanding-search mt-6"
+                        clearable
+                        dark
+                        dense
+                        placeholder="Gruppe Suchen"
+                        prepend-inner-icon="mdi-magnify"
 
-                    ></v-text-field>
-                    <v-dialog
-                            max-width="600"
-                            transition="dialog-top-transition"
-                    >
+                ></v-text-field>
+                <v-dialog
+                        max-width="600"
+                        transition="dialog-top-transition"
+                >
 
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn
-                                    class="white--text"
-                                    icon
-                                    v-bind="attrs"
-                                    v-on="on"
-                            > <v-icon>mdi-plus</v-icon>
-                            </v-btn>
-                        </template>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                                class="white--text"
+                                icon
+                                v-bind="attrs"
+                                v-on="on"
+                        >
+                            <v-icon>mdi-plus</v-icon>
+                        </v-btn>
+                    </template>
 
-                        <template v-slot:default="dialog">
-                            <v-card id="grpcreate">
+                    <template v-slot:default="dialog">
+                        <v-card id="grpcreate">
 
-                                <v-toolbar
-                                        color="green"
-                                        dark
-                                >Neue Gruppe Erstellen
-                                </v-toolbar>
+                            <v-toolbar
+                                    color="green"
+                                    dark
+                            >Neue Gruppe Erstellen
+                            </v-toolbar>
 
-                                <v-card-text>
+                            <v-card-text>
 
-                                    <v-form ref="form">
-                                        <v-row
-                                                justify="space-between"
-                                                overflow-visible="true">
-                                            <v-col cols="10">
-                                                <v-text-field
-                                                        label="Gruppenname"
-                                                        required
-                                                        v-model="gruppenname"
-                                                ></v-text-field>
+                                <v-form ref="form">
+                                    <v-row
+                                            justify="space-between"
+                                            overflow-visible="true">
+                                        <v-col cols="10">
+                                            <v-text-field
+                                                    label="Gruppenname"
+                                                    required
+                                                    v-model="gruppenname"
+                                            ></v-text-field>
 
-                                                <v-select
-                                                        :items="studiengangsnamen"
-                                                        label="Studiengang"
-                                                        required
-                                                        v-model="stdgangid"
-                                                ></v-select>
-                                                <v-alert
-                                                        color="red"
-                                                        type="error"
-                                                        dismissible
-                                                        v-model="gruppenerror"
-                                                        v-show="gruppenerror">
-                                                </v-alert>
+                                            <v-select
+                                                    :items="studiengangsnamen"
+                                                    label="Studiengang"
+                                                    required
+                                                    v-model="stdgangid"
+                                            ></v-select>
+                                            <v-alert
+                                                    color="red"
+                                                    type="error"
+                                                    dismissible
+                                                    v-model="gruppenerror"
+                                                    v-show="gruppenerror"
+                                            >{{gruppentext}}</v-alert>
 
-                                            </v-col>
+                                        </v-col>
 
-                                            <v-col cols="2">
-                                                <v-slider
-                                                        class="mr-5"
-                                                        color="green lighten-2"
-                                                        max="64"
-                                                        min="4"
-                                                        thumb-label="always"
-                                                        ticks
-                                                        v-model="gruppengroesse"
-                                                        value="12"
-                                                        vertical
-                                                ></v-slider>
-                                                <p class="mt-2"> Größe </p>
-                                            </v-col>
-                                        </v-row>
-                                        <v-row>
-                                            <v-btn
-                                                    @click="erstelleGruppe()"
-                                                    class="mr-4"
-                                                    color="green lighten-1"
-                                                    dark
-                                            >
-                                                Erstellen
-                                            </v-btn>
-                                            <v-btn @click="reset()"
-                                                   color="red lighten-1"
-                                                   dark>
-                                                Zurücksetzten
-                                            </v-btn>
-                                        </v-row>
-                                    </v-form>
-                                </v-card-text>
-                                <v-card-actions class="justify-end">
-                                    <v-btn
-                                            @click="dialog.value = false"
-                                            text
-                                    >Schliessen</v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </template>
-                    </v-dialog>
-                </v-app-bar>
+                                        <v-col cols="2">
+                                            <v-slider
+                                                    class="mr-5"
+                                                    color="green lighten-2"
+                                                    max="64"
+                                                    min="4"
+                                                    thumb-label="always"
+                                                    ticks
+                                                    v-model="gruppengroesse"
+                                                    value="12"
+                                                    vertical
+                                            ></v-slider>
+                                            <p class="mt-2"> Größe </p>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row>
+                                        <v-btn
+                                                @click="erstelleGruppe()"
+                                                class="mr-4"
+                                                color="green lighten-1"
+                                                dark
+                                        >
+                                            Erstellen
+                                        </v-btn>
+                                        <v-btn @click="reset()"
+                                               color="red lighten-1"
+                                               dark>
+                                            Zurücksetzten
+                                        </v-btn>
+                                    </v-row>
+                                </v-form>
+                            </v-card-text>
+                            <v-card-actions class="justify-end">
+                                <v-btn
+                                        @click="dialog.value = false"
+                                        text
+                                >Schliessen
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </template>
+                </v-dialog>
+            </v-app-bar>
 
 
             <v-navigation-drawer
-                        app
-                        v-model="navdraw"
-                >
-                    <template v-slot:prepend>
-                        <v-list-item two-line>
-                            <v-list-item-avatar>
-                                <img src="https://randomuser.me/api/portraits/lego/6.jpg">
-                            </v-list-item-avatar>
+                    app
+                    v-model="navdraw"
+            >
+                <template v-slot:prepend>
+                    <v-list-item two-line>
+                        <v-list-item-avatar>
+                            <img src="https://randomuser.me/api/portraits/lego/6.jpg">
+                        </v-list-item-avatar>
 
-                            <v-list-item-content>
-                                <v-list-item-title>{{session.svorname}} {{session.sname}}</v-list-item-title>
-                                <v-list-item-subtitle>Angemeldet</v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
-                    </template>
+                        <v-list-item-content>
+                            <v-list-item-title>{{session.svorname}} {{session.sname}}</v-list-item-title>
+                            <v-list-item-subtitle>Angemeldet</v-list-item-subtitle>
+                        </v-list-item-content>
+                    </v-list-item>
+                </template>
 
-                    <v-divider></v-divider>
+                <v-divider></v-divider>
 
-                    <v-list dense nav>
-                        <v-list-item
-                                :key="item.title"
-                                @click="openUrl(item.url, '_self')"
-                                link
-                                v-for="item in items"
-                        >
-                            <v-list-item-icon>
-                                <v-icon>{{ item.icon }}</v-icon>
-                            </v-list-item-icon>
-
-                            <v-list-item-content>
-                                <v-list-item-title>{{ item.title }}</v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list>
-                </v-navigation-drawer>
-            </nav>
-
-            <v-main :style="backgroundImage" id="HSHL">
-                <v-container>
-                    <v-card
-                            class="mx-auto"
-                            max-width="860"
-                            outlined
-                            v-for="gruppe in groups"
+                <v-list dense nav>
+                    <v-list-item
+                            :key="item.title"
+                            @click="openUrl(item.url, '_self')"
+                            link
+                            v-for="item in items"
                     >
-                        <v-list-item three-line >
-                            <v-list-item-content>
-                                <div class="text-overline mb-4">
-                                    {{gruppe.studiengang}}
-                                </div>
-                                <v-list-item-title class="text-h5 mb-1">
-                                    {{gruppe.gruppenname}}
-                                </v-list-item-title>
-                                <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.mitgliederanzahl}}</v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
+                        <v-list-item-icon>
+                            <v-icon>{{ item.icon }}</v-icon>
+                        </v-list-item-icon>
 
-                        <v-card-actions>
-                            <v-btn
-                                    @click="openChatroom(gruppe.groupId)"
-                                    outlined
-                                    text
-                            >
-                                Ansehen
-                            </v-btn>
-                            <v-btn
-                                    outlined
-                                    text
-                            >
-                                Beitreten
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-container>
-            </v-main>
-        </v-app>
+                        <v-list-item-content>
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
+            </v-navigation-drawer>
+        </nav>
+
+        <v-main :style="backgroundImage" id="HSHL">
+            <v-container>
+                <v-card
+                        class="mx-auto"
+                        max-width="860"
+                        outlined
+                        v-for="gruppe in groups"
+                >
+                    <v-list-item three-line>
+                        <v-list-item-content>
+                            <div class="text-overline mb-4">
+                                {{gruppe.studiengang}}
+                            </div>
+                            <v-list-item-title class="text-h5 mb-1">
+                                {{gruppe.gruppenname}}
+                            </v-list-item-title>
+                            <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.mitgliederanzahl}}</v-list-item-subtitle>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-card-actions>
+                        <v-btn
+                                @click="openChatroom(gruppe.groupId)"
+                                outlined
+                                text
+                        >
+                            Ansehen
+                        </v-btn>
+                        <v-btn
+                                outlined
+                                text
+                        >
+                            Beitreten
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-container>
+        </v-main>
+    </v-app>
 </div>
-
-
 
 
 <script>
@@ -229,10 +230,8 @@
             new Vuetify({
                 theme: {
                     themes: {
-                        light: {
-                        },
-                        dark: {
-                        }
+                        light: {},
+                        dark: {}
                     }
                 }
             }),
@@ -241,94 +240,94 @@
             navdraw: false,
 
             responsiveSearch: "",
-            gruppenname:"",
-            stdgangid:"",
+            gruppenname: "",
+            stdgangid: "",
             gruppengroesse: 0,
 
             gruppenerror: false,
             gruppentext: "",
 
             items: [
-                { title: 'Home', icon: 'mdi-home-variant-outline', url:   "http://localhost:8080/home"},
-                { title: 'Mein Profil', icon: 'mdi-account-outline', url: "http://localhost:8080/Profil"},
-                { title: 'Users', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Profil"},
+                {title: 'Home', icon: 'mdi-home-variant-outline', url: "http://localhost:8080/home"},
+                {title: 'Mein Profil', icon: 'mdi-account-outline', url: "http://localhost:8080/Profil"},
+                {title: 'Users', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Profil"},
             ],
-            session:"",
-            groups:[
-                { studiengang: "AIS", gruppenname:"Programmieren", mitgliederanzahl: "22", groupId:1},
-                { studiengang: "AIS", gruppenname:"Mathe", mitgliederanzahl: "16", groupId:2},
+            session: "",
+            groups: [
+                {studiengang: "AIS", gruppenname: "Programmieren", mitgliederanzahl: "22", groupId: 1},
+                {studiengang: "AIS", gruppenname: "Mathe", mitgliederanzahl: "16", groupId: 2},
             ],
-            chaturl:"http://localhost:8080/chat",
+            chaturl: "http://localhost:8080/chat",
 
             requestOptions: {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
                 body: {}
             },
 
         },
-        methods:{
+        methods: {
             getStudent(data) {
                 this.student = data;
                 console.log(this.student);
             },
-            searchClose(){
+            searchClose() {
                 if (this.responsiveSearch == "" || this.responsiveSearch == null) { //Bitte nicht durch === ersetzen
                     this.searchClosed = true;
                 }
             },
-            erstelleGruppe(){
+            erstelleGruppe() {
                 if (this.gruppenname !== "" && this.gruppengroesse !== 0) {
                     this.requestOptions.body = JSON.stringify({
                         gruppenname: this.gruppenname,
                         gruppengroesse: this.gruppengroesse,
                         stdgangid: this.stdgangid,
-                        studentenid: this.sessionStorage.getItem("id")
+                        studentenid: sessionStorage.getItem("id")
 
                     });
-                    fetch("http://localhost:8080/Gruppen/creategroup", this.requestOptions)
+                    console.log("Versuche Gruppe zu erstellen")
+                    fetch("Gruppen/test", this.requestOptions)
                         .then((res) => res.text())
                         .then(data => (
                             this.handleData(data)
                         ));
                 } else {
+                    console.log("error")
                     gruppenerror = true;
                     gruppentext = "kack";
                 }
-
             },
 
-            handleData(data){
+            handleData(data) {
                 daten = JSON.parse(data);
-                if(daten.gruppentext !== "" || daten.gruppentext !== undefined){
+                if (daten.gruppentext !== "" || daten.gruppentext !== undefined) {
                     gruppenerror = true;
                     gruppentext = daten.gruppentext;
                 }
             },
-            openChatroom(id){
+            openChatroom(id) {
                 //todo id benutzen um in den richtigen chatraum zu kommen
                 console.log("Chatroom öffnen ");
                 this.openUrl(this.chaturl, '')
             },
-            openUrl(url, method){
+            openUrl(url, method) {
                 window.open(url, method);
             },
-            initSession(){
-                 sessionStorage.setItem("id", "");
-                 sessionStorage.setItem("svorname", "");
-                 sessionStorage.setItem("snachname", "");
-                 sessionStorage.setItem("sbilderpfad", "");
+            initSession() {
+                sessionStorage.setItem("id", "");
+                sessionStorage.setItem("svorname", "");
+                sessionStorage.setItem("snachname", "");
+                sessionStorage.setItem("sbilderpfad", "");
             },
             darkMode() {
                 this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
             },
 
-            reset () {
+            reset() {
                 this.$refs.form.reset()
             },
             getStudiengaenge(data) {
                 this.studiengaenge = data;
-                 console.log("stdgng"+this.studiengaenge);
                 let test = this.studiengangsnamen;
 
             },
@@ -366,36 +365,38 @@
                 }
             }
         },
-            created: function () {
-                if (this.sessionEmpty) {
-                    this.initSession();
-                }
-                this.session = sessionStorage;
-                console.log(sessionStorage);
+        created: function () {
+            if (this.sessionEmpty) {
+                this.initSession();
+            }
+            this.session = sessionStorage;
+            console.log(sessionStorage);
 
-                fetch("Profil/meineInfos/" + sessionStorage.getItem("id"))
-                    .then(rep => rep.json())
-                    .then(data => (
-                        this.getStudent(data)
+            fetch("Profil/meineInfos/" + sessionStorage.getItem("id"))
+                .then(rep => rep.json())
+                .then(data => (
+                    this.getStudent(data)
+                ));
+
+            fetch("/studiengaenge")
+                .then(rep => rep.json()
+                    .then(data =>
+                        this.getStudiengaenge(data)
                     ));
-
-                fetch("/studiengaenge")
-                    .then(rep => rep.json()
-                        .then(data =>
-                            this.getStudiengaenge(data)
-                        ));
-            },
+        },
     })
 </script>
 
 <style>
-    #HSHL{
+    #HSHL {
         background-image: url("bg1.png");
     }
-    #grpcreate{
+
+    #grpcreate {
         overflow: visible; /* Scrollbars Entfernen */
         overflow-x: hidden;
     }
+
     .v-input.expanding-search.closed {
         transition: max-width 0.2s;
         max-width: 30px

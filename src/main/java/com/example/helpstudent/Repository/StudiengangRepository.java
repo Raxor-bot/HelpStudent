@@ -19,4 +19,9 @@ public interface StudiengangRepository extends JpaRepository<Studiengang, Long> 
     @Query("select s from Studiengang s " +
            "where s.studiengangid = ?1")
     Studiengang getStudiengaenge(Long id);
+
+    @Transactional
+    @Query("select stdgang from Studiengang stdgang " +
+            "where stdgang.stName = ?1")
+    Studiengang getStudiengangByStName(String stName);
 }

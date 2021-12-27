@@ -27,4 +27,8 @@ public class StudiengangService {
     public void save(Studiengang studiengang) {
         studentrep.save(studiengang);
     }
+
+    public Studiengang getStudiengangbyName(String stName){
+        return studentrep.getStudiengangByStName(stName);
+    }
 }
