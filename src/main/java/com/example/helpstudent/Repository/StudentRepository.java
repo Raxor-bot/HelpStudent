@@ -32,4 +32,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Modifying
     @Query("UPDATE Student student "+"SET student.studiengang = 1 WHERE student.mail = ?1")
     void setStudentStudienGang(String mail);
+
+    void deleteByMail(String mail);
 }

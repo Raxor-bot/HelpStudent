@@ -40,6 +40,6 @@ public class StudentConfig implements CommandLineRunner{
         studentService.setStudentRolleUSER("Jannik.markau01@gmail.com");
         studentService.save(armin);
         studentService.enableStudent("reimann.armin2@gmail.com");
-        logger.info("Student wurde fertigestellt");
+        logger.info("Student wurde fertiggestellt");
     }
 }
