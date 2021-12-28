@@ -445,77 +445,40 @@
                                             <v-main>
                                                 <v-container  >
                                                     <v-row align-content="center" dense >
-                                                        <v-col cols="1" >
-                                                            <v-card height="150" color="secondary">
-                                                                <v-avatar
-                                                                        class="mt-6 mx-5"
-                                                                        size="100"> <img
-                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                        alt="Juan"
-                                                                ></v-avatar>
-                                                            </v-card>
-                                                        </v-col>
-                                                        <v-col cols="1">
-                                                            <v-card height="150" color="secondary">
-                                                                <v-avatar
-                                                                        class="mt-6 mx-5"
-                                                                        size="100"> <img
-                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                        alt="Juan"
-                                                                ></v-avatar>
-                                                            </v-card>
-                                                        </v-col>
-                                                        <v-col cols="1">
-                                                            <v-card height="150" color="secondary">
-                                                                <v-avatar
-                                                                        class="mt-6 mx-5"
-                                                                        size="100"> <img
-                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                        alt="Juan"
-                                                                ></v-avatar>
-                                                            </v-card>
-                                                        </v-col>
-                                                        <v-col cols="1">
-                                                            <v-card height="150" color="secondary">
-                                                                <v-avatar
-                                                                        class="mt-6 mx-5"
-                                                                        size="100"> <img
-                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                        alt="Juan"
-                                                                ></v-avatar>
-                                                            </v-card>
-                                                        </v-col>
-                                                        <v-col cols="1">
-                                                            <v-card height="150" color="secondary">
-                                                                <v-avatar
-                                                                        class="mt-6 mx-5"
-                                                                        size="100"> <img
-                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                        alt="Juan"
-                                                                ></v-avatar>
+                                                        <v-col cols="4" v-for="gruppe in gruppen">
+                                                            <v-card
+                                                                    class="mx-auto"
+                                                                    max-width="860"
+                                                                    outlined
+                                                            >
+                                                                <v-list-item three-line>
+                                                                    <v-list-item-content>
+                                                                        <v-list-item-title class="text-h5 mb-1">
+                                                                            {{gruppe.gruppenname}}
+                                                                        </v-list-item-title>
+                                                                        <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.teilnehmeranzahl}}</v-list-item-subtitle>
+                                                                    </v-list-item-content>
+                                                                </v-list-item>
+
+                                                                <v-card-actions>
+                                                                    <v-btn
+                                                                            outlined
+                                                                            text
+                                                                    >
+                                                                        Ansehen
+                                                                    </v-btn>
+                                                                    <v-btn
+                                                                            outlined
+                                                                            text
+                                                                    >
+                                                                        Beitreten
+                                                                    </v-btn>
+                                                                </v-card-actions>
                                                             </v-card>
                                                         </v-col>
 
-                                                        <v-col cols="1">
-                                                            <v-card height="150" color="secondary">
-                                                                <v-avatar
-                                                                        class="mt-6 mx-5"
-                                                                        size="100"> <img
-                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                        alt="Juan"
-                                                                ></v-avatar>
-                                                            </v-card>
-                                                        </v-col>
-                                                        <v-col cols="1" >
-                                                            <v-card height="150" color="secondary">
-                                                                <v-avatar
-                                                                        class="mt-6 mx-5"
-                                                                        size="100"> <img
-                                                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                        alt="Juan"
-                                                                ></v-avatar>
-                                                            </v-card>
-                                                        </v-col>
+
+
                                                     </v-row>
                                                 </v-container>
                                             </v-main>
@@ -612,10 +575,28 @@
             semester: "",
             stärken: "",
             schwächen: "",
+            gruppen:[],
+            requestOptions: {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: {}
+            },
 
 
         },
         methods: {
+            setGruppen(data){
+                console.log("Gruppen:");
+                console.log(data);
+                this.gruppen = data.gruppen;
+            },
+            fetchGruppen(){
+                fetch("Gruppen/getGruppen",  this.requestOptions)
+                    .then(rep => rep.json())
+                    .then(data => (
+                        this.setGruppen(data)
+                    ));
+            },
             getStudent(data) {
                 this.student = data;
                 console.log(this.student);
@@ -677,6 +658,7 @@
         },
 
         created() {
+            this.fetchGruppen();
             fetch("Profil/meineInfos/1")
                 .then(rep => rep.json())
                 .then(data => (
