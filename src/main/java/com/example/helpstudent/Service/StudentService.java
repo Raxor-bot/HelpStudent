@@ -145,6 +145,10 @@ public class StudentService implements UserDetailsService {
         return repo.enableStudent(mail);
     }
 
+    public void setStudentBilderPfad(String bilderPfad,Long id){
+        repo.setStudentBilderPfad(bilderPfad, id);
+    }
+
 
 
     public void save(Student student){

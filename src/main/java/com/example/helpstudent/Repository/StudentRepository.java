@@ -34,4 +34,10 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     void setStudentStudienGang(String mail);
 
     void deleteByMail(String mail);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Student student "+"SET student.bilderpfad = ?1 WHERE student.nlfdstudent = ?2")
+    void setStudentBilderPfad(String bilderPfad, Long id);
+
 }

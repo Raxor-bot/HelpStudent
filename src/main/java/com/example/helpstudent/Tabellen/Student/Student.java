@@ -142,4 +142,9 @@ public class Student implements UserDetails{
     public boolean isEnabled() {
         return enabled;
     }
+
+    public void setBilderpfad(String bilderpfad) {
+        System.out.println("TEST____________________________");
+        this.bilderpfad = bilderpfad;
+    }
 }
