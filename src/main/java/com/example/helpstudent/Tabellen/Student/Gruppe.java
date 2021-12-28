@@ -1,24 +1,25 @@
 package com.example.helpstudent.Tabellen.Student;
 
 
+import com.example.helpstudent.Service.StudiengangService;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table
 @Getter
+@NoArgsConstructor
 public class Gruppe {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
 
     private long gruppenId;
     private int teilnehmeranzahl;
     private String gruppenname;
-    private long studiengangid;
-    private long studentenId;
 
 
     public Gruppe(int teilnehmeranzahl, String gruppenname) {
@@ -26,22 +27,22 @@ public class Gruppe {
         this.gruppenname = gruppenname;
     }
 
-    public Gruppe(int teilnehmeranzahl, String gruppenname,long studiengangid, long erstelltvonnlfdstudent) {
+    public Gruppe(int teilnehmeranzahl, String gruppenname,Studiengang studiengang, Student erstelltvonnlfdstudent) {
         this.teilnehmeranzahl = teilnehmeranzahl;
         this.gruppenname = gruppenname;
-        this.studiengangid = studiengangid;
-        this.studentenId = erstelltvonnlfdstudent;
-    }
-
-    public Gruppe() {
-
+       this.studiengang = studiengang;
+        this.student = erstelltvonnlfdstudent;
     }
 
     @ManyToOne
     private Studiengang studiengang;
 
-
-
+    @ManyToOne
+    @JoinColumn(
+            nullable = false,
+            name = "nlfdstudent"
+    )
+    private Student student;
 
     public Long getGruppenId() {
         return gruppenId;

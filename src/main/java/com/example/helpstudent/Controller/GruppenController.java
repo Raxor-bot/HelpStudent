@@ -1,26 +1,33 @@
 package com.example.helpstudent.Controller;
 
 import com.example.helpstudent.Service.GruppenService;
+import com.example.helpstudent.Service.StudentService;
 import com.example.helpstudent.Service.StudiengangService;
 import com.example.helpstudent.Tabellen.Student.Gruppe;
+import com.example.helpstudent.Tabellen.Student.Student;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RequestMapping("/Gruppen")
+@Controller
 public class GruppenController {
 
     private final GruppenService gruppenService;
-    private final StudiengangService studService;
+    private final StudiengangService studiengangService;
+    private final StudentService  studentService;
 
-    public GruppenController(GruppenService gruppenService, StudiengangService studService) {
+    public GruppenController(GruppenService gruppenService, StudiengangService studService, StudentService studentService) {
         this.gruppenService = gruppenService;
-        this.studService = studService;
+        this.studiengangService = studService;
+        this.studentService = studentService;
     }
 
 
@@ -36,28 +43,24 @@ public class GruppenController {
     @PostMapping("/erstelleGruppe")
     public ResponseEntity<?> erstelleGruppe(@RequestBody Map<String,Object> body){
         Map<String, Object> myMap = new HashMap<>();
-        System.out.println("---------------------------------GETTIT---------------------");
-       // try {
-            gruppenService.addNewGruppe(new Gruppe(
+        try {
+        Student student = studentService.getStudentByID(Long.parseLong(body.get("studentenid").toString())).orElseThrow(NoSuchElementException::new);
+
+        gruppenService.addNewGruppe(new Gruppe(
                     Integer.parseInt(body.get("gruppengroesse").toString()),
                     body.get("gruppenname").toString(),
-                    studService.getStudiengangbyName(body.get("stdgangid")
-                            .toString()).getStudiengangid(),
-                    Long.getLong(body.get("studentenid").toString())
+                    studiengangService.getStudiengangbyName(body.get("stdgangname").toString()),
+                    student
+
             ));
-     //   }catch (Exception e){
-     //       myMap.put("gruppentext",e.getMessage());
-     //   }
+        System.out.println( studiengangService.getStudiengangbyName(body.get("stdgangname").toString()).getStName());
+        }catch (NoSuchElementException e){
+            myMap.put("gruppentext","Nutzer existiert nicht");
+        } catch (Exception e){
+            myMap.put("ereortext","Gruppe konnte nicht erstellt werden!");
+        }
 
         return new ResponseEntity<Object>(myMap, HttpStatus.OK);
 
-    }
-
-    @PostMapping("/test")
-    public ResponseEntity<?> Test(@RequestBody Map<String,Object> body){
-        Map<String, Object> myMap = new HashMap<>();
-        myMap.put("gruppentext","Schön wäres");
-        System.out.println("Zumindest das");
-        return new ResponseEntity<Object>(myMap, HttpStatus.OK);
     }
 }

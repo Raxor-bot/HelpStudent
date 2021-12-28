@@ -93,7 +93,6 @@
                                                     type="error"
                                                     dismissible
                                                     v-model="gruppenerror"
-                                                    v-show="gruppenerror"
                                             >{{gruppentext}}</v-alert>
 
                                         </v-col>
@@ -281,21 +280,24 @@
                     this.requestOptions.body = JSON.stringify({
                         gruppenname: this.gruppenname,
                         gruppengroesse: this.gruppengroesse,
-                        stdgangid: this.stdgangid,
+                        stdgangname: this.stdgangid,
                         studentenid: sessionStorage.getItem("id")
 
                     });
                     console.log("Versuche Gruppe zu erstellen")
-                    fetch("Gruppen/test", this.requestOptions)
+                    fetch("Gruppen/erstelleGruppe", this.requestOptions)
                         .then((res) => res.text())
                         .then(data => (
                             this.handleData(data)
                         ));
+
+                    gruppentext = "Gruppe erstellt!"
                 } else {
                     console.log("error")
                     gruppenerror = true;
                     gruppentext = "kack";
                 }
+                window.open(this.url,"_self");
             },
 
             handleData(data) {
