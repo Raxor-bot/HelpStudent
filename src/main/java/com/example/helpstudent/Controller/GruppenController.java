@@ -36,6 +36,7 @@ public class GruppenController {
         Map<String, Object> myMap = new HashMap<>();
         System.out.println("Gruppennnnn--------------------------##################-----------------###############");
         System.out.println(gruppenService.getGruppen());
+        System.out.println("##########################################################################################");
         myMap.put("gruppen",gruppenService.getGruppen());
         return new ResponseEntity<Object>(myMap, HttpStatus.OK);
     }

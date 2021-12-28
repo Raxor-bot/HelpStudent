@@ -19,7 +19,7 @@ public class GruppenService{
     }
 
 
-    public List<?> getGruppen(){
+    public List<Gruppe> getGruppen(){
         return repo.findAll();
     }
 
