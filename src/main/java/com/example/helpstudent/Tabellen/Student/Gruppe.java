@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Optional;
 
 @Entity
@@ -20,6 +21,9 @@ public class Gruppe {
     private long gruppenId;
     private int teilnehmeranzahl;
     private String gruppenname;
+
+    @ManyToMany
+    private List<Student> studentenListe;
 
 
     public Gruppe(int teilnehmeranzahl, String gruppenname) {

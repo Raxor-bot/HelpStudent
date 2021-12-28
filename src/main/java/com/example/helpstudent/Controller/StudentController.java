@@ -53,7 +53,7 @@ public class StudentController{
 
     @RequestMapping("/Profil")
     public String viewProfil(){
-        return "profil";
+        return "Profil";
     }
 
     @GetMapping("Profil/meineInfos/{id}")
@@ -69,5 +69,10 @@ public class StudentController{
     @RequestMapping("/chat")
     public String viewChat(){
         return "Chat";
+    }
+
+    @RequestMapping("/upload")
+    public String viewTest(){
+        return "upload";
     }
 }
