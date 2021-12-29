@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -82,18 +82,43 @@
                         <v-card height="250" color="#286BF9">
                             <v-avatar
                                     class="mt-10 mx-16"
-                                    size="150">
+                                    size="150"
+                                    v-show="!editMode">
                                 <img
                                         src="https://randomuser.me/api/portraits/lego/6.jpg"
                                         alt="Juan">
                             </v-avatar>
+
+                            <v-avatar
+                                    class="mt-10 mx-16"
+                                    v-show="editMode"
+                                    color="grey lighten-3"
+                                    size="150">
+                                <v-btn
+                                        @click="$refs.imginput.click()"
+                                        icon
+                                        v-show="editMode"
+                                        size="100"
+                                >
+                                    <v-icon
+                                            size="100">mdi-pencil</v-icon>
+                                </v-btn>
+                            </v-avatar>
+                            <input
+                                    type="file"
+                                    ref="imginput"
+                                    v-show="false"
+                                    :rules="rules"
+                                    accept="image/png, image/jpeg"
+                                    @change="onChange($event)"
+                                    @remove="onRemove()">
 
                             <div class="mt-n16 mb-16 mx-16 white--text">
                                 <p class="font-weight-black text-center mt-n16 mx-auto " v-if="student != null">{{student.svorname}} {{student.sname}}</p>
                                 <p class="text-center"></p>
 
                                 <v-chip
-                                        class="mt-n16 mx-16"
+                                        class="mt-n28 mx-16"
                                         color="primary"
                                         text-color="white">
                                     Alter
@@ -535,32 +560,10 @@
         data: {
             editMode:false,
             fusch:"",
-            navdraw: 'false',
-            studiengaenge:[
-                // title= 'Angewandte Informatik und Soziale Medien',
-                // title= 'Betriebswirtschaftslehre',
-                // title= 'Biomedizinische Technologie',
-                // title= 'Computervisualistik und Design',
-                // title= 'Electronic Engineering',
-                // title= 'Energietechnik und Ressourcenoptimierung',
-                // title= 'Intelligent Systems Design',
-                // title= 'Interkulturelle Wirtschaftspsychologie',
-                // title= 'Materialdesign - Bionik und Photonik',
-                // title= 'Mechatronik',
-                // title= 'Sport- und Gesundheitstechnik',
-                // title= 'Technisches Management und Marketing',
-                // title= 'Umweltmonitoring und Forensische Chemie',
-                // title= 'Wirtschaftsingenieurwesen',
-                // title= 'Angewandte Biomedizintechnik',
-                // title= 'Betriebswirtschaftslehre (Master)',
-                // title= 'Biomedizinisches Management und Marketing',
-                // title= 'Business and Systems Engineering',
-                // title= 'Intercultural Business Psychology',
-                // title= 'Technical Consulting and Management',
-                // title= 'Product Developement and Business Studies',
-                // title= 'Product and Asset Management',
-                // title= 'Technical Entrepreneurship and Innovation',
-                // title= 'Umwelt- und Gefahrstoffanalytik',
+            navdraw: false,
+            studiengaenge:[],
+            rules: [
+                value => !value || value.size < 4000000 || 'Profilbild sollte kleiner als 4MB sein!',
             ],
             items: [
                 { title: 'Home', icon: 'mdi-home-variant-outline', url:   "http://localhost:8080/home"},
@@ -568,6 +571,7 @@
                 { title: 'Gruppen', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Gruppen"},
             ],
             student: null,
+            profilepic: "",
             chaturl:"http://localhost:8080/chat",
             aktuellerStudiengang:"",
             geburtstag: "",
@@ -581,6 +585,11 @@
                 headers: {"Content-Type": "application/json"},
                 body: {}
             },
+            imgRequestOptions: {
+                method: "POST",
+                headers: {"Content-Type": "multipart/form-data"},
+
+            }
 
 
         },
@@ -600,7 +609,6 @@
             getStudent(data) {
                 this.student = data;
                 console.log(this.student);
-                console.log("asdf");
             },
             getStudiengaenge(data) {
                 this.studiengaenge = data;
@@ -633,10 +641,37 @@
                 console.log(this.stärken);
                 fetch("/schwächen").then(rep => rep.json().then(data => this.schwächen(data)));
                 console.log(this.schwächen);
-
-
+            },
+            onChange(event){
+                const files = event.target.files
+                let pic = files[0].name;
+                console.log(pic)
+                if(pic.lastIndexOf(".")<=0){
+                    return alert("Bitte gültiges Bild hinzufügen")
+                } this.profilepic = files[0]
+            },
+            onChanged() {
+                console.log("New picture loaded");
+                console.log(this.$refs.imginput)
+                if (this.$refs.imginput.file) {
+                    this.profilepic = this.$refs.imginput.file;
+                } else {
+                    console.log("Old browser. No support for Filereader API");
+                }
+            },
+            onRemove() {
+                this.image = '';
             },
             addInfo(info){
+                console.log("Bild" + this.profilepic)
+                const formData = new FormData();
+                        formData.append('file', this.profilepic)
+                    fetch("/upload", formData)
+                        .then((res) => res.text())
+                        .then(data => (
+                            console.log("Supi")
+                        ));
+                    console.log("post send")
                 this.info.push(info)
 
             },
