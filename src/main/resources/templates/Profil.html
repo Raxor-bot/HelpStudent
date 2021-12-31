@@ -131,7 +131,7 @@
                     </v-col>
 
                     <!-- Start von Toolbox und Untermenüs-->
-                    <v-col cols="12" align-self="stretch" color="secondary">
+                    <v-col cols="12" align-self="stretch" color="secondary" dark>
                         <v-card class="mt-n12 mx-auto"
                                 elevation="15"
                                 height="1000"
@@ -139,6 +139,9 @@
 
                         >
                             <v-toolbar class="toolbar">
+
+
+
                                 <v-tabs dark
                                         background-color="primary"
                                         grow>
@@ -164,44 +167,48 @@
                                     </v-tab>
 
                                     <!--Content Meine Infos -->
-                                    <v-tab-item>
-      <!-- Versuch form-->                          <form class="" @submit.prevent="onSubmit">        <v-card dark
-                                                tile
-                                        >
-                                            <v-card-title>
-                                                Persönliches
-                                            </v-card-title>
-                                        <v-btn @click="saveinfo" float="right"> Bearbeiten</v-btn>
-                                        <v-card-text>Geburtstag:</v-card-text>
-                                        <v-text-field
-                                                for="geburtstag"
-                                                v-model="geburtstag"
-                                                label="Geburtstag"
-                                                background-color="blue"
-                                                required
+                                    <v-tab-item dark="true">
+                                        <v-card dark tile >
+                                                <v-card-title>
+                                                    Persönliches
+                                                </v-card-title>
+                                            <v-btn @click="saveinfo" float="right"> Bearbeiten</v-btn>
+                                            <v-card-text>Geburtstag:</v-card-text>
+                                            <v-text-field
+                                                    v-model="geburtstag"
+                                                    label="Geburtstag"
+                                                    required
+                                                    v-if="editMode == true"
+                                            > </v-text-field>
+                                            <v-text-field
+                                                    v-model="geburtstag"
+                                                    label="Geburtstag"
+                                                    required
+                                                    disabled
+                                                    v-else
+                                            > </v-text-field>
 
 
-                                                v-if="editMode == true"
-                                        > </v-text-field>
+                                            <v-card-text>Geschlecht:</v-card-text>
+                                            <v-text-field
+                                                    v-model="geschlecht"
+                                                    label="Geschlecht"
+                                                    required
+                                                    v-if="editMode == true"
+                                            > </v-text-field>
+                                            <v-text-field
+                                                    v-model="geschlecht"
+                                                    label="Geschlecht"
+                                                    required
+                                                    disabled
+                                                    v-else
+                                            > </v-text-field>
 
 
-
-                                        <v-card-text>Geschlecht:</v-card-text>
-                                        <v-text-field
-                                                for="geschlecht"
-                                                v-model="geschlecht"
-                                                label="Geschlecht"
-                                                background-color="blue"
-                                                required
-
-
-                                                v-if="editMode == true"
-                                        > </v-text-field>
 
                                             <v-card-text>
-                                                Studiengang: {{aktuellerStudiengang}}
+                                                Studiengang:
                                             </v-card-text>
-
                                             <v-select
                                                     :items="studiengangsnamen"
                                                     label="Studiengang auswählen"
@@ -211,50 +218,71 @@
                                                     v-model="aktuellerStudiengang"
                                                     v-if="editMode == true"
                                             ></v-select>
+                                            <v-text-field
+                                                    v-model="aktuellerStudiengang"
+                                                    label="Studiengang"
+                                                    required
+                                                    disabled
+                                                    v-else
+                                            > </v-text-field>
 
 
-                                        <v-card-text>Eingeschriebene Semester:</v-card-text>
-                                        <v-text-field
-                                                for="semester"
-                                                v-model="semester"
-                                                label="semester"
-                                                background-color="blue"
-                                                required
+
+                                            <v-card-text>Eingeschriebenes Semester:</v-card-text>
+                                            <v-text-field
+                                                    for="semester"
+                                                    v-model="semester"
+                                                    label="Semester"
+                                                    required
+                                                    v-if="editMode == true"
+                                            > </v-text-field>
+                                            <v-text-field
+                                                    for="semester"
+                                                    v-model="semester"
+                                                    label="Semester"
+                                                    required
+                                                    disabled
+                                                    v-else
+                                            > </v-text-field>
 
 
-                                                v-if="editMode == true"
-                                        > </v-text-field>
 
-                                        <v-card-text>Meine Stärken:</v-card-text>
-                                        <v-text-field
-                                                for="stärken"
-                                                v-model="stärken"
-                                                label="stärken"
-                                                background-color="blue"
-                                                required
-
-
-                                                v-if="editMode == true"
-                                        > </v-text-field>
-
-                                        <v-card-text>Meine Schwächen:</v-card-text>
-                                        <v-text-field
-                                                for="schwächen"
-                                                v-model="schwächen"
-                                                label="schwächen"
-                                                background-color="blue"
-                                                required
+                                            <v-card-text>Meine Stärken:</v-card-text>
+                                            <v-text-field
+                                                    v-model="staerken"
+                                                    label="Stärken"
+                                                    required
+                                                    v-if="editMode == true"
+                                            > </v-text-field>
+                                            <v-text-field
+                                                    v-model="staerken"
+                                                    label="Stärken"
+                                                    required
+                                                    disabled
+                                                    v-else
+                                            > </v-text-field>
 
 
-                                                v-if="editMode == true"
-                                        > </v-text-field>
 
+                                            <v-card-text>Meine Schwächen:</v-card-text>
+                                            <v-text-field
+                                                    v-model="schwaechen"
+                                                    label="Schwaechen"
+                                                    required
+                                                    v-if="editMode == true"
+                                            > </v-text-field>
+                                            <v-text-field
+                                                    v-model="schwaechen"
+                                                    label="Schwächen"
+                                                    required
+                                                    disabled
+                                                    v-else
+                                            > </v-text-field>
 
+                                            <v-btn v-if="editMode == true" @click="addInfo" > Speichern</v-btn>
                                         </v-card>
-                                    <info>    <v-btn v-if="editMode == true" @click="addInfo" > Speichern</v-btn> </info>
 
-                                    Infos:[]
-                                </form>
+
                                     </v-tab-item>
 
                                     <!--Content Meine Fächer-->
@@ -577,8 +605,8 @@
             geburtstag: "",
             geschlecht: "",
             semester: "",
-            stärken: "",
-            schwächen: "",
+            staerken: "",
+            schwaechen: "",
             gruppen:[],
             requestOptions: {
                 method: "POST",
@@ -637,10 +665,10 @@
                 console.log(this.geschlecht);
                 fetch("/semester").then(rep => rep.json().then(data => this.semester(data)));
                 console.log(this.semester);
-                fetch("/stärken").then(rep => rep.json().then(data => this.stärken(data)));
-                console.log(this.stärken);
-                fetch("/schwächen").then(rep => rep.json().then(data => this.schwächen(data)));
-                console.log(this.schwächen);
+                fetch("/stärken").then(rep => rep.json().then(data => this.staerken(data)));
+                console.log(this.staerken);
+                fetch("/schwächen").then(rep => rep.json().then(data => this.schwaechen(data)));
+                console.log(this.schwaechen);
             },
             onChange(event){
                 const files = event.target.files
@@ -663,16 +691,31 @@
                 this.image = '';
             },
             addInfo(info){
-                console.log("Bild" + this.profilepic)
-                const formData = new FormData();
-                        formData.append('file', this.profilepic)
-                    fetch("/upload", formData)
-                        .then((res) => res.text())
-                        .then(data => (
-                            console.log("Supi")
-                        ));
-                    console.log("post send")
-                this.info.push(info)
+                let data = {
+                    "geburtstag": this.geburtstag,
+                    "geschlecht": this.geschlecht,
+                    "aktuellerStudiengang": this.aktuellerStudiengang,
+                    "semester": this.semester,
+                    "staerken": this.staerken,
+                    "schwaechen": this.schwaechen
+                }
+
+
+                fetch("/upload", data)
+                    .then((res) => res.text())
+                    .then(data => (
+                        console.log("Supi")
+                    ));
+                // console.log("Bild" + this.profilepic)
+                // const formData = new FormData();
+                //         formData.append('file', this.profilepic)
+                //     fetch("/upload", formData)
+                //         .then((res) => res.text())
+                //         .then(data => (
+                //             console.log("Supi")
+                //         ));
+                //     console.log("post send")
+                // this.info.push(info)
 
             },
             saveinfo(){
