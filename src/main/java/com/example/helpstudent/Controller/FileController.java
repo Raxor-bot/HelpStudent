@@ -29,61 +29,52 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    public String handleFilesUpload(@RequestParam("file") MultipartFile file, Model map) throws IOException { //Hier noch StudentID
+    public void handleFilesUpload(@RequestParam("file") MultipartFile file, Model map) throws IOException { //Hier noch StudentID
         StringBuilder sb = new StringBuilder();
         Optional<Student> student = studentService.getStudentByID(1L);
 
-    if(student.isPresent()) {
+        if (student.isPresent()) {
 
-        logger.info(student.get().getBilderpfad());
+            logger.info(student.get().getBilderpfad());
 
-        String profilpfad = student.get().getBilderpfad();
-        final String UPLOAD_FOLDER = "Bilder_upload";
+            String profilpfad = student.get().getBilderpfad();
+            final String UPLOAD_FOLDER = "Bilder_upload";
 
-        if (file != null) {
-            if (Files.exists(Paths.get(UPLOAD_FOLDER + "/" + file.getOriginalFilename())) && (!Objects.equals(file.getOriginalFilename(), profilpfad))) {
-                sb.append("Datei bereits vorhanden \n");
+            if (file != null) {
+                if (Files.exists(Paths.get(UPLOAD_FOLDER + "/" + file.getOriginalFilename())) && (!Objects.equals(file.getOriginalFilename(), profilpfad))) {
+                    sb.append("Datei bereits vorhanden \n");
+                    map.addAttribute("msg", sb);
+                } else {
+                    try {
+                        if (!Files.exists(Paths.get(UPLOAD_FOLDER))) {
+                            try {
+                                Files.createDirectories(Paths.get(UPLOAD_FOLDER));
+                            } catch (IOException ioe) {
+                                ioe.printStackTrace();
+                            }
+                        }
+
+                        Files.copy(file.getInputStream(), Paths.get(UPLOAD_FOLDER, file.getOriginalFilename()));
+                        sb.append("Datei wurde Hochgeladen " + file.getOriginalFilename() + "!\n");
+
+                        studentService.setStudentBilderPfad(file.getOriginalFilename(), student.get().getNlfdstudent());
+
+                        map.addAttribute("msg", sb);
+
+                    } catch (IOException | RuntimeException e) {
+                        sb.append("Datei konnte nicht Hochgeladen werden " + file.getOriginalFilename() + " => "
+                                + e.getMessage() + String.valueOf(e) + "\n");
+
+                        map.addAttribute("msg", sb);
+                    }
+                }
+            } else {
+                sb.append("Keine Datei ausgewählt\n");
                 map.addAttribute("msg", sb);
             }
-
-            else{
-                try {
-                    if (!Files.exists(Paths.get(UPLOAD_FOLDER))) {
-                        try {
-                            Files.createDirectories(Paths.get(UPLOAD_FOLDER));
-                        } catch (IOException ioe) {
-                            ioe.printStackTrace();
-                        }
-                    }
-
-                    Files.copy(file.getInputStream(), Paths.get(UPLOAD_FOLDER, file.getOriginalFilename()));
-                    sb.append("Datei wurde Hochgeladen " + file.getOriginalFilename() + "!\n");
-
-                    studentService.setStudentBilderPfad(file.getOriginalFilename(), student.get().getNlfdstudent());
-
-                    map.addAttribute("msg", sb);
-
-                } catch (IOException | RuntimeException e) {
-                    sb.append("Datei konnte nicht Hochgeladen werden " + file.getOriginalFilename() + " => "
-                            + e.getMessage() + String.valueOf(e) + "\n");
-
-                    map.addAttribute("msg", sb);
-                }
-            }
-        }
-
-        else {
-            sb.append("Keine Datei ausgewählt\n");
+        } else {
+            sb.append("Student nicht vorhanden\n");
             map.addAttribute("msg", sb);
         }
-    }
-
-
-    else {
-        sb.append("Student nicht vorhanden\n");
-        map.addAttribute("msg", sb);
-    }
-
-        return "upload";
     }
 }
