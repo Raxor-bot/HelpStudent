@@ -733,13 +733,14 @@
                 formData.append("file",this.profilepic);
 
                const imgRequestOptions = {
-                    method: "POST",
-                        headers: {"Content-Type": "multipart/form-data; boundary=---------------------------293582696224464"},
-                   body: JSON.stringify(this.formData),
+                        method: "POST",
+                   body: formData,
                 }
                 console.log("Bild" + this.profilepic)
                 console.log(imgRequestOptions)
                 console.log(this.formData +"ohne this:"+ formData)
+
+
                 fetch("/upload", imgRequestOptions)
                     .then((res) => res.text())
                     .then(data => (
@@ -749,7 +750,6 @@
             handleData(data){
                 data = JSON.parse(data)
                 console.log("msg:" + data.msg)
-
             },
 
             saveinfo(){

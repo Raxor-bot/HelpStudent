@@ -79,7 +79,7 @@
             <div id="app">
                     <v-app id="HSHL" :style="backgroundImage">
                         <v-card
-                                v-for="n in 60"
+                                v-for="message in messages"
                                 class="mx-auto"
                                 color="#3b00db"
                                 dark
@@ -95,12 +95,12 @@
                                 </v-list-item-avatar>
 
                                 <v-list-item-content>
-                                    <v-list-item-title>{{item.username}}</v-list-item-title>
+                                    <v-list-item-title>{{username}}</v-list-item-title>
                                 </v-list-item-content>
                             </v-card-title>
 
                             <v-card-text class="text-h5 font-weight-bold">
-                                {{item.inhalt}}
+                                {{message.content}}
                             </v-card-text>
                         </v-card>
                     </v-app>
@@ -163,7 +163,6 @@
             messageInput:null,
             receivedMessage:null,
             messages:[],
-
         },
         methods:{
             darkMode() {
@@ -174,7 +173,7 @@
             },
             connect() {
                 //todo im html code muss noch ein v-model="username" rein
-                console.log("außerhalbv")
+                console.log("außerhalb")
                 console.log(this.username)
                 if(this.username != null) {
                     console.log("innerhalb")
