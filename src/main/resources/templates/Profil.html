@@ -80,6 +80,7 @@
                 <v-row>
                     <v-col cols="12" align-self="stretch">
                         <v-card height="250" color="#286BF9">
+                            <v-row>
                             <v-avatar
                                     class="mt-10 mx-16"
                                     size="150"
@@ -94,30 +95,47 @@
                                     v-show="editMode"
                                     color="grey lighten-3"
                                     size="150">
-                                <v-btn
-                                        @click="$refs.imginput.click()"
-                                        icon
-                                        v-show="editMode"
-                                        size="100"
-                                >
-                                    <v-icon
-                                            size="100">mdi-pencil</v-icon>
-                                </v-btn>
-                            </v-avatar>
-                            <input
-                                    type="file"
-                                    ref="imginput"
-                                    v-show="false"
-                                    :rules="rules"
-                                    accept="image/png, image/jpeg"
-                                    @change="onChange($event)"
-                                    @remove="onRemove()">
 
+                                <img id="preview" src="" v-show="imgpreview">
+                            </v-avatar>
+                            </v-row>
                             <div class="mt-n16 mb-16 mx-16 white--text">
                                 <p class="font-weight-black text-center mt-n16 mx-auto " v-if="student != null">{{student.svorname}} {{student.sname}}</p>
                                 <p class="text-center"></p>
 
+                                <v-btn
+                                        class="mt-n17 ml-n2"
+                                        @click="$refs.imginput.click()"
+                                        v-show="editMode"
+                                        fab
+                                        dark
+                                        color="green lighten-1"
+                                >
+                                    <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn
+                                        class="mt-n17 mx-8"
+                                        @click="onRemove()"
+                                        v-show="editMode"
+                                        color ="red lighten-2"
+                                        fab
+                                        dark
+                                >
+                                    <v-icon color="white"
+                                    >mdi-delete-empty</v-icon>
+                                </v-btn>
+                                <input
+                                        type="file"
+                                        name="file"
+                                        ref="imginput"
+                                        v-show="false"
+                                        :rules="rules"
+                                        accept="image/png, image/jpeg"
+                                        @change="onChange($event)"
+                                        @remove="onRemove()"/>
+
                                 <v-chip
+                                        v-show="!editMode"
                                         class="mt-n28 mx-16"
                                         color="primary"
                                         text-color="white">
@@ -279,7 +297,7 @@
                                                     v-else
                                             > </v-text-field>
 
-                                            <v-btn v-if="editMode == true" @click="addInfo" > Speichern</v-btn>
+                                            <v-btn color="green lighten-2" v-if="editMode == true" @click="addpic" > Speichern</v-btn>
                                         </v-card>
 
 
@@ -580,15 +598,17 @@
 
 
 <script>
-
     var app = new Vue({
+
         el: '#app',
         vuetify: new Vuetify(),
 
         data: {
             editMode:false,
             fusch:"",
+            msg:"",
             navdraw: false,
+            imgpreview:false,
             studiengaenge:[],
             rules: [
                 value => !value || value.size < 4000000 || 'Profilbild sollte kleiner als 4MB sein!',
@@ -613,15 +633,9 @@
                 headers: {"Content-Type": "application/json"},
                 body: {}
             },
-            imgRequestOptions: {
-                method: "POST",
-                headers: {"Content-Type": "multipart/form-data"},
-
-            }
-
-
         },
         methods: {
+
             setGruppen(data){
                 console.log("Gruppen:");
                 console.log(data);
@@ -673,24 +687,20 @@
             onChange(event){
                 const files = event.target.files
                 let pic = files[0].name;
-                console.log(pic)
+                console.log(files[0])
                 if(pic.lastIndexOf(".")<=0){
-                    return alert("Bitte gültiges Bild hinzufügen")
+                    return alert("Bitte gültiges Bild hinzufügen \n(Kleiner als 2MB)")
                 } this.profilepic = files[0]
-            },
-            onChanged() {
-                console.log("New picture loaded");
-                console.log(this.$refs.imginput)
-                if (this.$refs.imginput.file) {
-                    this.profilepic = this.$refs.imginput.file;
-                } else {
-                    console.log("Old browser. No support for Filereader API");
+                if (event) {
+                    this.imgpreview = true
+                    document.getElementById("preview").src = URL.createObjectURL(this.profilepic)
                 }
             },
             onRemove() {
-                this.image = '';
+                this.imgpreview = false;
+                this.profilepic = '';
             },
-            addInfo(info){
+            addInfo(){
                 let data = {
                     "geburtstag": this.geburtstag,
                     "geschlecht": this.geschlecht,
@@ -718,6 +728,30 @@
                 // this.info.push(info)
 
             },
+            addpic(){
+                const formData = new FormData();
+                formData.append("file",this.profilepic);
+
+               const imgRequestOptions = {
+                    method: "POST",
+                        headers: {"Content-Type": "multipart/form-data; boundary=---------------------------293582696224464"},
+                   body: JSON.stringify(this.formData),
+                }
+                console.log("Bild" + this.profilepic)
+                console.log(imgRequestOptions)
+                console.log(this.formData +"ohne this:"+ formData)
+                fetch("/upload", imgRequestOptions)
+                    .then((res) => res.text())
+                    .then(data => (
+                        this.handleData(data)
+                    ));
+            },
+            handleData(data){
+                data = JSON.parse(data)
+                console.log("msg:" + data.msg)
+
+            },
+
             saveinfo(){
                 this.editMode = !this.editMode;
             },
