@@ -15,6 +15,7 @@ import org.jboss.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,12 +29,13 @@ public class FileController {
         this.studentService = studentService;
     }
 
-    @PostMapping("/upload")
+    @RequestMapping("/upload")
     public String handleFilesUpload(@RequestParam("file") MultipartFile file, Model map) throws IOException { //Hier noch StudentID
         StringBuilder sb = new StringBuilder();
         Optional<Student> student = studentService.getStudentByID(1L);
 
     if(student.isPresent()) {
+        System.out.println("Bild veararbeiten");
 
         logger.info(student.get().getBilderpfad());
 
