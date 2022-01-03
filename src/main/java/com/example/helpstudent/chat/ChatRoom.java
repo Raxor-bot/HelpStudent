@@ -1,6 +1,6 @@
 package com.example.helpstudent.chat;
 
-import com.example.helpstudent.Model.ChatMessage;
+import com.example.helpstudent.Tabellen.Student.ChatMessage;
 import com.example.helpstudent.Tabellen.Student.Student;
 
 import javax.persistence.*;

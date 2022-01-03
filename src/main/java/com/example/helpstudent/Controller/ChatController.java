@@ -1,13 +1,14 @@
 package com.example.helpstudent.Controller;
 
-import com.example.helpstudent.Model.ChatMessage;
-import com.example.helpstudent.Service.ChatRoomService;
+import com.example.helpstudent.Tabellen.Student.ChatMessage;
+import com.example.helpstudent.Tabellen.Student.ChatType;
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -20,36 +21,12 @@ public class ChatController{
     private ChatRoomService chatRoomService;
 
 
+@MessageMapping("/chat/{roomId}/sendMessage")
+    public void sendMessage(@DestinationVariable long roomId, @Payload ChatMessage chatMessage) {
+        logger.info(roomId+" Chat message recieved is "+ chatMessage.getNachricht());
 
-    @MessageMapping("/chat")
-    public void processMessage(@Payload ChatMessage chatMessage) {
-        var chatId = chatRoomService
-                .getChatId(chatMessage.getSenderId(), chatMessage.getRecipientId(), true);
-        chatMessage.setChatId(chatId.get());
-
-        ChatMessage saved = chatMessageService.save(chatMessage);
-
-        messagingTemplate.convertAndSendToUser(
-                chatMessage.getRecipientId(),"/queue/messages",
-                new ChatNotification(
-                        saved.getId(),
-                        saved.getSenderId(),
-                        saved.getSenderName()));
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        return chatMessage;
-    }
+        messagingTemplate.convertAndSend(String.format("/chat-room/%s", roomId), chatMessage);
+}
 
     @MessageMapping("/chat.addUser")
     @SendTo("/topic/public")
