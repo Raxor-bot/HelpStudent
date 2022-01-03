@@ -318,8 +318,8 @@
             openChatroom(id) {
                 //todo id benutzen um in den richtigen chatraum zu kommen
                 console.log("Chatroom öffnen ");
-                console.log(this.chaturl+"/"+id);
-                this.openUrl(this.chaturl+"/"+id, '');
+                sessionStorage.setItem("roomId", id);
+                this.openUrl(this.chaturl, '');
             },
             openUrl(url, method) {
                 window.open(url, method);
