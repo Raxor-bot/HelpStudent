@@ -12,13 +12,10 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class ChatController{
-
+public class ChatController {
+    private static final Logger logger =  LoggerFactory.getLogger(ChatController.class);
     @Autowired
-    private SimpMessagingTemplate messagingTemplate;
-
-    @Autowired
-    private ChatRoomService chatRoomService;
+    private SimpMessageSendingOperations messagingTemplate;
 
 
 @MessageMapping("/chat/{roomId}/sendMessage")
@@ -28,14 +25,26 @@ public class ChatController{
         messagingTemplate.convertAndSend(String.format("/chat-room/%s", roomId), chatMessage);
 }
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public ChatMessage addUser(@Payload ChatMessage chatMessage,
-                               SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", "jannik");
-        return chatMessage;
-    }
+//    @MessageMapping("/chat/{roomId}/addUser")
+//    public void addUser(@DestinationVariable long roomId, @Payload ChatMessage chatMessage,
+//                        SimpMessageHeaderAccessor headerAccessor) {
+//        String currentRoomId = (String) headerAccessor.getSessionAttributes().put("room_id", roomId);
+//        if (currentRoomId != null) {
+//
+//
+//
+//
+//
+//
+////            leaveMessage.setSender(chatMessage.getSender());
+//            messagingTemplate.convertAndSend(String.format("/chat-room/%s", currentRoomId), leaveMessage);
+//        }
+//        headerAccessor.getSessionAttributes().put("name", chatMessage.getSender());
+//        messagingTemplate.convertAndSend(String.format("/chat-room/%s", roomId), chatMessage);
+//    }
+
+
+
 
 
 

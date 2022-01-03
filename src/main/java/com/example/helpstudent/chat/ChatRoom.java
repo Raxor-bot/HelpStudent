@@ -11,15 +11,7 @@ import java.util.List;
 public class ChatRoom {
 
     @Id
-    @SequenceGenerator(
-            name = "chatRoom_sequence",
-            sequenceName = "chatRoom_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "chatRoom_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
 
     private Long chatRoomid;
@@ -35,7 +27,21 @@ public class ChatRoom {
     private Student empfaenger;
 
 
+    public Student getEmpfaenger() {
+        return empfaenger;
+    }
 
+    public Student getSender() {
+        return sender;
+    }
+
+    public void setEmpfaenger(Student empfaenger) {
+        this.empfaenger = empfaenger;
+    }
+
+    public void setSender(Student sender) {
+        this.sender = sender;
+    }
 
     public Long getChatRoomid() {
         return chatRoomid;
