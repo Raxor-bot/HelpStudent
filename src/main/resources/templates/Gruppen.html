@@ -202,7 +202,7 @@
 
                     <v-card-actions>
                         <v-btn
-                                @click="openChatroom(gruppe.groupId)"
+                                @click="openChatroom(gruppe.gruppenId)"
                                 outlined
                                 text
                         >
@@ -318,7 +318,8 @@
             openChatroom(id) {
                 //todo id benutzen um in den richtigen chatraum zu kommen
                 console.log("Chatroom öffnen ");
-                this.openUrl(this.chaturl, '')
+                console.log(this.chaturl+"/"+id);
+                this.openUrl(this.chaturl+"/"+id, '');
             },
             openUrl(url, method) {
                 window.open(url, method);
