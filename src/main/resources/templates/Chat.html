@@ -63,25 +63,16 @@
                 height="72"
         >
 
-            <v-spacer></v-spacer>
-            <h1>Raumid: {{raumdId}}</h1>
+            <h1>Raumname: {{raumName}}</h1>
 
-            <v-responsive max-width="100">
-                <v-text-field
-                        dense
-                        flat
-                        hide-details
-                        rounded
-                        solo-inverted
-                ></v-text-field>
-            </v-responsive>
+
         </v-app-bar>
 
         <v-main>
             <div id="app">
                     <v-app id="HSHL" :style="backgroundImage">
                         <v-card
-                                v-for="message in messages"
+                                v-for="(item, index) in messages"
                                 class="mx-auto"
                                 color="#3b00db"
                                 dark
@@ -97,12 +88,12 @@
                                 </v-list-item-avatar>
 
                                 <v-list-item-content>
-                                    <v-list-item-title>{{username}}</v-list-item-title>
+                                    <v-list-item-title>{{item.username}}</v-list-item-title>
                                 </v-list-item-content>
                             </v-card-title>
 
                             <v-card-text class="text-h5 font-weight-bold">
-                                {{message.content}}
+                                {{item.inhalt}}
                             </v-card-text>
                         </v-card>
                     </v-app>
@@ -166,6 +157,7 @@
             receivedMessage:null,
             messages:[],
             raumdId:null,
+            raumName:null,
         },
         methods:{
             darkMode() {
@@ -214,10 +206,11 @@
                 if(messageContent !== "" && stompClient) {
                     let chatMessage = {
                         sender: this.username,
-                        content: messageContent,
+                        nachricht: messageContent,
                         type: 'CHAT'
                     };
-                    stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+                    console.log(JSON.stringify(chatMessage));
+                    stompClient.send("/chat-app/chat/"+this.raumdId+"/sendMessage", {}, JSON.stringify(chatMessage));
                     this.messageInput = "";
                 }
             },
@@ -226,13 +219,14 @@
                 //todo @jannik müssten wir nochmal zusammen drüber schauen
 
 
-
                 var message = JSON.parse(payload.body);
 
                 console.log(message)
                 console.log("test")
 
-                this.messages.push({username: message.sender, inhalt: message.content});
+                this.messages.push({username: message.sender, inhalt: message.nachricht});
+
+                console.log(this.messages);
 
 
                 // var messageElement = document.createElement('li');
@@ -271,6 +265,7 @@
         },
         created(){
             console.log(sessionStorage);
+            this.raumName = sessionStorage.getItem("roomName");
             this.raumdId = sessionStorage.getItem("roomId");
             this.username = sessionStorage.getItem("svorname");
             this.connect();

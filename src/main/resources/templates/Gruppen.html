@@ -202,18 +202,13 @@
 
                     <v-card-actions>
                         <v-btn
-                                @click="openChatroom(gruppe.gruppenId)"
-                                outlined
-                                text
-                        >
-                            Ansehen
-                        </v-btn>
-                        <v-btn
+                                @click="openChatroom(gruppe.gruppenId, gruppe.gruppenname)"
                                 outlined
                                 text
                         >
                             Beitreten
                         </v-btn>
+
                     </v-card-actions>
                 </v-card>
             </v-container>
@@ -315,10 +310,11 @@
                     gruppentext = daten.gruppentext;
                 }
             },
-            openChatroom(id) {
+            openChatroom(id, raumname) {
                 //todo id benutzen um in den richtigen chatraum zu kommen
                 console.log("Chatroom öffnen ");
                 sessionStorage.setItem("roomId", id);
+                sessionStorage.setItem("roomName", raumname);
                 this.openUrl(this.chaturl, '');
             },
             openUrl(url, method) {
