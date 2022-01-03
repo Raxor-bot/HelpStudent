@@ -1,6 +1,6 @@
 package com.example.helpstudent.Listener;
 
-import com.example.helpstudent.Model.ChatMessage;
+import com.example.helpstudent.Tabellen.Student.ChatMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
@@ -37,8 +37,7 @@ public class WebSocketEventListener {
             logger.info("User Disconnected : " + username);
 
             ChatMessage chatMessage = new ChatMessage();
-            chatMessage.setType(ChatMessage.MessageType.LEAVE);
-            chatMessage.setSender(username);
+
 
             messagingTemplate.convertAndSend("/topic/public", chatMessage);
         }
