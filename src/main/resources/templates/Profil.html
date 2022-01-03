@@ -297,7 +297,7 @@
                                                     v-else
                                             > </v-text-field>
 
-                                            <v-btn color="green lighten-2" v-if="editMode == true" @click="addpic" > Speichern</v-btn>
+                                            <v-btn color="green lighten-2" v-if="editMode == true" @click="addInfo" > Speichern</v-btn>
                                         </v-card>
 
 
@@ -654,7 +654,7 @@
             },
             getStudiengaenge(data) {
                 this.studiengaenge = data;
-                // console.log(this.studiengaenge);
+                 console.log(this.studiengaenge);
                 let test = this.studiengangsnamen;
 
             },
@@ -701,50 +701,33 @@
                 this.profilepic = '';
             },
             addInfo(){
+                const formData = new FormData();
+                if(this.imgpreview) {
+                    formData.append("file", this.profilepic);
+                }
+
                 let data = {
                     "geburtstag": this.geburtstag,
                     "geschlecht": this.geschlecht,
-                    "aktuellerStudiengang": this.aktuellerStudiengang,
+                    "studiengang": this.getStudiengangID(this.aktuellerStudiengang),
                     "semester": this.semester,
                     "staerken": this.staerken,
                     "schwaechen": this.schwaechen
                 }
 
-
-                fetch("/upload", data)
+                formData.append("studid", this.student.nlfdstudent)
+                console.log(data)
+                console.log(JSON.stringify(data))
+                formData.append("studentdata",JSON.stringify(data))
+                const imgRequestOptions = {
+                    method: "POST",
+                    body: formData,
+                }
+                console.log(formData)
+                fetch("/uptest", imgRequestOptions)
                     .then((res) => res.text())
                     .then(data => (
                         console.log("Supi")
-                    ));
-                // console.log("Bild" + this.profilepic)
-                // const formData = new FormData();
-                //         formData.append('file', this.profilepic)
-                //     fetch("/upload", formData)
-                //         .then((res) => res.text())
-                //         .then(data => (
-                //             console.log("Supi")
-                //         ));
-                //     console.log("post send")
-                // this.info.push(info)
-
-            },
-            addpic(){
-                const formData = new FormData();
-                formData.append("file",this.profilepic);
-
-               const imgRequestOptions = {
-                        method: "POST",
-                   body: formData,
-                }
-                console.log("Bild" + this.profilepic)
-                console.log(imgRequestOptions)
-                console.log(this.formData +"ohne this:"+ formData)
-
-
-                fetch("/upload", imgRequestOptions)
-                    .then((res) => res.text())
-                    .then(data => (
-                        this.handleData(data)
                     ));
             },
             handleData(data){
@@ -754,6 +737,17 @@
 
             saveinfo(){
                 this.editMode = !this.editMode;
+            },
+            getStudiengangID(name){
+                let stid
+                for (const stName in this.studiengaenge) {
+                   this.studiengaenge.Studiengang.forEach(function (stdgang) {
+                       if (stdgang.stName === name){
+                           stid = stdgang.studiengangid
+                       }
+                   })
+                }
+                    return stid
             },
         },
         computed:{
@@ -771,7 +765,7 @@
 
         created() {
             this.fetchGruppen();
-            fetch("Profil/meineInfos/1")
+            fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
                 .then(rep => rep.json())
                 .then(data => (
                     this.getStudent(data)

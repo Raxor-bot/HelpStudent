@@ -3,20 +3,22 @@ package com.example.helpstudent.Controller;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 import com.example.helpstudent.Service.StudentService;
 import com.example.helpstudent.Tabellen.Student.Student;
+
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -30,9 +32,10 @@ public class FileController {
     }
 
     @RequestMapping(value = "/upload" , consumes = {"multipart/form-data"})
-    public ResponseEntity<?> handleFilesUpload(@RequestParam("file") MultipartFile file,@RequestParam("nfdlStudent") long id, Model map) throws IOException { //Hier noch StudentID
+    public ResponseEntity<?> handleFilesUpload(@RequestParam("file") MultipartFile file, @RequestParam("studentdata") Student studentdata, Model map) throws IOException { //Hier noch StudentID
         StringBuilder sb = new StringBuilder();
-        Optional<Student> student = studentService.getStudentByID(id);
+        System.out.println(studentdata);
+        Optional<Student> student = studentService.getStudentByID(studentdata.getNlfdstudent());
 
     if(student.isPresent()) {
         System.out.println("Bild veararbeiten");
@@ -86,4 +89,13 @@ public class FileController {
         map.addAttribute("msg", sb);
     }
         return new ResponseEntity<Object>(map, HttpStatus.OK);    }
+
+    @RequestMapping(value = "/uptest" , consumes = {"multipart/form-data"})
+    public ResponseEntity<?> teststuff(@RequestParam("file") MultipartFile file, @RequestParam("studid") String studentid, @RequestParam("studentdata") Map<String,String> body, Model map){
+        map.addAttribute("msg","tTest");
+        System.out.println(studentService.getStudentByID(Long.parseLong(studentid)));
+        System.out.println(body.get("semester"));
+        return new ResponseEntity<Object>(map, HttpStatus.OK);
+    }
 }
+

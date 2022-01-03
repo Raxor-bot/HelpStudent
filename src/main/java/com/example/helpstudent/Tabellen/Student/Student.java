@@ -68,6 +68,26 @@ public class Student implements UserDetails{
         this.rolle = rolle;
     }
 
+    public Student(String sname,
+                   String svorname,
+                   LocalDate geburtstag,
+                   int nsemester,
+                   Studiengang studiengang,
+                   String mail,
+                   String passwort,
+                   String bilderpfad,
+                   StudentRolle rolle) {
+        this.sname = sname;
+        this.svorname = svorname;
+        this.geburtstag = geburtstag;
+        this.nsemester = nsemester;
+        this.studiengang = studiengang;
+        this.mail = mail;
+        this.passwort = passwort;
+        this.bilderpfad = bilderpfad;
+        this.rolle = rolle;
+    }
+
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Interessen> interessen;
 
