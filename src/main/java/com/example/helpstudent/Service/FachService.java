@@ -2,6 +2,7 @@ package com.example.helpstudent.Service;
 
 import com.example.helpstudent.Repository.FachRepository;
 import com.example.helpstudent.Tabellen.Student.Fach;
+import com.example.helpstudent.Tabellen.Student.Studiengang;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,4 +22,9 @@ public class FachService{
     public Fach getFachByName(String name){
           return fachRepository.getFachByFachName(name);
        }
+
+    public List<Fach> getAllFaecher(){
+        return fachRepository.findAll();
+    }
+
 }

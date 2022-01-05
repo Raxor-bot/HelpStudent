@@ -4,20 +4,18 @@ package com.example.helpstudent.Controller;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import com.example.helpstudent.Service.StudentService;
 import com.example.helpstudent.Tabellen.Student.Student;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,10 +31,14 @@ public class UpdateController {
     }
 
     @RequestMapping(value = "/upload" , consumes = {"multipart/form-data"})
-    public ResponseEntity<?> handleFilesUpload(@RequestParam("file") MultipartFile file, @RequestParam("studentdata") Student studentdata, Model map) throws IOException { //Hier noch StudentID
+    public ResponseEntity<?> handleFilesUpload(@RequestParam("file") MultipartFile file, @RequestParam("studid") String studentid, @RequestParam Map<String,String> body, Model map) throws IOException { //Hier noch StudentID
         StringBuilder sb = new StringBuilder();
-        System.out.println(studentdata);
-        Optional<Student> student = studentService.getStudentByID(studentdata.getNlfdstudent());
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Map<String, Object> studentdata = objectMapper.readValue(body.get("studentdata"), HashMap.class);
+        System.out.println(studentdata.get("semester"));
+        Optional<Student> student = studentService.getStudentByID(Long.parseLong(studentid));
 
     if(student.isPresent()) {
         System.out.println("Bild veararbeiten");
@@ -92,10 +94,23 @@ public class UpdateController {
         return new ResponseEntity<Object>(map, HttpStatus.OK);    }
 
     @RequestMapping(value = "/uptest" , consumes = {"multipart/form-data"})
-    public ResponseEntity<?> teststuff(@RequestParam("file") MultipartFile file, @RequestParam("studid") String studentid, @RequestParam("studentdata") Map<String,String> body, Model map){
+    public ResponseEntity<?> teststuff(@RequestParam("file") MultipartFile file, @RequestParam("studid") String studentid, @RequestParam("studentdata")  String body, Model map){
         map.addAttribute("msg","tTest");
+
+        Map<String, String> studentdataMap = new HashMap<>();
+        body = body.replace("{","");
+        body = body.replace("}","");
+        String[] elements = body.split(",");
+        for(String s1: elements) {
+            String[] keyValue = s1.split(":");
+            studentdataMap.put(keyValue[0], keyValue[1]);
+        }
+
         System.out.println(studentService.getStudentByID(Long.parseLong(studentid)));
-        System.out.println(body.get("semester"));
+        System.out.println(body);
+        System.out.println(studentdataMap.values());
+        System.out.println(studentdataMap.get("schwaechen"));
+
         return new ResponseEntity<Object>(map, HttpStatus.OK);
     }
 }

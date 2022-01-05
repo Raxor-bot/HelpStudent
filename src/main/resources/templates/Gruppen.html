@@ -149,7 +149,7 @@
                 <template v-slot:prepend>
                     <v-list-item two-line>
                         <v-list-item-avatar>
-                            <img src="https://randomuser.me/api/portraits/lego/6.jpg">
+                            <img id="navavatar" src="https://randomuser.me/api/portraits/lego/6.jpg">
                         </v-list-item-avatar>
 
                         <v-list-item-content>
@@ -186,7 +186,7 @@
                         class="mx-auto"
                         max-width="860"
                         outlined
-                        v-for="gruppe in gruppen"
+                        v-for="gruppe in filterGruppen"
                 >
                     <v-list-item three-line>
                         <v-list-item-content>
@@ -265,11 +265,14 @@
             setGruppen(data){
               console.log("Gruppen:");
               console.log(data);
-              this.gruppen = data.gruppen;
+               this.gruppen = data.gruppen;
             },
-            getStudent(data) {
+
+                getStudent(data) {
                 this.student = data;
-                console.log(this.student);
+                if(this.student.bilderpfad !== null){
+                    document.getElementById("navavatar").src = "/"+this.student.bilderpfad
+                }
             },
             searchClose() {
                 if (this.responsiveSearch == "" || this.responsiveSearch == null) { //Bitte nicht durch === ersetzen
@@ -335,8 +338,6 @@
             },
             getStudiengaenge(data) {
                 this.studiengaenge = data;
-                let test = this.studiengangsnamen;
-
             },
             fetchGruppen(){
                 fetch("Gruppen/getGruppen",  this.requestOptions)
@@ -347,6 +348,12 @@
             },
         },
         computed: {
+            filterGruppen() {
+                return this.gruppen.filter(gruppe => {
+                    return this.responsiveSearch.toLowerCase().split(' ')
+                    .every(suche => gruppe.gruppenname.toLowerCase().includes(suche))
+                })
+            },
             studiengangsnamen() {
                 let namen = [];
                 if (this.studiengaenge.Studiengang !== undefined) {

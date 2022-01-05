@@ -45,7 +45,7 @@
 
                         <!-- Profilinfos Navbar -->
                         <v-list-item-avatar>
-                            <img src="https://randomuser.me/api/portraits/lego/6.jpg">
+                            <img id="navavatar" src="https://randomuser.me/api/portraits/lego/6.jpg">
                         </v-list-item-avatar>
                         <v-list-item-content>
                             <v-list-item-title v-if="student != null"> {{student.svorname}} {{student.sname}} </v-list-item-title>
@@ -86,6 +86,7 @@
                                     size="150"
                                     v-show="!editMode">
                                 <img
+                                        id="avatar"
                                         src="https://randomuser.me/api/portraits/lego/6.jpg"
                                         alt="Juan">
                             </v-avatar>
@@ -266,11 +267,33 @@
 
 
                                             <v-card-text>Meine Stärken:</v-card-text>
+                                            <v-select v-model="staerken"
+                                                      :items="faecher"
+
+                                                      attach
+                                                      label="Stärken"
+                                                      multiple
+                                                      v-if="editMode == true && aktuellerStudiengang">
+                                                <template v-slot:prepend-item>
+                                                    <v-list-item>
+                                                        <v-list-item-content>
+                                                            <v-text-field v-model="fachsuche"
+                                                                          placeholder="Fach suchen"
+                                                                          @input="faecherSuche">
+                                                            </v-text-field>
+                                                        </v-list-item-content>
+                                                    </v-list-item>
+                                                    <v-divider></v-divider>
+                                                </template>
+                                            </v-select>
                                             <v-text-field
                                                     v-model="staerken"
-                                                    label="Stärken"
+                                                    label="Stärken (Wähle zuerst deinen Studiengang)"
                                                     required
-                                                    v-if="editMode == true"
+                                                    chips
+                                                    close
+                                                    multiple
+                                                    v-if="editMode == true && !aktuellerStudiengang"
                                             > </v-text-field>
                                             <v-text-field
                                                     v-model="staerken"
@@ -285,9 +308,13 @@
                                             <v-card-text>Meine Schwächen:</v-card-text>
                                             <v-text-field
                                                     v-model="schwaechen"
+                                                    :items="faecher"
                                                     label="Schwaechen"
                                                     required
-                                                    v-if="editMode == true"
+                                                    chips
+                                                    close
+                                                    multiple
+                                                    v-if="editMode == true && aktuellerStudiengang"
                                             > </v-text-field>
                                             <v-text-field
                                                     v-model="schwaechen"
@@ -383,7 +410,7 @@
                                                         rounded
                                                 > <v-avatar
 
-                                                        class="mr-16 mt-3 float-right    "
+                                                        class="mr-16 mt-3 float-right"
                                                         size="80">
                                                     <img
                                                             src="https://randomuser.me/api/portraits/lego/6.jpg"
@@ -424,7 +451,7 @@
                                                 >
                                                     <v-avatar
 
-                                                            class="mr-16 mt-3 float-right    "
+                                                            class="mr-16 mt-3 float-right"
                                                             size="80">
                                                         <img
                                                                 src="https://randomuser.me/api/portraits/lego/6.jpg"
@@ -454,7 +481,7 @@
                                                 >
                                                     <v-avatar
 
-                                                            class="mr-16 mt-3 float-right    "
+                                                            class="mr-16 mt-3 float-right"
                                                             size="80">
                                                         <img
                                                                 src="https://randomuser.me/api/portraits/lego/6.jpg"
@@ -484,7 +511,7 @@
                                                 >
                                                     <v-avatar
 
-                                                            class="mr-16 mt-3 float-right    "
+                                                            class="mr-16 mt-3 float-right"
                                                             size="80">
                                                         <img
                                                                 src="https://randomuser.me/api/portraits/lego/6.jpg"
@@ -605,11 +632,13 @@
 
         data: {
             editMode:false,
+            fachsuche:"",
             fusch:"",
             msg:"",
             navdraw: false,
             imgpreview:false,
             studiengaenge:[],
+            faecher:[],
             rules: [
                 value => !value || value.size < 4000000 || 'Profilbild sollte kleiner als 4MB sein!',
             ],
@@ -635,7 +664,6 @@
             },
         },
         methods: {
-
             setGruppen(data){
                 console.log("Gruppen:");
                 console.log(data);
@@ -650,13 +678,22 @@
             },
             getStudent(data) {
                 this.student = data;
-                console.log(this.student);
+                if(this.student.bilderpfad !== null){
+                    console.log(this.student.bilderpfad)
+                    document.getElementById("avatar").src = "/"+this.student.bilderpfad
+                    document.getElementById("navavatar").src = "/"+this.student.bilderpfad
+                }
+                console.log(this.student)
             },
             getStudiengaenge(data) {
                 this.studiengaenge = data;
                  console.log(this.studiengaenge);
                 let test = this.studiengangsnamen;
-
+            },
+            getFaecher(data){
+              this.faecher = data;
+              console.log("faecher")
+              console.log(this.faecher)
             },
             openUrl(url, method) {
                 window.open(url, method);
@@ -724,11 +761,12 @@
                     body: formData,
                 }
                 console.log(formData)
-                fetch("/uptest", imgRequestOptions)
+                fetch("/upload", imgRequestOptions)
                     .then((res) => res.text())
                     .then(data => (
-                        console.log("Supi")
+                        this.handleData(data)
                     ));
+                this.editMode = false;
             },
             handleData(data){
                 data = JSON.parse(data)
@@ -748,11 +786,18 @@
                    })
                 }
                     return stid
+            },//
+            faecherSuche(e) {
+                if (this.fachsuche) {
+                    this.faecher = this.faecherkopie;
+                }
+                this.faecher = this.faecherkopie.filter((fach) => {
+                    return fach.toLowerCase().indexOf(this.fachsuche.toLowerCase()) > -1;
+                });
             },
         },
         computed:{
             studiengangsnamen(){
-                // console.log()
                 let namen = [];
                 if(this.studiengaenge.Studiengang !== undefined){
                     this.studiengaenge.Studiengang.forEach(function(einArrayElement) {
@@ -767,16 +812,17 @@
             this.fetchGruppen();
             fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
                 .then(rep => rep.json())
-                .then(data => (
-                    this.getStudent(data)
-                ));
+                .then(data => (this.getStudent(data)))
 
             fetch("/studiengaenge").then(rep => rep.json().then(data => this.getStudiengaenge(data)));
 
+            fetch("/faecher")
+                .then(rep => rep.json()
+                .then(data => {
+                    this.getFaecher(data)
+                }));
         },
     })
 </script>
-
-
 </body>
 </html>

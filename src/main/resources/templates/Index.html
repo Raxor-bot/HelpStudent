@@ -45,7 +45,7 @@
         <template v-slot:prepend>
           <v-list-item two-line>
             <v-list-item-avatar>
-              <img src="https://randomuser.me/api/portraits/lego/6.jpg">
+              <img id="navavatar" src="https://randomuser.me/api/portraits/lego/6.jpg">
             </v-list-item-avatar>
 
             <v-list-item-content>
@@ -144,9 +144,11 @@
         window.open("http://localhost:8080/Login?logout=true","_self");
       },
 
-      getStudent(data){
+      getStudent(data) {
         this.student = data;
-        console.log(this.student);
+        if(this.student.bilderpfad !== null){
+          document.getElementById("navavatar").src = "/"+this.student.bilderpfad
+        }
       },
 
       sendPostRequest(){
