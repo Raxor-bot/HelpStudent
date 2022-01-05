@@ -46,7 +46,7 @@ public class UpdateController {
         logger.info(student.get().getBilderpfad());
 
         String profilpfad = student.get().getBilderpfad();
-        final String UPLOAD_FOLDER = "Bilder_upload";
+        final String UPLOAD_FOLDER = "src/main/resources/static";
 
         if (file != null) {
             if (Files.exists(Paths.get(UPLOAD_FOLDER + "/" + file.getOriginalFilename())) && (!Objects.equals(file.getOriginalFilename(), profilpfad))) {
@@ -92,6 +92,8 @@ public class UpdateController {
         map.addAttribute("msg", sb);
     }
         return new ResponseEntity<Object>(map, HttpStatus.OK);    }
+
+
 
     @RequestMapping(value = "/uptest" , consumes = {"multipart/form-data"})
     public ResponseEntity<?> teststuff(@RequestParam("file") MultipartFile file, @RequestParam("studid") String studentid, @RequestParam("studentdata")  String body, Model map){

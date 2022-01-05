@@ -68,7 +68,7 @@ public class StudentController{
 
     @RequestMapping("/chat")
     public String viewChat(){
-        return "Chat";
+        return "chat";
     }
 
 //    @RequestMapping("/upload")
