@@ -162,7 +162,7 @@ public class StudentService implements UserDetailsService {
 
     public void UpdateUser(Map<String, Object> studentdata, long studentid) {
 
-        if(studentdata.get("geburtstag") != "") {
+        if (studentdata.get("geburtstag") != "") {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             formatter.withLocale(Locale.GERMANY);
             LocalDate date = LocalDate.parse((String) studentdata.get("geburtstag"), formatter);
@@ -170,21 +170,21 @@ public class StudentService implements UserDetailsService {
             repo.setStudentGeburtstag(date, studentid);
         }
 
-        if(studentdata.get("geschlecht") != "") {
+        if (studentdata.get("geschlecht") != "") {
             repo.setStudentgeschlecht((String) studentdata.get("geschlecht"), studentid);
         }
 
-        if(studentdata.get("studiengang") != "") {
+        if (studentdata.get("studiengang") != "") {
             long studiengangId = ((Number) studentdata.get("studiengang")).longValue();
 
             repo.setStudentStudiengang(studiengangService.getStudiengangById(studiengangId), studentid);
         }
 
-        if(studentdata.get("semester") != ""){
+        if (studentdata.get("semester") != "") {
             int semester = Integer.parseInt(studentdata.get("semester").toString());
 
-            if(semester > 0){
-                repo.setStudentnSemester(semester,studentid);
+            if (semester > 0) {
+                repo.setStudentnSemester(semester, studentid);
             }
         }
 
@@ -200,5 +200,22 @@ public class StudentService implements UserDetailsService {
 
 
         }
+    }
+
+    private List<Fach> convertArray(String fachstr) {
+        List<Fach> faecher = new ArrayList<>();
+
+        long[] staerken = Arrays.stream(fachstr.substring(1, fachstr.length() - 1)
+                        .split(","))
+                .map(String::trim)
+                .mapToLong(Long::parseLong)
+                .toArray();
+
+        for (long num:staerken
+        ) {
+            faecher.add(fachService.getFachById(num));
+        }
+        return faecher;
+    }*/
     }
 }

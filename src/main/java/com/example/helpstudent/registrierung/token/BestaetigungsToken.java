@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table
 public class BestaetigungsToken {
 
     @Id
@@ -31,10 +32,10 @@ public class BestaetigungsToken {
 
     @ManyToOne
     @JoinColumn(
-            nullable = false,
-            name = "nlfdstudent"
+            nullable = false
     )
     private Student student;
+
     public BestaetigungsToken(String token,
                               LocalDateTime erstelltUm,
                               LocalDateTime verfaelltUm,
