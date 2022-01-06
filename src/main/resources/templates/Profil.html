@@ -261,7 +261,7 @@
                                             <v-card-text>Meine Stärken:</v-card-text>
                                             <v-select v-model="staerken"
                                                       :items="faecher"
-
+                                                      dark
                                                       attach
                                                       multiple
                                                       v-if="editMode == true && aktuellerStudiengang">
@@ -270,7 +270,8 @@
                                                         <v-list-item-content>
                                                             <v-text-field v-model="fachsuche"
                                                                           placeholder="Fach suchen"
-                                                                          @input="faecherSuche">
+                                                                          @input="faecherSuche"
+                                                                          class="white--text">
                                                             </v-text-field>
                                                         </v-list-item-content>
                                                     </v-list-item>
