@@ -125,6 +125,8 @@ public class UpdateController {
             String profilpfad = student.get().getBilderpfad();
             final String UPLOAD_FOLDER = "src/main/resources/static";
 
+            studentService.UpdateUser(studentdata, Long.parseLong(studentid));
+
         if (file != null) {
             System.out.println("twest");
             if (Files.exists(Paths.get(UPLOAD_FOLDER + "/" + file.getOriginalFilename())) && (!Objects.equals(file.getOriginalFilename(), profilpfad))) {

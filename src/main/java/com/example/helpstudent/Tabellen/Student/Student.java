@@ -26,6 +26,7 @@ public class Student implements UserDetails{
     private String sname;
     private String svorname;
     private LocalDate geburtstag;
+    private String geschlecht;
     private int nsemester;
     private String mail;
     private String passwort;
@@ -87,8 +88,6 @@ public class Student implements UserDetails{
         this.rolle = rolle;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Interessen> interessen;
 
     @ManyToOne
     private Studiengang studiengang;
@@ -165,4 +164,14 @@ public class Student implements UserDetails{
         System.out.println("TEST____________________________");
         this.bilderpfad = bilderpfad;
     }
+
+    @OneToMany
+    private List<Fach> staerken;
+
+    @OneToMany
+    private List<Fach> schwaechen;
+
+
+
+
 }

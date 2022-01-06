@@ -2,7 +2,6 @@ package com.example.helpstudent.Service;
 
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.Repository.StudentRepository;
-import com.example.helpstudent.Tabellen.Student.Studiengang;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 public class StudentService implements UserDetailsService {
@@ -29,14 +26,18 @@ public class StudentService implements UserDetailsService {
     @Autowired
     private final StudentRepository repo;
 
+    private StudiengangService studiengangService;
+
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final BestaetigungsTokenService bestaetigungsTokenService;
 
     @Autowired
     public StudentService(StudentRepository repo,
-                          BCryptPasswordEncoder bCryptPasswordEncoder,
+                          StudiengangService studiengangService, BCryptPasswordEncoder bCryptPasswordEncoder,
                           BestaetigungsTokenService bestaetigungsTokenService) {
         this.repo = repo;
+        this.studiengangService = studiengangService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.bestaetigungsTokenService = bestaetigungsTokenService;
     }
@@ -157,5 +158,47 @@ public class StudentService implements UserDetailsService {
 
     public void setStudentRolleUSER(String s) {
         repo.setStudentRolleUSER(s);
+    }
+
+    public void UpdateUser(Map<String, Object> studentdata, long studentid) {
+
+        if(studentdata.get("geburtstag") != "") {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            formatter.withLocale(Locale.GERMANY);
+            LocalDate date = LocalDate.parse((String) studentdata.get("geburtstag"), formatter);
+
+            repo.setStudentGeburtstag(date, studentid);
+        }
+
+        if(studentdata.get("geschlecht") != "") {
+            repo.setStudentgeschlecht((String) studentdata.get("geschlecht"), studentid);
+        }
+
+        if(studentdata.get("studiengang") != "") {
+            long studiengangId = ((Number) studentdata.get("studiengang")).longValue();
+
+            repo.setStudentStudiengang(studiengangService.getStudiengangById(studiengangId), studentid);
+        }
+
+        if(studentdata.get("semester") != ""){
+            int semester = Integer.parseInt(studentdata.get("semester").toString());
+
+            if(semester > 0){
+                repo.setStudentnSemester(semester,studentid);
+            }
+        }
+
+        if(studentdata.get("staerken")!= ""){
+            String array = (String) studentdata.get("staerken");
+
+
+
+
+
+
+
+
+
+        }
     }
 }

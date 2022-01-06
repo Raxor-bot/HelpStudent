@@ -15,10 +15,7 @@ public interface StudiengangRepository extends JpaRepository<Studiengang, Long> 
     @Override
     List<Studiengang> findAll();
 
-    @Transactional
-    @Query("select s from Studiengang s " +
-           "where s.studiengangid = ?1")
-    Studiengang getStudiengaenge(Long id);
+    Studiengang getStudiengangsByStudiengangid(Long studiengangid);
 
     @Transactional
     @Query("select stdgang from Studiengang stdgang " +

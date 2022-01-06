@@ -20,8 +20,8 @@ public class StudiengangService {
     }
 
     public Studiengang getStudiengangById(Long id){
-        System.out.println(studentrep.getStudiengaenge(id));
-        return  studentrep.getStudiengaenge(id);
+        System.out.println(studentrep.getStudiengangsByStudiengangid(id));
+        return  studentrep.getStudiengangsByStudiengangid(id);
     }
 
     public void save(Studiengang studiengang) {
