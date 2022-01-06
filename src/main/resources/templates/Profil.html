@@ -260,7 +260,9 @@
 
                                             <v-card-text>Meine Stärken:</v-card-text>
                                             <v-select v-model="staerken"
-                                                      :items="faecher"
+                                                      :items="faecher.Fach"
+                                                      item-text="fachName"
+                                                      item-value="nlfdFach"
                                                       dark
                                                       attach
                                                       multiple
@@ -299,9 +301,10 @@
                                             <v-text-field
                                                     v-model="schwaechen"
                                                     :items="faecher"
+                                                    item-text="fachName"
+                                                    item-value="nlfdFach"
                                                     required
                                                     chips
-                                                    close
                                                     multiple
                                                     v-if="editMode == true && aktuellerStudiengang"
                                             > </v-text-field>
@@ -782,7 +785,7 @@
             },//
             faecherSuche(e) {
                 if (this.fachsuche) {
-                    this.faecher = this.faecherkopie;
+                    this.faecherkopie = this.faecher;
                 }
                 this.faecher = this.faecherkopie.filter((fach) => {
                     return fach.toLowerCase().indexOf(this.fachsuche.toLowerCase()) > -1;
