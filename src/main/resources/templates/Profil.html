@@ -223,12 +223,15 @@
 
                                             <v-card-text>
                                                 Studiengang:
+                                                {{aktuellerStudiengang}}
                                             </v-card-text>
                                             <v-select
-                                                    :items="studiengangsnamen"
+                                                    :items="studiengaenge.Studiengang "
                                                     dense
                                                     outlined
                                                     required
+                                                    item-text="stName"
+                                                    item-value="studiengangid"
                                                     v-model="aktuellerStudiengang"
                                                     v-if="editMode == true"
                                             ></v-select>
@@ -271,7 +274,7 @@
                                                             <v-text-field v-model="fachsuche"
                                                                           placeholder="Fach suchen"
                                                                           @input="faecherSuche"
-                                                                          class="white--text">
+                                                                          class="black--text">
                                                             </v-text-field>
                                                         </v-list-item-content>
                                                     </v-list-item>
@@ -702,18 +705,6 @@
                 sessionStorage.setItem("snachname", "");
                 sessionStorage.setItem("sbilderpfad", "");
             },
-            onSubmit() {
-                fetch("/geburtstag").then(rep => rep.json().then(data => this.geburtstag(data)));
-                console.log(this.geburtstag);
-                fetch("/geschlecht").then(rep => rep.json().then(data => this.geschlecht(data)));
-                console.log(this.geschlecht);
-                fetch("/semester").then(rep => rep.json().then(data => this.semester(data)));
-                console.log(this.semester);
-                fetch("/stärken").then(rep => rep.json().then(data => this.staerken(data)));
-                console.log(this.staerken);
-                fetch("/schwächen").then(rep => rep.json().then(data => this.schwaechen(data)));
-                console.log(this.schwaechen);
-            },
             onChange(event){
                 const files = event.target.files
                 let pic = files[0].name;
@@ -739,7 +730,7 @@
                 let data = {
                     "geburtstag": this.geburtstag,
                     "geschlecht": this.geschlecht,
-                    "studiengang": this.getStudiengangID(this.aktuellerStudiengang),
+                    "studiengang": this.aktuellerStudiengang,
                     "semester": this.semester,
                     "staerken": this.staerken,
                     "schwaechen": this.schwaechen
