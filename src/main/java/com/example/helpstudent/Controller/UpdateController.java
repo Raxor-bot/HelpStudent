@@ -38,7 +38,7 @@ public class UpdateController {
         ObjectMapper objectMapper = new ObjectMapper();
 
         Map<String, Object> studentdata = objectMapper.readValue(body.get("studentdata"), HashMap.class);
-        System.out.println(studentdata.get("semester"));
+        System.out.println(studentdata.get("schwaechen"));
         Optional<Student> student = studentService.getStudentByID(Long.parseLong(studentid));
 
 

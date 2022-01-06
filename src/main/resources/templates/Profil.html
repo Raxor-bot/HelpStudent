@@ -186,62 +186,46 @@
                                     </v-tab>
 
                                     <!--Content Meine Infos -->
-                                    <v-tab-item dark="true">
+                                    <v-tab-item >
                                         <v-card dark tile >
+
                                                 <v-card-title>
                                                     Persönliches
                                                 </v-card-title>
+
                                             <v-btn @click="saveinfo" float="right"> Bearbeiten</v-btn>
+
+
                                             <v-card-text>Geburtstag:</v-card-text>
                                             <v-text-field
                                                     v-model="geburtstag"
                                                     required
-                                                    v-if="editMode == true"
-                                            > </v-text-field>
-                                            <v-text-field
-                                                    v-model="geburtstag"
-                                                    required
-                                                    disabled
-                                                    v-else
+                                                    :disabled="!editMode"
                                             > </v-text-field>
 
 
                                             <v-card-text>Geschlecht:</v-card-text>
-                                            <v-text-field
-                                                    v-model="geschlecht"
-                                                    required
-                                                    v-if="editMode == true"
-                                            > </v-text-field>
-                                            <v-text-field
-                                                    v-model="geschlecht"
-                                                    required
-                                                    disabled
-                                                    v-else
-                                            > </v-text-field>
 
+                                            <v-text-field
+                                                    v-model="geschlecht"
+                                                    required
+                                                    :disabled="!editMode"
+                                            > </v-text-field>
 
 
                                             <v-card-text>
                                                 Studiengang:
-                                                {{aktuellerStudiengang}}
                                             </v-card-text>
                                             <v-select
                                                     :items="studiengaenge.Studiengang "
                                                     dense
                                                     outlined
                                                     required
+                                                    :disabled="!editMode"
                                                     item-text="stName"
                                                     item-value="studiengangid"
                                                     v-model="aktuellerStudiengang"
-                                                    v-if="editMode == true"
                                             ></v-select>
-                                            <v-text-field
-                                                    v-model="aktuellerStudiengang"
-                                                    required
-                                                    disabled
-                                                    v-else
-                                            > </v-text-field>
-
 
 
                                             <v-card-text>Eingeschriebenes Semester:</v-card-text>
@@ -249,24 +233,16 @@
                                                     for="semester"
                                                     v-model="semester"
                                                     required
-                                                    v-if="editMode == true"
+                                                    :disabled="!editMode"
                                             > </v-text-field>
-                                            <v-text-field
-                                                    for="semester"
-                                                    v-model="semester"
-                                                    required
-                                                    disabled
-                                                    v-else
-                                            > </v-text-field>
-
 
 
                                             <v-card-text>Meine Stärken:</v-card-text>
                                             <v-select v-model="staerken"
-                                                      :items="faecher.Fach"
+                                                      :items="faecher"
                                                       item-text="fachName"
                                                       item-value="nlfdFach"
-                                                      dark
+                                                      chips
                                                       attach
                                                       multiple
                                                       v-if="editMode == true && aktuellerStudiengang">
@@ -276,47 +252,82 @@
                                                             <v-text-field v-model="fachsuche"
                                                                           placeholder="Fach suchen"
                                                                           @input="faecherSuche"
-                                                                          class="black--text">
+                                                                          background-color="#1E1E1E"
+                                                                          filled
+                                                                          outlined
+                                                                          class="my-n2"
+                                                            >
                                                             </v-text-field>
                                                         </v-list-item-content>
                                                     </v-list-item>
-                                                    <v-divider></v-divider>
+                                                    <v-divider class="mt-n6"></v-divider>
                                                 </template>
                                             </v-select>
                                             <v-text-field
-                                                    v-model="staerken"
                                                     required
+                                                    v-model="staerken"
+                                                    label="Wähle zuerst deinen Studiengang!"
                                                     chips
+                                                    disabled
                                                     close
                                                     multiple
                                                     v-if="editMode == true && !aktuellerStudiengang"
                                             > </v-text-field>
                                             <v-text-field
-                                                    v-model="staerken"
                                                     required
+                                                    v-model="staerken"
                                                     disabled
-                                                    v-else
+                                                    v-if="!editMode"
                                             > </v-text-field>
 
 
 
                                             <v-card-text>Meine Schwächen:</v-card-text>
+                                            <!-- https://codepen.io/sudheer-ranga/pen/bGVbjbx -->
+                                            <v-select v-model="schwaechen"
+                                                      :items="faecher"
+                                                      item-text="fachName"
+                                                      item-value="nlfdFach"
+                                                      chips
+                                                      attach
+                                                      class="black--text"
+                                                      multiple
+                                                      background-color=""
+                                                      v-if="editMode == true && aktuellerStudiengang">
+                                                <template v-slot:prepend-item>
+                                                    <v-list-item>
+                                                        <v-list-item-content>
+                                                            <v-text-field v-model="fachsuche"
+                                                                          placeholder="Fach suchen"
+                                                                          @input="faecherSuche"
+                                                                          background-color="#1E1E1E"
+                                                                          filled
+                                                                          outlined
+                                                                          class="my-n2"
+                                                                          >
+                                                            </v-text-field>
+                                                        </v-list-item-content>
+                                                    </v-list-item>
+                                                    <v-divider class="mt-n6"></v-divider>
+                                                </template>
+                                            </v-select>
                                             <v-text-field
-                                                    v-model="schwaechen"
-                                                    :items="faecher"
-                                                    item-text="fachName"
-                                                    item-value="nlfdFach"
                                                     required
+                                                    v-model="schwaechen"
+                                                    label="Wähle zuerst deinen Studiengang!"
                                                     chips
+                                                    :disabled="editMode"
+                                                    close
                                                     multiple
-                                                    v-if="editMode == true && aktuellerStudiengang"
+                                                    v-if="editMode == true && !aktuellerStudiengang"
                                             > </v-text-field>
-                                            <v-text-field
-                                                    v-model="schwaechen"
+                                            <v-select
                                                     required
+                                                    v-model="schwaechen"
                                                     disabled
-                                                    v-else
-                                            > </v-text-field>
+                                                    chips
+                                                    v-if="!editMode"
+                                            > </v-select>
 
                                             <v-btn color="green lighten-2" v-if="editMode == true" @click="addInfo" > Speichern</v-btn>
                                         </v-card>
@@ -633,6 +644,7 @@
             imgpreview:false,
             studiengaenge:[],
             faecher:[],
+            faecherkopie:[],
             rules: [
                 value => !value || value.size < 4000000 || 'Profilbild sollte kleiner als 4MB sein!',
             ],
@@ -690,9 +702,10 @@
                 let test = this.studiengangsnamen;
             },
             getFaecher(data){
-              this.faecher = data;
+              this.faecher = data.Fach;
               console.log("faecher")
               console.log(this.faecher)
+                this.faecherkopie = this.faecher;
             },
             openUrl(url, method) {
                 window.open(url, method);
@@ -773,17 +786,22 @@
                    })
                 }
                     return stid
-            },//
+            },
             faecherSuche(e) {
-                if (this.fachsuche) {
-                    this.faecherkopie = this.faecher;
+                if (!this.fachsuche) {
+                    this.faecher = this.faecherkopie;
                 }
                 this.faecher = this.faecherkopie.filter((fach) => {
-                    return fach.toLowerCase().indexOf(this.fachsuche.toLowerCase()) > -1;
+                    return fach.fachName.toLowerCase().indexOf(this.fachsuche.toLowerCase()) > -1;
                 });
             },
         },
         computed:{
+            gitgud(){
+                if(this.aktuellerStudiengang) {
+                    return this.studiengaenge.Studiengang[this.aktuellerStudiengang]
+                }
+            },
             sessionEmpty(){
                 return sessionStorage.length === 0;
             },
