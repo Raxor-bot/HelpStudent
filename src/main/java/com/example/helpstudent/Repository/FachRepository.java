@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface FachRepository extends JpaRepository<Fach, Long> {
-
     @Override
     List<Fach> findAll();
 
