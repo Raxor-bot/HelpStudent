@@ -56,7 +56,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Student student "+"SET student.starken = ?1 WHERE student.nlfdstudent = ?2")
+    @Query("UPDATE Student student "+"SET student.staerken = ?1 WHERE student.nlfdstudent = ?2")
     void setStudentStaerken(List<Fach> fachListstark, Long id);
 
     @Transactional

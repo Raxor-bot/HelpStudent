@@ -161,14 +161,13 @@ public class Student implements UserDetails{
     }
 
     public void setBilderpfad(String bilderpfad) {
-        System.out.println("TEST____________________________");
         this.bilderpfad = bilderpfad;
     }
 
-    @OneToMany
+    @ManyToMany
     private List<Fach> staerken;
 
-    @OneToMany
+    @ManyToMany
     private List<Fach> schwaechen;
 
 

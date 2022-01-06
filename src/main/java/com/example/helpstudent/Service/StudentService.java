@@ -1,5 +1,6 @@
 package com.example.helpstudent.Service;
 
+import com.example.helpstudent.Tabellen.Student.Fach;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.Repository.StudentRepository;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
@@ -31,15 +32,17 @@ public class StudentService implements UserDetailsService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final BestaetigungsTokenService bestaetigungsTokenService;
+    private FachService fachService;
 
     @Autowired
     public StudentService(StudentRepository repo,
                           StudiengangService studiengangService, BCryptPasswordEncoder bCryptPasswordEncoder,
-                          BestaetigungsTokenService bestaetigungsTokenService) {
+                          BestaetigungsTokenService bestaetigungsTokenService, FachService fachService) {
         this.repo = repo;
         this.studiengangService = studiengangService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.bestaetigungsTokenService = bestaetigungsTokenService;
+        this.fachService = fachService;
     }
 
     public List<Student> getStudents(){
@@ -188,17 +191,16 @@ public class StudentService implements UserDetailsService {
             }
         }
 
-        if(studentdata.get("staerken")!= ""){
-            String array = (String) studentdata.get("staerken");
+        if(!studentdata.get("staerken").toString().equals("[]")){
+            logger.info("stark");
+            String staerkenstr = studentdata.get("staerken").toString();
+            repo.setStudentStaerken(convertArray(staerkenstr),studentid);
+        }
 
-
-
-
-
-
-
-
-
+        if(!studentdata.get("schwaechen").toString().equals("[]")) {
+            logger.info("schwach");
+            String schwaechenstr = studentdata.get("schwaechen").toString();
+            repo.setStudentSchwaechen(convertArray(schwaechenstr),studentid);
         }
     }
 
@@ -206,16 +208,17 @@ public class StudentService implements UserDetailsService {
         List<Fach> faecher = new ArrayList<>();
 
         long[] staerken = Arrays.stream(fachstr.substring(1, fachstr.length() - 1)
-                        .split(","))
+                .split(","))
                 .map(String::trim)
                 .mapToLong(Long::parseLong)
                 .toArray();
 
-        for (long num:staerken
+
+        for (long num : staerken
         ) {
             faecher.add(fachService.getFachById(num));
         }
+        logger.info(faecher.toString());
         return faecher;
-    }*/
     }
 }

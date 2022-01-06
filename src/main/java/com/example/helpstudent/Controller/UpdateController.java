@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -107,19 +106,14 @@ public class UpdateController {
         ObjectMapper objectMapper = new ObjectMapper();
 
         Map<String, Object> studentdata = objectMapper.readValue(body.get("studentdata"), HashMap.class);
-        System.out.println(studentdata.get("semester"));
 
         logger.info(studentid);
-
 
         Optional<Student> student = studentService.getStudentByID(Long.parseLong(studentid));
 
         if(student.isPresent()) {
 
             logger.info(studentdata.get("geburtstag"));
-
-
-
             logger.info(student.get().toString());
 
             String profilpfad = student.get().getBilderpfad();
@@ -163,20 +157,12 @@ public class UpdateController {
         else{
             sb.append("Keine Datei ausgewählt\n");
             map.addAttribute("msg", sb);
-
+            }
         }
-        }
-
-
         else {
             sb.append("Student nicht vorhanden\n");
             map.addAttribute("msg", sb);
         }
-
-        System.out.println(studentService.getStudentByID(Long.parseLong(studentid)));
-        System.out.println(body);
-        System.out.println(studentdata.values());
-        System.out.println(studentdata.get("schwaechen"));
 
         return new ResponseEntity<Object>(map, HttpStatus.OK);
     }
