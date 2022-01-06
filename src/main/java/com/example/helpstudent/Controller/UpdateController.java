@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +32,7 @@ public class UpdateController {
     }
 
     @RequestMapping(value = "/upload" , consumes = {"multipart/form-data"})
-    public ResponseEntity<?> handleFilesUpload(@RequestParam("file") MultipartFile file, @RequestParam("studid") String studentid, @RequestParam Map<String,String> body, Model map) throws IOException { //Hier noch StudentID
+    public ResponseEntity<?> handleFilesUpload(@RequestParam(value = "file", required = false) MultipartFile file, @RequestParam("studid") String studentid, @RequestParam Map<String,String> body, Model map) throws IOException {
         StringBuilder sb = new StringBuilder();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -40,7 +41,8 @@ public class UpdateController {
         System.out.println(studentdata.get("semester"));
         Optional<Student> student = studentService.getStudentByID(Long.parseLong(studentid));
 
-    if(student.isPresent()) {
+
+        if(student.isPresent()) {
         System.out.println("Bild veararbeiten");
 
         logger.info(student.get().getBilderpfad());
@@ -48,7 +50,7 @@ public class UpdateController {
         String profilpfad = student.get().getBilderpfad();
         final String UPLOAD_FOLDER = "src/main/resources/static";
 
-        if (file != null) {
+        /*if (file != null) {
             if (Files.exists(Paths.get(UPLOAD_FOLDER + "/" + file.getOriginalFilename())) && (!Objects.equals(file.getOriginalFilename(), profilpfad))) {
                 sb.append("Datei bereits vorhanden \n");
                 map.addAttribute("msg", sb);
@@ -83,7 +85,7 @@ public class UpdateController {
         else {
             sb.append("Keine Datei ausgewählt\n");
             map.addAttribute("msg", sb);
-        }
+        }*/
     }
 
 
@@ -95,8 +97,10 @@ public class UpdateController {
 
 
 
-    @RequestMapping(value = "/uptest" , consumes = {"multipart/form-data"})
-    public ResponseEntity<?> teststuff(@RequestParam("file") MultipartFile file, @RequestParam("studid") String studentid, @RequestParam("studentdata")  String body, Model map){
+    @GetMapping(value = "/uptest" , consumes = {"multipart/form-data"})
+    public ResponseEntity<?> teststuff(@RequestParam(value = "file", required = false) MultipartFile file, @RequestParam("studid") String studentid, @RequestParam("studentdata")  String body, Model map){
+        StringBuilder sb = new StringBuilder();
+
         map.addAttribute("msg","tTest");
 
         Map<String, String> studentdataMap = new HashMap<>();
@@ -106,6 +110,65 @@ public class UpdateController {
         for(String s1: elements) {
             String[] keyValue = s1.split(":");
             studentdataMap.put(keyValue[0], keyValue[1]);
+        }
+
+
+        Optional<Student> student= studentService.getStudentByID(Long.parseLong(studentid));
+
+        student.get().toString();
+
+        if(student.isPresent()) {
+            System.out.println("Bild veararbeiten");
+
+            logger.info(student.get().getBilderpfad());
+
+            String profilpfad = student.get().getBilderpfad();
+            final String UPLOAD_FOLDER = "src/main/resources/static";
+
+        if (file != null) {
+            System.out.println("twest");
+            if (Files.exists(Paths.get(UPLOAD_FOLDER + "/" + file.getOriginalFilename())) && (!Objects.equals(file.getOriginalFilename(), profilpfad))) {
+                sb.append("Datei bereits vorhanden \n");
+                map.addAttribute("msg", sb);
+            }
+
+            else{
+                try {
+                    if (!Files.exists(Paths.get(UPLOAD_FOLDER))) {
+                        try {
+                            Files.createDirectories(Paths.get(UPLOAD_FOLDER));
+                        } catch (IOException ioe) {
+                            ioe.printStackTrace();
+                        }
+                    }
+
+                    Files.copy(file.getInputStream(), Paths.get(UPLOAD_FOLDER, file.getOriginalFilename()));
+                    sb.append("Datei wurde Hochgeladen " + file.getOriginalFilename() + "!\n");
+
+                    studentService.setStudentBilderPfad(file.getOriginalFilename(), student.get().getNlfdstudent());
+
+                    map.addAttribute("msg", sb);
+
+                } catch (IOException | RuntimeException e) {
+                    sb.append("Datei konnte nicht Hochgeladen werden " + file.getOriginalFilename() + " => "
+                            + e.getMessage() + String.valueOf(e) + "\n");
+
+                    map.addAttribute("msg", sb);
+                }
+            }
+        }
+
+        else{
+            sb.append("Keine Datei ausgewählt\n");
+            map.addAttribute("msg", sb);
+
+        }
+        }
+
+
+        else {
+            sb.append("Student nicht vorhanden\n");
+            map.addAttribute("msg", sb);
         }
 
         System.out.println(studentService.getStudentByID(Long.parseLong(studentid)));

@@ -5,6 +5,8 @@ import com.example.helpstudent.Service.StudentService;
 import com.example.helpstudent.Service.StudiengangService;
 import com.example.helpstudent.Tabellen.Student.Gruppe;
 import com.example.helpstudent.Tabellen.Student.Student;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,25 +45,25 @@ public class GruppenController {
 
     @PostMapping("/erstelleGruppe")
     public ResponseEntity<?> erstelleGruppe(@RequestBody Map<String,Object> body){
+        Logger logger = LoggerFactory.getLogger(GruppenController.class);
+
         Map<String, Object> myMap = new HashMap<>();
-        try {
         Student student = studentService.getStudentByID(Long.parseLong(body.get("studentenid").toString())).orElseThrow(NoSuchElementException::new);
+        Gruppe gruppe = new Gruppe(Integer.parseInt(body.get("gruppengroesse").toString()),body.get("gruppenname").toString(),studiengangService.getStudiengangbyName(body.get("stdgangname").toString()),student);
 
-        gruppenService.addNewGruppe(new Gruppe(
-                    Integer.parseInt(body.get("gruppengroesse").toString()),
-                    body.get("gruppenname").toString(),
-                    studiengangService.getStudiengangbyName(body.get("stdgangname").toString()),
-                    student
+        logger.info(student.toString());
+        logger.info(gruppe.toString());
 
-            ));
-        System.out.println( studiengangService.getStudiengangbyName(body.get("stdgangname").toString()).getStName());
-        }catch (NoSuchElementException e){
-            myMap.put("gruppentext","Nutzer existiert nicht");
-        } catch (Exception e){
-            myMap.put("ereortext","Gruppe konnte nicht erstellt werden!");
-        }
+            try {
+                gruppenService.addNewGruppe(gruppe);
+
+                myMap.put("gruppentext", "wurde erstellt");
+            } catch (NoSuchElementException e) {
+                myMap.put("gruppentext", "Nutzer existiert nicht");
+            } catch (Exception e) {
+                myMap.put("ereortext", "Gruppe konnte nicht erstellt werden!");
+            }
 
         return new ResponseEntity<Object>(myMap, HttpStatus.OK);
-
     }
 }

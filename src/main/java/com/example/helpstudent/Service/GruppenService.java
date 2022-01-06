@@ -2,7 +2,6 @@ package com.example.helpstudent.Service;
 
 import com.example.helpstudent.Repository.GruppenRepository;
 import com.example.helpstudent.Tabellen.Student.Gruppe;
-import com.example.helpstudent.Tabellen.Student.Student;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

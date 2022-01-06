@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Table
@@ -91,12 +90,11 @@ public class Student implements UserDetails{
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Interessen> interessen;
 
-    @ManyToMany
-    private List<Gruppe> gruppe;
-
     @ManyToOne
-    @JoinColumn(name = "studiengang_id")
     private Studiengang studiengang;
+
+    @ManyToMany(mappedBy = "studentGruppen")
+    List<Gruppe> gruppen;
 
 
     @Override
