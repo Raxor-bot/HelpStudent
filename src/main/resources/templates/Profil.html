@@ -664,6 +664,11 @@
             },
         },
         methods: {
+            checkLogin(){
+                if(sessionStorage.getItem("id") === "" || this.sessionEmpty){
+                    window.open("http://localhost:8080/Login?error=True","_self")
+                }
+            },
             setGruppen(data){
                 console.log("Gruppen:");
                 console.log(data);
@@ -797,6 +802,9 @@
             },
         },
         computed:{
+            sessionEmpty(){
+                return sessionStorage.length === 0;
+            },
             studiengangsnamen(){
                 let namen = [];
                 if(this.studiengaenge.Studiengang !== undefined){
@@ -809,6 +817,12 @@
         },
 
         created() {
+            if (this.sessionEmpty) {
+                this.initSession();
+            }
+            this.checkLogin();
+
+
             this.fetchGruppen();
             fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
                 .then(rep => rep.json())

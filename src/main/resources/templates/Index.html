@@ -139,6 +139,11 @@
 
     },
     methods:{
+      checkLogin(){
+        if(sessionStorage.getItem("id") === "" || this.sessionEmpty){
+          window.open("http://localhost:8080/Login?error=True","_self")
+        }
+      },
       logout(){
         sessionStorage.clear()
         window.open("http://localhost:8080/Login?logout=true","_self");
@@ -158,11 +163,11 @@
       openUrl(url, method){
         window.open(url, method);
       },
-      initSession(){
-        // sessionStorage.setItem("id", "");
-        // sessionStorage.setItem("svorname", "");
-        // sessionStorage.setItem("snachname", "");
-        // sessionStorage.setItem("sbilderpfad", "");
+      initSession() {
+        sessionStorage.setItem("id", "");
+        sessionStorage.setItem("svorname", "");
+        sessionStorage.setItem("snachname", "");
+        sessionStorage.setItem("sbilderpfad", "");
       },
       darkMode() {
         this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
@@ -171,44 +176,43 @@
     computed:{
       sessionEmpty(){
         return sessionStorage.length === 0;
-      }
-    },
-    backgroundImage() {
-      if (this.$vuetify.theme.dark) {
-        return {
-          "background-image": "url('/bg.png')",
-          "background-position": "center",
-          "background-repeat": "no-repeat",
-          "background-attachment": "fixed",
+      },
+      backgroundImage() {
+        if (this.$vuetify.theme.dark) {
+          return {
+            "background-image": "url('/bg.png')",
+            "background-position": "center",
+            "background-repeat": "no-repeat",
+            "background-attachment": "fixed",
+          }
         }
-      }
 
-      if (!this.$vuetify.theme.light) {
-        return {
-          "background-image": "url('/bg1.png')",
-          "background-position": "center",
-          "background-repeat": "no-repeat",
-          "background-attachment": "fixed",
+        if (!this.$vuetify.theme.light) {
+          return {
+            "background-image": "url('/bg1.png')",
+            "background-position": "center",
+            "background-repeat": "no-repeat",
+            "background-attachment": "fixed",
+          }
         }
-      }
+      },
     },
+
   created: function () {
-    if(this.sessionEmpty){
+    if (this.sessionEmpty) {
       this.initSession();
     }
-      fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
-            .then(rep => rep.json())
-            .then(data => (
-                    this.getStudent(data)
-            ));
+    this.checkLogin();
 
-      this.session = sessionStorage;
-      console.log(sessionStorage);
+     fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
+           .then(rep => rep.json())
+           .then(data => (
+                   this.getStudent(data)
+           ));
 
+     this.session = sessionStorage;
+     console.log(sessionStorage);
 
-     // Das hier auskommentieren wenn man ohne Login weiter möchte
-    if(sessionStorage.getItem("id") === "" || this.sessionEmpty)
-        window.open("http://localhost:8080/Login?error=True","_self")
     },
   })
 </script>
