@@ -25,7 +25,7 @@ public class StudentConfig implements CommandLineRunner{
             "Reimann",
             "Armin",
             "reimann.armin2@gmail.com",
-            "passwort123"
+            "$2a$04$sE4egg5pkSjdz6nyh.s2b.v4Ru01PdHnnGBYoBSQXqMoyYBmeRqae"
     );
 
     public StudentConfig(StudentService studentService) {

@@ -160,6 +160,17 @@
             raumName:null,
         },
         methods:{
+            initSession() {
+                sessionStorage.setItem("id", "");
+                sessionStorage.setItem("svorname", "");
+                sessionStorage.setItem("snachname", "");
+                sessionStorage.setItem("sbilderpfad", "");
+            },
+            checkLogin(){
+                if(sessionStorage.getItem("id") === "" || this.sessionEmpty){
+                    window.open("http://localhost:8080/Login?error=True","_self")
+                }
+            },
             darkMode() {
                 this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
             },
@@ -264,6 +275,12 @@
             },
         },
         created(){
+            if (this.sessionEmpty) {
+                this.initSession();
+            }
+            this.checkLogin();
+
+
             console.log(sessionStorage);
             this.raumName = sessionStorage.getItem("roomName");
             this.raumdId = sessionStorage.getItem("roomId");
@@ -272,6 +289,9 @@
         },
 
         computed: {
+            sessionEmpty(){
+                return sessionStorage.length === 0;
+            },
             backgroundImage() {
                 if (this.$vuetify.theme.dark) {
                     return {
@@ -290,8 +310,8 @@
                         "background-attachment": "fixed",
                     }
                 }
-            }
-        }
+            },
+        },
     })
 </script>
 </body>

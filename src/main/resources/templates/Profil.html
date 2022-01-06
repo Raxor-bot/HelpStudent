@@ -195,13 +195,11 @@
                                             <v-card-text>Geburtstag:</v-card-text>
                                             <v-text-field
                                                     v-model="geburtstag"
-                                                    label="Geburtstag"
                                                     required
                                                     v-if="editMode == true"
                                             > </v-text-field>
                                             <v-text-field
                                                     v-model="geburtstag"
-                                                    label="Geburtstag"
                                                     required
                                                     disabled
                                                     v-else
@@ -211,13 +209,11 @@
                                             <v-card-text>Geschlecht:</v-card-text>
                                             <v-text-field
                                                     v-model="geschlecht"
-                                                    label="Geschlecht"
                                                     required
                                                     v-if="editMode == true"
                                             > </v-text-field>
                                             <v-text-field
                                                     v-model="geschlecht"
-                                                    label="Geschlecht"
                                                     required
                                                     disabled
                                                     v-else
@@ -227,19 +223,20 @@
 
                                             <v-card-text>
                                                 Studiengang:
+                                                {{aktuellerStudiengang}}
                                             </v-card-text>
                                             <v-select
-                                                    :items="studiengangsnamen"
-                                                    label="Studiengang auswählen"
+                                                    :items="studiengaenge.Studiengang "
                                                     dense
                                                     outlined
                                                     required
+                                                    item-text="stName"
+                                                    item-value="studiengangid"
                                                     v-model="aktuellerStudiengang"
                                                     v-if="editMode == true"
                                             ></v-select>
                                             <v-text-field
                                                     v-model="aktuellerStudiengang"
-                                                    label="Studiengang"
                                                     required
                                                     disabled
                                                     v-else
@@ -251,14 +248,12 @@
                                             <v-text-field
                                                     for="semester"
                                                     v-model="semester"
-                                                    label="Semester"
                                                     required
                                                     v-if="editMode == true"
                                             > </v-text-field>
                                             <v-text-field
                                                     for="semester"
                                                     v-model="semester"
-                                                    label="Semester"
                                                     required
                                                     disabled
                                                     v-else
@@ -268,10 +263,11 @@
 
                                             <v-card-text>Meine Stärken:</v-card-text>
                                             <v-select v-model="staerken"
-                                                      :items="faecher"
-
+                                                      :items="faecher.Fach"
+                                                      item-text="fachName"
+                                                      item-value="nlfdFach"
+                                                      dark
                                                       attach
-                                                      label="Stärken"
                                                       multiple
                                                       v-if="editMode == true && aktuellerStudiengang">
                                                 <template v-slot:prepend-item>
@@ -279,7 +275,8 @@
                                                         <v-list-item-content>
                                                             <v-text-field v-model="fachsuche"
                                                                           placeholder="Fach suchen"
-                                                                          @input="faecherSuche">
+                                                                          @input="faecherSuche"
+                                                                          class="black--text">
                                                             </v-text-field>
                                                         </v-list-item-content>
                                                     </v-list-item>
@@ -288,7 +285,6 @@
                                             </v-select>
                                             <v-text-field
                                                     v-model="staerken"
-                                                    label="Stärken (Wähle zuerst deinen Studiengang)"
                                                     required
                                                     chips
                                                     close
@@ -297,7 +293,6 @@
                                             > </v-text-field>
                                             <v-text-field
                                                     v-model="staerken"
-                                                    label="Stärken"
                                                     required
                                                     disabled
                                                     v-else
@@ -309,16 +304,15 @@
                                             <v-text-field
                                                     v-model="schwaechen"
                                                     :items="faecher"
-                                                    label="Schwaechen"
+                                                    item-text="fachName"
+                                                    item-value="nlfdFach"
                                                     required
                                                     chips
-                                                    close
                                                     multiple
                                                     v-if="editMode == true && aktuellerStudiengang"
                                             > </v-text-field>
                                             <v-text-field
                                                     v-model="schwaechen"
-                                                    label="Schwächen"
                                                     required
                                                     disabled
                                                     v-else
@@ -664,6 +658,11 @@
             },
         },
         methods: {
+            checkLogin(){
+                if(sessionStorage.getItem("id") === "" || this.sessionEmpty){
+                    window.open("http://localhost:8080/Login?error=True","_self")
+                }
+            },
             setGruppen(data){
                 console.log("Gruppen:");
                 console.log(data);
@@ -709,18 +708,6 @@
                 sessionStorage.setItem("snachname", "");
                 sessionStorage.setItem("sbilderpfad", "");
             },
-            onSubmit() {
-                fetch("/geburtstag").then(rep => rep.json().then(data => this.geburtstag(data)));
-                console.log(this.geburtstag);
-                fetch("/geschlecht").then(rep => rep.json().then(data => this.geschlecht(data)));
-                console.log(this.geschlecht);
-                fetch("/semester").then(rep => rep.json().then(data => this.semester(data)));
-                console.log(this.semester);
-                fetch("/stärken").then(rep => rep.json().then(data => this.staerken(data)));
-                console.log(this.staerken);
-                fetch("/schwächen").then(rep => rep.json().then(data => this.schwaechen(data)));
-                console.log(this.schwaechen);
-            },
             onChange(event){
                 const files = event.target.files
                 let pic = files[0].name;
@@ -746,7 +733,7 @@
                 let data = {
                     "geburtstag": this.geburtstag,
                     "geschlecht": this.geschlecht,
-                    "studiengang": this.getStudiengangID(this.aktuellerStudiengang),
+                    "studiengang": this.aktuellerStudiengang,
                     "semester": this.semester,
                     "staerken": this.staerken,
                     "schwaechen": this.schwaechen
@@ -789,7 +776,7 @@
             },//
             faecherSuche(e) {
                 if (this.fachsuche) {
-                    this.faecher = this.faecherkopie;
+                    this.faecherkopie = this.faecher;
                 }
                 this.faecher = this.faecherkopie.filter((fach) => {
                     return fach.toLowerCase().indexOf(this.fachsuche.toLowerCase()) > -1;
@@ -797,6 +784,9 @@
             },
         },
         computed:{
+            sessionEmpty(){
+                return sessionStorage.length === 0;
+            },
             studiengangsnamen(){
                 let namen = [];
                 if(this.studiengaenge.Studiengang !== undefined){
@@ -809,6 +799,12 @@
         },
 
         created() {
+            if (this.sessionEmpty) {
+                this.initSession();
+            }
+            this.checkLogin();
+
+
             this.fetchGruppen();
             fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
                 .then(rep => rep.json())

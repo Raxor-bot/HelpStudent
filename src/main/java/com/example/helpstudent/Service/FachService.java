@@ -25,6 +25,7 @@ public class FachService{
 
     public List<Fach> getAllFaecher(){
         return fachRepository.findAll();
+
     }
 
 }

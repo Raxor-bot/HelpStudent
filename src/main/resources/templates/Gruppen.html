@@ -154,7 +154,8 @@
 
                         <v-list-item-content>
                             <v-list-item-title>{{session.svorname}} {{session.sname}}</v-list-item-title>
-                            <v-list-item-subtitle>Angemeldet</v-list-item-subtitle>
+                            <v-list-item-subtitle v-if="loginStatus">Angemeldet</v-list-item-subtitle>
+                            <v-list-item-subtitle v-else>Nicht Angemeldet</v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
                 </template>
@@ -259,9 +260,15 @@
                 body: {}
             },
             gruppen:[],
+            loginStatus:null,
 
         },
         methods: {
+            checkLogin(){
+                if(sessionStorage.getItem("id") === "" || this.sessionEmpty){
+                    window.open("http://localhost:8080/Login?error=True","_self")
+                }
+            },
             setGruppen(data){
               console.log("Gruppen:");
               console.log(data);
@@ -346,6 +353,9 @@
                         this.setGruppen(data)
                     ));
             },
+            checkLoginStatus(){
+                this.loginStatus = sessionStorage.getItem("id") !== "";
+            },
         },
         computed: {
             filterGruppen() {
@@ -390,6 +400,13 @@
             if (this.sessionEmpty) {
                 this.initSession();
             }
+            this.checkLogin();
+
+
+
+            this.checkLoginStatus();
+
+
             this.session = sessionStorage;
             console.log(sessionStorage);
 
