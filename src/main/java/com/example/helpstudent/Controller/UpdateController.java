@@ -97,7 +97,7 @@ public class UpdateController {
 
 
 
-    @GetMapping(value = "/upload" , consumes = {"multipart/form-data"})
+    @RequestMapping (value = "/upload" , consumes = {"multipart/form-data"})
     public ResponseEntity<?> teststuff(@RequestParam(value = "file", required = false) MultipartFile file,  @RequestParam("studid") String studentid, @RequestParam Map<String,String> body, Model map) throws IOException {
 
         StringBuilder sb = new StringBuilder();
@@ -108,16 +108,19 @@ public class UpdateController {
 
         Map<String, Object> studentdata = objectMapper.readValue(body.get("studentdata"), HashMap.class);
         System.out.println(studentdata.get("semester"));
+
+        logger.info(studentid);
+
+
         Optional<Student> student = studentService.getStudentByID(Long.parseLong(studentid));
 
         if(student.isPresent()) {
 
-            logger.info(file.getOriginalFilename());
-            logger.info(studentdata.get("name"));
+            logger.info(studentdata.get("geburtstag"));
 
 
 
-            logger.info(student.get().getBilderpfad());
+            logger.info(student.get().toString());
 
             String profilpfad = student.get().getBilderpfad();
             final String UPLOAD_FOLDER = "src/main/resources/static";
