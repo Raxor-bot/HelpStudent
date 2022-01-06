@@ -31,7 +31,7 @@ public class UpdateController {
         this.studentService = studentService;
     }
 
-    @RequestMapping(value = "/upload" , consumes = {"multipart/form-data"})
+    /*@RequestMapping(value = "/uptest" , consumes = {"multipart/form-data"})
     public ResponseEntity<?> handleFilesUpload(@RequestParam(value = "file", required = false) MultipartFile file, @RequestParam("studid") String studentid, @RequestParam Map<String,String> body, Model map) throws IOException {
         StringBuilder sb = new StringBuilder();
 
@@ -50,7 +50,7 @@ public class UpdateController {
         String profilpfad = student.get().getBilderpfad();
         final String UPLOAD_FOLDER = "src/main/resources/static";
 
-        /*if (file != null) {
+        *//*if (file != null) {
             if (Files.exists(Paths.get(UPLOAD_FOLDER + "/" + file.getOriginalFilename())) && (!Objects.equals(file.getOriginalFilename(), profilpfad))) {
                 sb.append("Datei bereits vorhanden \n");
                 map.addAttribute("msg", sb);
@@ -85,40 +85,37 @@ public class UpdateController {
         else {
             sb.append("Keine Datei ausgewählt\n");
             map.addAttribute("msg", sb);
-        }*/
-    }
+        }*//*
+    }*/
 
 
-    else {
+    /*else {
         sb.append("Student nicht vorhanden\n");
         map.addAttribute("msg", sb);
     }
-        return new ResponseEntity<Object>(map, HttpStatus.OK);    }
+        return new ResponseEntity<Object>(map, HttpStatus.OK);    }*/
 
 
 
-    @GetMapping(value = "/uptest" , consumes = {"multipart/form-data"})
-    public ResponseEntity<?> teststuff(@RequestParam(value = "file", required = false) MultipartFile file, @RequestParam("studid") String studentid, @RequestParam("studentdata")  String body, Model map){
+    @GetMapping(value = "/upload" , consumes = {"multipart/form-data"})
+    public ResponseEntity<?> teststuff(@RequestParam(value = "file", required = false) MultipartFile file,  @RequestParam("studid") String studentid, @RequestParam Map<String,String> body, Model map) throws IOException {
+
         StringBuilder sb = new StringBuilder();
 
         map.addAttribute("msg","tTest");
 
-        Map<String, String> studentdataMap = new HashMap<>();
-        body = body.replace("{","");
-        body = body.replace("}","");
-        String[] elements = body.split(",");
-        for(String s1: elements) {
-            String[] keyValue = s1.split(":");
-            studentdataMap.put(keyValue[0], keyValue[1]);
-        }
+        ObjectMapper objectMapper = new ObjectMapper();
 
-
-        Optional<Student> student= studentService.getStudentByID(Long.parseLong(studentid));
-
-        student.get().toString();
+        Map<String, Object> studentdata = objectMapper.readValue(body.get("studentdata"), HashMap.class);
+        System.out.println(studentdata.get("semester"));
+        Optional<Student> student = studentService.getStudentByID(Long.parseLong(studentid));
 
         if(student.isPresent()) {
-            System.out.println("Bild veararbeiten");
+
+            logger.info(file.getOriginalFilename());
+            logger.info(studentdata.get("name"));
+
+
 
             logger.info(student.get().getBilderpfad());
 
@@ -173,8 +170,8 @@ public class UpdateController {
 
         System.out.println(studentService.getStudentByID(Long.parseLong(studentid)));
         System.out.println(body);
-        System.out.println(studentdataMap.values());
-        System.out.println(studentdataMap.get("schwaechen"));
+        System.out.println(studentdata.values());
+        System.out.println(studentdata.get("schwaechen"));
 
         return new ResponseEntity<Object>(map, HttpStatus.OK);
     }
