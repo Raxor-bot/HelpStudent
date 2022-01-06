@@ -13,4 +13,6 @@ public interface FachRepository extends JpaRepository<Fach, Long> {
     List<Fach> findAll();
 
     Fach getFachByFachName(String name);
+
+    Fach getFachByNlfdFach(long nlfdFach);
 }

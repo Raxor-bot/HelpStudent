@@ -28,4 +28,7 @@ public class FachService{
 
     }
 
+    public Fach getFachById(long id){
+           return fachRepository.getFachByNlfdFach(id);
+    }
 }
