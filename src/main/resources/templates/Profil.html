@@ -195,13 +195,11 @@
                                             <v-card-text>Geburtstag:</v-card-text>
                                             <v-text-field
                                                     v-model="geburtstag"
-                                                    label="Geburtstag"
                                                     required
                                                     v-if="editMode == true"
                                             > </v-text-field>
                                             <v-text-field
                                                     v-model="geburtstag"
-                                                    label="Geburtstag"
                                                     required
                                                     disabled
                                                     v-else
@@ -211,13 +209,11 @@
                                             <v-card-text>Geschlecht:</v-card-text>
                                             <v-text-field
                                                     v-model="geschlecht"
-                                                    label="Geschlecht"
                                                     required
                                                     v-if="editMode == true"
                                             > </v-text-field>
                                             <v-text-field
                                                     v-model="geschlecht"
-                                                    label="Geschlecht"
                                                     required
                                                     disabled
                                                     v-else
@@ -230,7 +226,6 @@
                                             </v-card-text>
                                             <v-select
                                                     :items="studiengangsnamen"
-                                                    label="Studiengang auswählen"
                                                     dense
                                                     outlined
                                                     required
@@ -239,7 +234,6 @@
                                             ></v-select>
                                             <v-text-field
                                                     v-model="aktuellerStudiengang"
-                                                    label="Studiengang"
                                                     required
                                                     disabled
                                                     v-else
@@ -251,14 +245,12 @@
                                             <v-text-field
                                                     for="semester"
                                                     v-model="semester"
-                                                    label="Semester"
                                                     required
                                                     v-if="editMode == true"
                                             > </v-text-field>
                                             <v-text-field
                                                     for="semester"
                                                     v-model="semester"
-                                                    label="Semester"
                                                     required
                                                     disabled
                                                     v-else
@@ -271,7 +263,6 @@
                                                       :items="faecher"
 
                                                       attach
-                                                      label="Stärken"
                                                       multiple
                                                       v-if="editMode == true && aktuellerStudiengang">
                                                 <template v-slot:prepend-item>
@@ -288,7 +279,6 @@
                                             </v-select>
                                             <v-text-field
                                                     v-model="staerken"
-                                                    label="Stärken (Wähle zuerst deinen Studiengang)"
                                                     required
                                                     chips
                                                     close
@@ -297,7 +287,6 @@
                                             > </v-text-field>
                                             <v-text-field
                                                     v-model="staerken"
-                                                    label="Stärken"
                                                     required
                                                     disabled
                                                     v-else
@@ -309,7 +298,6 @@
                                             <v-text-field
                                                     v-model="schwaechen"
                                                     :items="faecher"
-                                                    label="Schwaechen"
                                                     required
                                                     chips
                                                     close
@@ -318,7 +306,6 @@
                                             > </v-text-field>
                                             <v-text-field
                                                     v-model="schwaechen"
-                                                    label="Schwächen"
                                                     required
                                                     disabled
                                                     v-else
