@@ -150,18 +150,26 @@
                                                     ></v-text-field>
 
                                                     <v-text-field
-                                                            v-model="passwort"
+                                                            autocomplete="current-password"
+                                                            :value="passwort"
                                                             label="Passwort"
-                                                            prepend-icon="mdi-lock"
-                                                            type="password"
-                                                            color="teal accent-3"
+                                                            hint="Dein Passwort entspricht den Regeln"
+                                                            :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                                                            @click:append="() => (value = !value)"
+                                                            :type="value ? 'password' : 'text'"
+                                                            :rules="[rules.password]"
+                                                            @input="_=>passwort=_"
                                                     ></v-text-field>
                                                     <v-text-field
-                                                            v-model="passwort2"
+                                                            autocomplete="current-password"
+                                                            :value="passwort2"
                                                             label="Passwort wiederholen"
-                                                            prepend-icon="mdi-lock"
-                                                            type="password"
-                                                            color="teal accent-3"
+                                                            hint="Dein Passwort entspricht den Regeln"
+                                                            :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                                                            @click:append="() => (value = !value)"
+                                                            :type="value ? 'password' : 'text'"
+                                                            :rules="[rules.password]"
+                                                            @input="_=>passwort2=_"
                                                     ></v-text-field>
                                                 </v-form>
                                             </v-card-text>
@@ -214,25 +222,41 @@
             },
             totalVuePackages:"",
             session:"",
+            rules: {
+                required: value => !!value || "Required.",
+                password: value => {
+                    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+                    return (
+                        pattern.test(value) ||
+                        "Mindestens 8 Zeichen mit mindestens einem Großbuchstaben, einer Zahl und einem Sonderzeichen."
+                    );
+                }
+            },
+            valid: true,
+            value: true,
         },
         methods:{
             //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
             registrieren(){
 
-                if (this.mail !== "" && this.name !== "" && this.svorname !== "" && this.passwort !== "" && this.passwort === this.passwort2) {
-                    this.requestOptions.body = JSON.stringify({
-                        svorname: this.vorname,
-                        sname: this.name,
-                        mail: this.mail,
-                        passwort: this.passwort
-                    });
-                    fetch("http://localhost:8080/Login/Register/new_user", this.requestOptions)
-                        .then((res) => res.text())
-                        .then(data => (
-                            //Diese Daten (data) sind JSON und müssen zur Verwendung als String erst konvertiert werden
-                            this.handleError(data)
-                        ));
-
+                if (this.mail !== "" && this.name !== "" && this.svorname !== "" && this.passwort !== "") {
+                    if(this.passwort === this.passwort2){
+                        this.requestOptions.body = JSON.stringify({
+                            svorname: this.vorname,
+                            sname: this.name,
+                            mail: this.mail,
+                            passwort: this.passwort
+                        });
+                        fetch("http://localhost:8080/Login/Register/new_user", this.requestOptions)
+                            .then((res) => res.text())
+                            .then(data => (
+                                //Diese Daten (data) sind JSON und müssen zur Verwendung als String erst konvertiert werden
+                                this.handleError(data)
+                            ));
+                    }else{
+                        this.regerror = true;
+                        this.regerrortext = "Die Passwörter stimmen nicht überein!";
+                    }
                 }else {
                     this.regerror = true;
                     this.regerrortext = "Bitte gib zuerst deine Daten ein!";
