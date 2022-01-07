@@ -173,14 +173,15 @@
                                     <v-tab>
                                         <v-badge
                                                 color="green"
-                                                icon="1">
+                                                :value="gruppen.length"
+                                                >
                                             Meine Fächer
                                         </v-badge>
                                     </v-tab>
                                     <v-tab>
                                         <v-badge
                                                 color="red"
-                                                icon="4">
+                                                :value="gruppen.length">
                                             Meine Gruppen
                                         </v-badge>
                                     </v-tab>
@@ -197,6 +198,11 @@
 
 
                                             <v-card-text>Geburtstag:</v-card-text>
+                                            <v-row justify="space-around">
+
+                                            </v-row>
+
+                                            <v-card-text>Geschlecht:</v-card-text>
                                             <v-text-field
                                                     v-model="geburtstag"
                                                     required
@@ -237,14 +243,14 @@
                                             > </v-text-field>
 
 
-                                            <v-card-text>Meine Stärken:</v-card-text>
+                                            <v-card-text>Hier kann ich helfen:</v-card-text>
                                             <v-select v-model="staerken"
                                                       :items="faecher"
                                                       item-text="fachName"
                                                       item-value="nlfdFach"
                                                       chips
-                                                      attach
                                                       multiple
+                                                      attach
                                                       v-if="editMode == true && aktuellerStudiengang">
                                                 <template v-slot:prepend-item>
                                                     <v-list-item>
@@ -269,7 +275,6 @@
                                                     label="Wähle zuerst deinen Studiengang!"
                                                     chips
                                                     disabled
-                                                    close
                                                     multiple
                                                     v-if="editMode == true && !aktuellerStudiengang"
                                             > </v-text-field>
@@ -282,17 +287,14 @@
 
 
 
-                                            <v-card-text>Meine Schwächen:</v-card-text>
+                                            <v-card-text>Hier brauche ich hilfe:</v-card-text>
                                             <!-- https://codepen.io/sudheer-ranga/pen/bGVbjbx -->
                                             <v-select v-model="schwaechen"
                                                       :items="faecher"
                                                       item-text="fachName"
                                                       item-value="nlfdFach"
                                                       chips
-                                                      attach
-                                                      class="black--text"
                                                       multiple
-                                                      background-color=""
                                                       v-if="editMode == true && aktuellerStudiengang">
                                                 <template v-slot:prepend-item>
                                                     <v-list-item>
@@ -303,6 +305,7 @@
                                                                           background-color="#1E1E1E"
                                                                           filled
                                                                           outlined
+                                                                          multiple
                                                                           class="my-n2"
                                                                           >
                                                             </v-text-field>
@@ -317,7 +320,6 @@
                                                     label="Wähle zuerst deinen Studiengang!"
                                                     chips
                                                     :disabled="editMode"
-                                                    close
                                                     multiple
                                                     v-if="editMode == true && !aktuellerStudiengang"
                                             > </v-text-field>
@@ -329,7 +331,7 @@
                                                     v-if="!editMode"
                                             > </v-select>
 
-                                            <v-btn color="green lighten-2" v-if="editMode == true" @click="addInfo" > Speichern</v-btn>
+                                            <v-btn color="green lighten-2" v-if="editMode == true" @click="addInfo"> Speichern</v-btn>
                                         </v-card>
 
 
@@ -340,7 +342,6 @@
 
                                         <v-card
                                                 dark
-
                                                 tile>
                                             <v-card-title> Frag diese Personen nach Rat</v-card-title>
                                             <v-card-title class="mx-5"> <v-card-title>
@@ -353,7 +354,7 @@
                                                         rounded
                                                 > <v-avatar
 
-                                                        class="mr-16 mt-3 float-right    "
+                                                        class="mr-16 mt-3 float-right"
                                                         size="80">
                                                     <img
                                                             src="https://randomuser.me/api/portraits/lego/6.jpg"
@@ -384,7 +385,7 @@
                                                         rounded
                                                 > <v-avatar
 
-                                                        class="mr-16 mt-3 float-right    "
+                                                        class="mr-16 mt-3 float-right"
                                                         size="80">
                                                     <img
                                                             src="https://randomuser.me/api/portraits/lego/6.jpg"
@@ -663,6 +664,7 @@
             staerken: "",
             schwaechen: "",
             gruppen:[],
+            date: '01-01-2022',
             requestOptions: {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -698,13 +700,10 @@
             },
             getStudiengaenge(data) {
                 this.studiengaenge = data;
-                 console.log(this.studiengaenge);
-                let test = this.studiengangsnamen;
             },
             getFaecher(data){
               this.faecher = data.Fach;
               console.log("faecher")
-              console.log(this.faecher)
                 this.faecherkopie = this.faecher;
             },
             openUrl(url, method) {
