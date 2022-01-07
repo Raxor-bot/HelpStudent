@@ -3,15 +3,16 @@ package com.example.helpstudent.Repository;
 import com.example.helpstudent.Tabellen.Student.Fach;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.Tabellen.Student.Studiengang;
+import org.hibernate.annotations.SQLUpdate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -54,7 +55,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("UPDATE Student student "+"SET student.nsemester = ?1 WHERE student.nlfdstudent = ?2")
     void setStudentnSemester(int semester, Long id);
 
-    @Transactional
+    /*@Transactional
     @Modifying
     @Query("UPDATE Student student "+"SET student.staerken = ?1 WHERE student.nlfdstudent = ?2")
     void setStudentStaerken(List<Fach> fachListstark, Long id);
@@ -62,10 +63,32 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Transactional
     @Modifying
     @Query("UPDATE Student student "+"SET student.schwaechen = ?1 WHERE student.nlfdstudent = ?2")
-    void setStudentSchwaechen(List<Fach> fachListschwach, Long id);
+    void setStudentSchwaechen(List<Fach> fachListschwach, Long id);*/
+
+    @Modifying
+    @Query(value = "INSERT INTO student_staerken(staerken_nlfd_fach, student_nlfdstudent) VALUES (:fach,:id)", nativeQuery = true)
+    @Transactional
+    void setStudentStaerken(@Param("fach") Fach fach, @Param("id") Long id);
 
     @Transactional
     @Modifying
     @Query("UPDATE Student student "+"SET student.geburtstag = ?1 WHERE student.nlfdstudent = ?2")
     void setStudentGeburtstag(LocalDate geburtstag, Long id);
+
+
+    @Modifying
+    @Query(value = "INSERT INTO student_schwaechen(schwaechen_nlfd_fach, student_nlfdstudent) VALUES (:fach,:id)", nativeQuery = true)
+    @Transactional
+    void setStudentSchwaechen(@Param("fach") Fach fach,@Param("id") long studentid);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from student_schwaechen where student_nlfdstudent = ?1", nativeQuery = true)
+    void deleteStudentSchwaechen(long studentid);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from student_staerken where student_nlfdstudent = ?1", nativeQuery = true)
+    void deleteStudentStaerken(long studentid);
 }

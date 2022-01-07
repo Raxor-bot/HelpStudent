@@ -1,5 +1,6 @@
 package com.example.helpstudent.Service;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.example.helpstudent.Tabellen.Student.Fach;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.Repository.StudentRepository;
@@ -191,16 +192,33 @@ public class StudentService implements UserDetailsService {
             }
         }
 
-        if(!studentdata.get("staerken").toString().equals("[]")){
+        if(!studentdata.get("staerken").toString().equals("[]") || studentdata.get("staerken") == null){
             logger.info("stark");
+
+            repo.deleteStudentStaerken(studentid);
+
             String staerkenstr = studentdata.get("staerken").toString();
-            repo.setStudentStaerken(convertArray(staerkenstr),studentid);
+
+            logger.info(studentdata.get("staerken").toString());
+
+            List<Fach> faecher = convertArray(staerkenstr);
+
+            for(Fach fach : faecher){
+                repo.setStudentStaerken(fach , studentid);
+            }
         }
 
-        if(!studentdata.get("schwaechen").toString().equals("[]")) {
+        if(!studentdata.get("schwaechen").toString().equals("[]") || studentdata.get("schwaechen") == null) {
+            repo.deleteStudentSchwaechen(studentid);
+
             logger.info("schwach");
             String schwaechenstr = studentdata.get("schwaechen").toString();
-            repo.setStudentSchwaechen(convertArray(schwaechenstr),studentid);
+
+            List<Fach> fachList = convertArray(schwaechenstr);
+
+            for (Fach fach : fachList) {
+                repo.setStudentSchwaechen(fach, studentid);
+            }
         }
     }
 
@@ -214,11 +232,10 @@ public class StudentService implements UserDetailsService {
                 .toArray();
 
 
-        for (long num : staerken
-        ) {
+        for (long num : staerken) {
             faecher.add(fachService.getFachById(num));
         }
-        logger.info(faecher.toString());
+
         return faecher;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.helpstudent.Tabellen.Student;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -88,10 +90,11 @@ public class Student implements UserDetails{
         this.rolle = rolle;
     }
 
-
+    @JsonIgnore
     @ManyToOne
     private Studiengang studiengang;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "studentGruppen")
     List<Gruppe> gruppen;
 
@@ -164,13 +167,13 @@ public class Student implements UserDetails{
         this.bilderpfad = bilderpfad;
     }
 
+    @JsonIgnore
     @ManyToMany
     private List<Fach> staerken;
 
+    @JsonIgnore
     @ManyToMany
     private List<Fach> schwaechen;
-
-
 
 
 }

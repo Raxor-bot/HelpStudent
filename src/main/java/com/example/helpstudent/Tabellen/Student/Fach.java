@@ -4,15 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@Table(name="fach")
+@Table
 public class Fach {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private long nlfdFach;
     private String fachName;
     private int semester;
@@ -24,9 +26,7 @@ public class Fach {
         this.semester = semester;
     }
 
-
     public Fach() {
 
     }
-
 }
