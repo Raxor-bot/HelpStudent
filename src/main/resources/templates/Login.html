@@ -151,7 +151,14 @@
 
                                                     <v-text-field
                                                             v-model="passwort"
-                                                            label="Password"
+                                                            label="Passwort"
+                                                            prepend-icon="mdi-lock"
+                                                            type="password"
+                                                            color="teal accent-3"
+                                                    ></v-text-field>
+                                                    <v-text-field
+                                                            v-model="passwort2"
+                                                            label="Passwort wiederholen"
                                                             prepend-icon="mdi-lock"
                                                             type="password"
                                                             color="teal accent-3"
@@ -199,6 +206,7 @@
             name: "",
             mail: "",
             passwort: "",
+            passwort2: "",
             requestOptions: {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -211,7 +219,7 @@
             //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
             registrieren(){
 
-                if (this.mail !== "" && this.name !== "" && this.svorname !== "" && this.passwort !== "") {
+                if (this.mail !== "" && this.name !== "" && this.svorname !== "" && this.passwort !== "" && this.passwort === this.passwort2) {
                     this.requestOptions.body = JSON.stringify({
                         svorname: this.vorname,
                         sname: this.name,
