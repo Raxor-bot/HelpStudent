@@ -87,7 +87,7 @@
                                     v-show="!editMode">
                                 <img
                                         id="avatar"
-                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
+                                        :src="standardbildurl"
                                         alt="Juan">
                             </v-avatar>
 
@@ -715,6 +715,7 @@
                 headers: {"Content-Type": "application/json"},
                 body: {}
             },
+            standardbildurl: "https://randomuser.me/api/portraits/lego/6.jpg",
         },
         methods: {
             checkLogin(){
@@ -739,9 +740,11 @@
                     ));
             },
             getStudent(data) {
+                //todo hier muss weiter gemacht werden
                 this.student = data;
                 if(this.student.bilderpfad !== null){
                     console.log(this.student.bilderpfad)
+                    this.standardbildurl = "/"+this.student.bilderpfad;
                     document.getElementById("avatar").src = "/"+this.student.bilderpfad
                     document.getElementById("navavatar").src = "/"+this.student.bilderpfad
                 }
