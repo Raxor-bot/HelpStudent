@@ -113,7 +113,7 @@ public class UpdateController {
 
         if(student.isPresent()) {
 
-            logger.info(studentdata.get("geburtstag"));
+            logger.info("Geburtstag:" +studentdata.get("geburtstag"));
             logger.info(student.get().toString());
 
             String profilpfad = student.get().getBilderpfad();
