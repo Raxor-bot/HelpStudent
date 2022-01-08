@@ -202,15 +202,40 @@
                                             <v-row justify="space-around">
 
                                             </v-row>
-
-                                            <v-card-text>Geschlecht:</v-card-text>
-                                            <v-text-field
-                                                    v-model="geburtstag"
-                                                    required
-                                                    :disabled="!editMode"
-                                            > </v-text-field>
-
-
+                                                <v-menu
+                                                        ref="menu"
+                                                        v-model="menu"
+                                                        :close-on-content-click="false"
+                                                        :return-value.sync="geburtstag"
+                                                        transition="scale-transition"
+                                                        offset-y
+                                                        min-width="auto"
+                                                >
+                                                    <template v-slot:activator="{ on, attrs }">
+                                                        <v-text-field
+                                                                v-model="geburtstag"
+                                                                prepend-icon="mdi-calendar"
+                                                                readonly
+                                                                v-bind="attrs"
+                                                                v-on="on"
+                                                        ></v-text-field>
+                                                    </template>
+                                                    <v-date-picker
+                                                            v-model="geburtstag"
+                                                            no-title
+                                                            scrollable
+                                                            max="2010-01-10"
+                                                    >
+                                                        <v-spacer></v-spacer>
+                                                        <v-btn
+                                                                text
+                                                                color="primary"
+                                                                @click="menu = false"
+                                                        >
+                                                            OK
+                                                        </v-btn>
+                                                    </v-date-picker>
+                                                </v-menu>
                                             <v-card-text>Geschlecht:</v-card-text>
 
                                             <v-text-field
@@ -579,11 +604,12 @@
                 { title: 'Mein Profil', icon: 'mdi-account-outline', url: "http://localhost:8080/Profil"},
                 { title: 'Gruppen', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Gruppen"},
             ],
+            menu: false,
             student: null,
             profilepic: "",
             chaturl:"http://localhost:8080/chat",
             aktuellerStudiengang:"",
-            geburtstag: "",
+            geburtstag: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             geschlecht: "",
             semester: "",
             staerken: [],
@@ -621,11 +647,33 @@
             },
             getStudent(data) {
                 //todo hier muss weiter gemacht werdentest
-                console.log(data)
+                console.log("student")
                 this.student = data.student;
+                console.log(this.student)
+
+                this.student.studiengang = data.studiengang;
                 this.student.schwaechen = data.schwaechen;
                 this.student.staerken = data.staerken;
-                console.log(this.student);
+                this.student.gruppen = data.gruppen;
+
+                if(this.student.nsemester != null){
+                    this.semester = this.student.nsemester;
+                }
+                if(this.student.geburtstag != null){
+                    this.geburtstag = this.student.geburtstag;
+                }
+                if(this.student.studiengang != null){
+                    this.aktuellerStudiengang = this.student.studiengang;
+                }
+                if(this.student.geschlecht != null){
+                    this.geschlecht = this.student.geschlecht;
+                }
+                if(this.student.staerken != null && this.student.staerken !== []){
+                    this.staerken = this.student.staerken;
+                }
+                if(this.student.schwaechen != null && this.student.schwaechen !== []){
+                    this.schwaechen = this.student.schwaechen;
+                }
                 if(this.student.bilderpfad !== null){
                     console.log(this.student.bilderpfad)
                     this.standardbildurl = "http://localhost:8080/"+this.student.bilderpfad;

@@ -63,8 +63,10 @@ public class StudentController{
         Optional<Student> studentData = service.getStudentByID(id);
         System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
         myMap.put("student",studentData );
-        myMap.put("schwaechen",studentData.get().getSchwaechen() );
-        myMap.put("staerken",studentData.get().getStaerken() );
+        myMap.put("schwaechen",studentData.get().getSchwaechen());
+        myMap.put("staerken",studentData.get().getStaerken());
+        myMap.put("studiengang",studentData.get().getStudiengang());
+        myMap.put("gruppen",studentData.get().getGruppen());
         System.out.println(myMap);
         return new ResponseEntity<>(myMap, HttpStatus.OK);
     }
