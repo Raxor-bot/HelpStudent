@@ -65,10 +65,11 @@ public class StudentController{
                 new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() ->
                 new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    @RequestMapping("Profil/delete_user/{id}")
-    public void deleteStudent(@PathVariable("id") Long id){
+    @GetMapping("profil/delete_user/{id}")
+    public String deleteStudent(@PathVariable("id") Long id){
         System.out.println("Lösche user");
         service.deleteStudentbyId(id);
+        return "Login";
     }
     @RequestMapping("/chat")
     public String viewChat(){
