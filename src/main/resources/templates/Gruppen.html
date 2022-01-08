@@ -79,6 +79,7 @@
                                             <v-text-field
                                                     label="Gruppenname"
                                                     required
+                                                    :rules="[v => !!v || 'Bitte Gruppennamen angeben!']"
                                                     v-model="gruppenname"
                                             ></v-text-field>
 
@@ -86,6 +87,7 @@
                                                     :items="studiengangsnamen"
                                                     label="Studiengang"
                                                     required
+                                                    :rules="[v => !!v || 'Bitte Studiengang auswählen!']"
                                                     v-model="stdgangid"
                                             ></v-select>
                                             <v-alert
@@ -114,6 +116,7 @@
                                     </v-row>
                                     <v-row>
                                         <v-btn
+                                                :disabled="!valid"
                                                 @click="erstelleGruppe()"
                                                 class="mr-4"
                                                 color="green lighten-1"
@@ -231,6 +234,7 @@
                 }
             }),
         data: {
+            valid: true,
             searchClosed: true,
             navdraw: false,
 
@@ -261,7 +265,6 @@
             },
             gruppen:[],
             loginStatus:null,
-
         },
         methods: {
             checkLogin(){
