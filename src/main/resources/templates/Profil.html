@@ -30,7 +30,7 @@
                     <span>Students</span>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn depressed  class="grey--text">
+                <v-btn depressed  class="grey--text" @click="logout()">
                     <span>Ausloggen</span>
                     <v-icon right>mdi-exit-to-app</v-icon>
                 </v-btn>
@@ -194,7 +194,7 @@
                                                     Persönliches
                                                 </v-card-title>
 
-                                            <v-btn @click="saveinfo" float="right"> Bearbeiten</v-btn>
+                                            <v-btn @click="saveinfo" class="ma-4" float="right"> Bearbeiten</v-btn>
 
 
                                             <v-card-text>Geburtstag:</v-card-text>
@@ -331,7 +331,51 @@
                                                     v-if="!editMode"
                                             > </v-select>
 
-                                            <v-btn color="green lighten-2" v-if="editMode == true" @click="addInfo"> Speichern</v-btn>
+                                            <v-btn color="green lighten-2" class="ma-4" v-if="editMode == true" @click="addInfo"> Speichern</v-btn>
+
+                                            <v-spacer></v-spacer>
+
+                                            <v-dialog
+                                                    v-model="dialog"
+                                                    persistent
+                                                    max-width="290"
+                                            >
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-btn
+                                                            color="red lighten-1"
+                                                            dark
+                                                            v-bind="attrs"
+                                                            v-on="on"
+                                                            class="ma-4"
+                                                            :disabled="!editMode"
+                                                    >
+                                                        Account löschen
+                                                    </v-btn>
+                                                </template>
+                                                <v-card>
+                                                    <v-card-title class="text-h5">
+                                                        Bist du dir sicher?
+                                                    </v-card-title>
+                                                    <v-card-text>
+                                                        Das Löschen des accounts kann nicht wieder rückgängig gemacht werden.
+                                                        Wenn du zustimmst sind deine Daten verloren und du kannst dich neu registrieren.
+                                                    </v-card-text>
+                                                    <v-card-actions>
+                                                        <v-spacer></v-spacer>
+                                                        <v-btn
+                                                                color="green darken-1"
+                                                                text
+                                                                @click="dialog = false"
+                                                        >Abbrechen</v-btn>
+                                                        <v-btn
+                                                                color="red darken-1"
+                                                                text
+                                                                @click="deleteUser"
+                                                        >Löschen</v-btn>
+                                                    </v-card-actions>
+                                                </v-card>
+                                            </v-dialog>
+
                                         </v-card>
 
 
@@ -637,6 +681,7 @@
         vuetify: new Vuetify(),
 
         data: {
+            dialog: false,
             editMode:false,
             fachsuche:"",
             fusch:"",
@@ -661,8 +706,8 @@
             geburtstag: "",
             geschlecht: "",
             semester: "",
-            staerken: "",
-            schwaechen: "",
+            staerken: [],
+            schwaechen: [],
             gruppen:[],
             date: '01-01-2022',
             requestOptions: {
@@ -676,6 +721,10 @@
                 if(sessionStorage.getItem("id") === "" || this.sessionEmpty){
                     window.open("http://localhost:8080/Login?error=True","_self")
                 }
+            },
+            logout(){
+                sessionStorage.clear()
+                window.open("http://localhost:8080/Login?logout=true","_self");
             },
             setGruppen(data){
                 console.log("Gruppen:");
@@ -794,6 +843,11 @@
                     return fach.fachName.toLowerCase().indexOf(this.fachsuche.toLowerCase()) > -1;
                 });
             },
+            deleteUser(){
+                fetch("Profil/delete_user/"+sessionStorage.getItem("id"))
+                sessionStorage.clear()
+                window.open("http://localhost:8080/Login?delete=true","_self")
+            }
         },
         computed:{
             gitgud(){
