@@ -22,7 +22,7 @@ public class StudentController{
     public StudentController(StudentService service) {
         this.service = service;
     }
-    
+
     @RequestMapping("/")
     public String viewStart(ModelMap model) {
     model.addAttribute("listStudent", service.getStudents());
@@ -69,10 +69,11 @@ public class StudentController{
                 new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() ->
                 new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    @GetMapping("Profil/delete_user/{id}")
-    public void deleteStudent(@PathVariable("id") Long id){
+    @GetMapping("profil/delete_user/{id}")
+    public String deleteStudent(@PathVariable("id") Long id){
         System.out.println("Lösche user");
         service.deleteStudentbyId(id);
+        return "Login";
     }
     @RequestMapping("/chat")
     public String viewChat(){

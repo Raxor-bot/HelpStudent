@@ -204,7 +204,7 @@
     }
     this.checkLogin();
 
-     fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
+     fetch("/Profil/meineInfos/"+sessionStorage.getItem("id"))
            .then(rep => rep.json())
            .then(data => (
                    this.getStudent(data)
