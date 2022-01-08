@@ -45,7 +45,7 @@
 
                         <!-- Profilinfos Navbar -->
                         <v-list-item-avatar>
-                            <img id="navavatar" src="https://randomuser.me/api/portraits/lego/6.jpg">
+                            <img id="navavatar" :src="standardbildurl">
                         </v-list-item-avatar>
                         <v-list-item-content>
                             <v-list-item-title v-if="student != null"> {{student.svorname}} {{student.sname}} </v-list-item-title>
@@ -740,13 +740,16 @@
                     ));
             },
             getStudent(data) {
-                //todo hier muss weiter gemacht werden
-                this.student = data;
+                //todo hier muss weiter gemacht werdentest
+                console.log(data)
+                this.student = data.student;
+                this.student.schwaechen = data.schwaechen;
+                this.student.staerken = data.staerken;
+                console.log(this.student);
                 if(this.student.bilderpfad !== null){
                     console.log(this.student.bilderpfad)
-                    this.standardbildurl = "/"+this.student.bilderpfad;
-                    document.getElementById("avatar").src = "/"+this.student.bilderpfad
-                    document.getElementById("navavatar").src = "/"+this.student.bilderpfad
+                    this.standardbildurl = "http://localhost:8080/"+this.student.bilderpfad;
+                    console.log(this.standardbildurl);
                 }
                 console.log(this.student)
             },
