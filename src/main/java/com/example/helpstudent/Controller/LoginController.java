@@ -26,6 +26,7 @@ public class LoginController {
     @GetMapping()
     public String viewlogin(@RequestParam(value = "error", required = false) String error,
                             @RequestParam(value = "logout", required = false) String logout,
+                            @RequestParam(value = "delete", required = false) String delete,
                             Model model) {
         String errorMessge = null;
         if(error != null) {
@@ -33,6 +34,9 @@ public class LoginController {
         }
         if(logout != null) {
             errorMessge = "Du wurdest erfolgreich asugeloggt!";
+        }
+        if(delete != null) {
+            errorMessge = "Account erfolgreich gelöscht!";
         }
         model.addAttribute("errorMessge", errorMessge);
         return "Login.html";
