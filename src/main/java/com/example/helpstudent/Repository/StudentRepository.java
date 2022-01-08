@@ -33,7 +33,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     Optional<Student> findStudentByNlfdstudent(long nlfdstudent);
 
-    void deleteByMail(String mail);
+    void deleteByNlfdstudent(long id);
 
     @Transactional
     @Modifying
