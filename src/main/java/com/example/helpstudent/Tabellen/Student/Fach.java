@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -19,14 +18,28 @@ public class Fach {
     private String fachName;
     private int semester;
 
-   // @ManyToMany(mappedBy = "faecher")
-    //private List<Studiengang> stdList;
     public Fach(String fachName, int semester) {
-        this.fachName = fachName;
-        this.semester = semester;
+        this.setFachName(fachName);
+        this.setSemester(semester);
     }
 
     public Fach() {
 
     }
+
+	public int getSemester() {
+		return semester;
+	}
+
+	public void setSemester(int semester) {
+		this.semester = semester;
+	}
+
+	public String getFachName() {
+		return fachName;
+	}
+
+	public void setFachName(String fachName) {
+		this.fachName = fachName;
+	}
 }

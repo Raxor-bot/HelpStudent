@@ -21,7 +21,19 @@ public class TokenError{
     private String errortxt;
 
     public TokenError(String t,String e) {
-        this.token = t;
+        this.setToken(t);
         this.errortxt = e;
     }
+
+	public String getErrortxt() {
+		return errortxt;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 }

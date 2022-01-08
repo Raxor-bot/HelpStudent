@@ -4,7 +4,7 @@ import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.email.EmailSender;
 import com.example.helpstudent.registrierung.EmailValidierung;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.time.LocalDateTime;
 
 @Service
-@AllArgsConstructor
 public class RegistrationService {
 
     private final StudentService studentService;
@@ -20,7 +19,15 @@ public class RegistrationService {
     private final BestaetigungsTokenService bestaetigungsTokenService;
     private final EmailSender emailsender;
 
-public String registrierenValidierung(@ModelAttribute("Student") Student student){
+    public RegistrationService(StudentService studentService, EmailValidierung emailValidierung, BestaetigungsTokenService bestaetigungsTokenService, @Qualifier("emailSender") EmailSender emailsender) {
+        this.studentService = studentService;
+        this.emailValidierung = emailValidierung;
+        this.bestaetigungsTokenService = bestaetigungsTokenService;
+
+        this.emailsender = emailsender;
+    }
+
+    public String registrierenValidierung(@ModelAttribute("Student") Student student){
     System.out.println("Hier die Mail ---------------------------------------");
     System.out.println(student.getMail());
     boolean isValidEmail = emailValidierung.test(student.getMail());
@@ -33,7 +40,7 @@ public String registrierenValidierung(@ModelAttribute("Student") Student student
                     student.getSvorname(),
                     student.getSname(),
                     student.getMail(),
-                    student.getPasswort()
+                    student.getPassword()
             )
     );
     //TODO ADRESSE FÜR SERVER AUF RASPBERRY PI ANPASSEN

@@ -1,10 +1,7 @@
 package com.example.helpstudent.Service;
 
 import com.example.helpstudent.Repository.BestaetigungsTokenRepository;
-import com.example.helpstudent.Repository.TokenErrorRepository;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
-import com.example.helpstudent.registrierung.token.TokenError;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +10,13 @@ import java.util.Optional;
 
 @Service
 @Getter
-@AllArgsConstructor
+
 public class BestaetigungsTokenService {
     private final BestaetigungsTokenRepository bestaetrepo;
+
+    public BestaetigungsTokenService(BestaetigungsTokenRepository bestaetrepo) {
+        this.bestaetrepo = bestaetrepo;
+    }
 
     public void saveBestaetigungsToken(BestaetigungsToken token){
         bestaetrepo.save(token);

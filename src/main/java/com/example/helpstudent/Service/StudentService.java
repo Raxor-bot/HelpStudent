@@ -1,6 +1,5 @@
 package com.example.helpstudent.Service;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.example.helpstudent.Tabellen.Student.Fach;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.Repository.StudentRepository;
@@ -28,12 +27,12 @@ public class StudentService implements UserDetailsService {
     @Autowired
     private final StudentRepository repo;
 
-    private StudiengangService studiengangService;
+    private final StudiengangService studiengangService;
 
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final BestaetigungsTokenService bestaetigungsTokenService;
-    private FachService fachService;
+    private final FachService fachService;
 
     @Autowired
     public StudentService(StudentRepository repo,

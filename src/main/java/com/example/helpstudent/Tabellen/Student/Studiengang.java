@@ -1,9 +1,7 @@
 package com.example.helpstudent.Tabellen.Student;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "studiengang")
@@ -21,7 +19,7 @@ public class Studiengang {
 
     public Studiengang(String name, String abkuerzung, List<Fach> fachListe) {
         this.stName = name;
-        this.stAbkuerzung = abkuerzung;
+        this.setStAbkuerzung(abkuerzung);
         this.faecher = fachListe;
     }
 
@@ -34,7 +32,7 @@ public class Studiengang {
     }
     public Studiengang(String stName, String stAbkuerzung){
         this.stName = stName;
-        this.stAbkuerzung = stAbkuerzung;
+        this.setStAbkuerzung(stAbkuerzung);
     }
     public Studiengang(String stName, List<Fach> fachList) {
             this.stName = stName;
@@ -75,4 +73,12 @@ public class Studiengang {
     public void setFaecher(List<Fach> faecher) {
         this.faecher = faecher;
     }
+
+	public String getStAbkuerzung() {
+		return stAbkuerzung;
+	}
+
+	public void setStAbkuerzung(String stAbkuerzung) {
+		this.stAbkuerzung = stAbkuerzung;
+	}
 }

@@ -1,7 +1,6 @@
 package com.example.helpstudent.Service;
 
 import com.example.helpstudent.email.EmailSender;
-import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,13 +14,17 @@ import javax.mail.internet.MimeMessage;
 
 
 @Service
-@AllArgsConstructor
+
 public class EmailService implements EmailSender {
 
     private final static Logger LOGGER = LoggerFactory
             .getLogger(EmailService.class);
 
     private final JavaMailSender mailsender;
+
+    public EmailService(JavaMailSender mailsender) {
+        this.mailsender = mailsender;
+    }
 
     @Override
     @Async

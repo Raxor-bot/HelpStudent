@@ -1,7 +1,6 @@
 package com.example.helpstudent.Repository;
 
 import com.example.helpstudent.Tabellen.Student.Fach;
-import com.example.helpstudent.Tabellen.Student.Studiengang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

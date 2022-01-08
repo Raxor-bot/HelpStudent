@@ -105,7 +105,8 @@ public class UpdateController {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        Map<String, Object> studentdata = objectMapper.readValue(body.get("studentdata"), HashMap.class);
+        @SuppressWarnings("unchecked")
+		Map<String, Object> studentdata = objectMapper.readValue(body.get("studentdata"), HashMap.class);
 
         logger.info(studentid);
 

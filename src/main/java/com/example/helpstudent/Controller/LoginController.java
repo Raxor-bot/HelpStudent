@@ -3,7 +3,7 @@ package com.example.helpstudent.Controller;
 import com.example.helpstudent.Service.*;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.registrierung.token.TokenError;
-import lombok.AllArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,14 +15,24 @@ import java.util.Map;
 
 
 @Controller
-@AllArgsConstructor
 @RequestMapping("/Login")
 public class LoginController {
+	
     private final RegistrationService registrierService;
     private final LoginService loginservice;
     private final StudentService studentService;
+    
     TokenErrorService tokenerrservice;
-
+    
+    public LoginController(RegistrationService reg, LoginService log, StudentService stud) {
+    	this.registrierService = reg;
+    	this.loginservice = log;
+    	this.studentService = stud;
+    }
+    
+    
+    
+  
     @GetMapping()
     public String viewlogin(@RequestParam(value = "error", required = false) String error,
                             @RequestParam(value = "logout", required = false) String logout,

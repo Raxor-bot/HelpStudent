@@ -1,14 +1,6 @@
 package com.example.helpstudent.Tabellen.Student;
 
 
-
-import com.example.helpstudent.Tabellen.Student.Student;
-
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-
-
 public class ChatMessage {
 
         private String nachricht;

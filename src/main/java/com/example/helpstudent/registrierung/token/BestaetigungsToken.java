@@ -45,4 +45,16 @@ public class BestaetigungsToken {
         this.verfaelltUm = verfaelltUm;
         this.student = student;
     }
+    
+    public Student getStudent() {
+    	return this.student;
+    }
+
+	public LocalDateTime getBestaetigtUm() {	
+		return this.bestaetigtUm;
+	}
+
+	public LocalDateTime getVerfaelltUm() {
+		return this.verfaelltUm;
+	}
 }
