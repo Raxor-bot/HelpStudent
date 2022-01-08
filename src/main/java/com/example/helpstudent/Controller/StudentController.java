@@ -61,7 +61,7 @@ public class StudentController{
         Map<String, Object> myMap = new HashMap<>();
 
         Optional<Student> studentData = service.getStudentByID(id);
-        System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
+        System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+d-+-+-+-+-+-");
         myMap.put("student",studentData );
         myMap.put("schwaechen",studentData.get().getSchwaechen() );
         myMap.put("staerken",studentData.get().getStaerken() );
