@@ -843,8 +843,8 @@
                     return fach.fachName.toLowerCase().indexOf(this.fachsuche.toLowerCase()) > -1;
                 });
             },
-            deleteUser(){
-                fetch("Profil/delete_user/"+sessionStorage.getItem("id"))
+            async deleteUser(){
+                await fetch("profil/delete_user/"+sessionStorage.getItem("id"))
                 sessionStorage.clear()
                 window.open("http://localhost:8080/Login?delete=true","_self")
             }
