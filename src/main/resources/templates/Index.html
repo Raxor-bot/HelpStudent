@@ -151,7 +151,7 @@
 
       getStudent(data) {
         this.student = data;
-        if(this.student.bilderpfad !== null){
+        if(this.student.bilderpfad){
           document.getElementById("navavatar").src = "/"+this.student.bilderpfad
         }
       },
