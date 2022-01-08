@@ -155,6 +155,7 @@
                                                             label="Passwort"
                                                             hint="Dein Passwort entspricht den Regeln"
                                                             :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                                                            prepend-icon="mdi-lock"
                                                             @click:append="() => (value = !value)"
                                                             :type="value ? 'password' : 'text'"
                                                             :rules="[rules.password]"
@@ -166,6 +167,7 @@
                                                             label="Passwort wiederholen"
                                                             hint="Dein Passwort entspricht den Regeln"
                                                             :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                                                            prepend-icon="mdi-lock"
                                                             @click:append="() => (value = !value)"
                                                             :type="value ? 'password' : 'text'"
                                                             :rules="[rules.password]"
@@ -330,6 +332,9 @@
                 }else if(urlParams.has("logout")){
                     this.tokenconfirm = true
                     this.tokentext = "Erfolgreich ausgeloggt!"
+                }else if(urlParams.has("delete")){
+                    this.loginerror = true
+                    this.loginerrortext = "User erfolgreich gelöscht."
                 }
 
                 },
