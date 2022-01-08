@@ -10,7 +10,6 @@ import java.util.Optional;
 @Service
 public class GruppenService{
 
-
     private final GruppenRepository repo;
 
     public GruppenService(GruppenRepository repo) {

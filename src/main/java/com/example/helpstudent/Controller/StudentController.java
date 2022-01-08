@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 
@@ -24,11 +22,17 @@ public class StudentController{
     public StudentController(StudentService service) {
         this.service = service;
     }
+    
+    @RequestMapping("/")
+    public String viewStart(ModelMap model) {
+    model.addAttribute("listStudent", service.getStudents());
+    return "Index";
+}
 
     @RequestMapping("/home")
         public String viewLoginPage(ModelMap model) {
         model.addAttribute("listStudent", service.getStudents());
-        return "index";
+        return "Index";
     }
 
     @GetMapping("/home/{mail}")
@@ -65,7 +69,7 @@ public class StudentController{
                 new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() ->
                 new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    @RequestMapping("Profil/delete_user/{id}")
+    @GetMapping("Profil/delete_user/{id}")
     public void deleteStudent(@PathVariable("id") Long id){
         System.out.println("Lösche user");
         service.deleteStudentbyId(id);

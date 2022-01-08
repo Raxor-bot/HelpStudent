@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table
@@ -21,14 +20,18 @@ import java.util.Set;
 @ToString
 @EqualsAndHashCode
 public class Student implements UserDetails{
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private long nlfdstudent;
     private String sname;
     private String svorname;
     private LocalDate geburtstag;
-    private String geschlecht;
+	private String geschlecht;
     private int nsemester;
     private String mail;
     private String passwort;
@@ -91,11 +94,11 @@ public class Student implements UserDetails{
     }
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Studiengang studiengang;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "studentGruppen",cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "studentGruppen",cascade = CascadeType.ALL)
     List<Gruppe> gruppen;
 
 
@@ -135,10 +138,6 @@ public class Student implements UserDetails{
         return mail;
     }
 
-    @Override
-    public String getPassword() {
-        return passwort;
-    }
 
     public String getBilderpfad() {
         return bilderpfad;
@@ -168,12 +167,45 @@ public class Student implements UserDetails{
     }
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Fach> staerken;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Fach> schwaechen;
 
 
+	public long getNlfdstudent() {
+		return this.nlfdstudent;
+	}
+
+	public void setPasswort(String encodedPassword) {
+		this.passwort = encodedPassword;
+	}
+
+	public void setSname(String name) {
+		this.sname = name;
+	}
+
+	public void setMail(String email) {
+		this.mail = email;
+		
+	}
+
+	public String getGeschlecht() {
+		return geschlecht;
+	}
+
+	public void setGeschlecht(String geschlecht) {
+		this.geschlecht = geschlecht;
+	}
+
+	@Override
+	public String getPassword() {
+		return this.passwort;
+	}
+
+	
+	
+	
 }

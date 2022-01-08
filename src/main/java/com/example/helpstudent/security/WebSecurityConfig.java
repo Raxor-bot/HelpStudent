@@ -1,8 +1,6 @@
 package com.example.helpstudent.security;
 
 import com.example.helpstudent.Service.StudentService;
-import com.example.helpstudent.Tabellen.Student.StudentRolle;
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,12 +11,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-@AllArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final StudentService studentService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public WebSecurityConfig(StudentService studentService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.studentService = studentService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

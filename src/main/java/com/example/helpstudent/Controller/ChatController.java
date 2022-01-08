@@ -1,13 +1,11 @@
 package com.example.helpstudent.Controller;
 
 import com.example.helpstudent.Tabellen.Student.ChatMessage;
-import com.example.helpstudent.Tabellen.Student.ChatType;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 

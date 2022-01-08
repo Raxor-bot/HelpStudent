@@ -37,7 +37,7 @@ public class Gruppe {
     @ManyToOne
     private Studiengang studiengang;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable
     @JsonIgnore
     private List<Student> studentGruppen = new ArrayList<>();
