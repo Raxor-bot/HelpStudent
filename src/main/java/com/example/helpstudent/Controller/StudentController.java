@@ -57,13 +57,16 @@ public class StudentController{
     }
 
     @GetMapping("Profil/meineInfos/{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable("id") Long id){
+    public ResponseEntity<?> getStudent(@PathVariable("id") Long id){
+        Map<String, Object> myMap = new HashMap<>();
+
         Optional<Student> studentData = service.getStudentByID(id);
-        System.out.println(studentData);
-        System.out.print("Daten angekommen");
-        return studentData.map(value ->
-                new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() ->
-                new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
+        myMap.put("student",studentData );
+        myMap.put("schwaechen",studentData.get().getSchwaechen() );
+        myMap.put("staerken",studentData.get().getStaerken() );
+        System.out.println(myMap);
+        return new ResponseEntity<>(myMap, HttpStatus.OK);
     }
     @GetMapping("profil/delete_user/{id}")
     public String deleteStudent(@PathVariable("id") Long id){
