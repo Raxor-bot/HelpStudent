@@ -174,7 +174,7 @@ public class StudentService implements UserDetailsService {
             repo.setStudentgeschlecht((String) studentdata.get("geschlecht"), studentid);
         }
 
-        if (studentdata.get("studiengang") != "") {
+        if (studentdata.get("studiengang") != "" && studentdata.get("studiengang") != null) {
             long studiengangId = ((Number) studentdata.get("studiengang")).longValue();
 
             repo.setStudentStudiengang(studiengangService.getStudiengangById(studiengangId), studentid);
@@ -188,32 +188,35 @@ public class StudentService implements UserDetailsService {
             }
         }
 
-        if(!studentdata.get("staerken").toString().equals("[]") || studentdata.get("staerken") == null){
-            logger.info("stark");
+        if (studentdata.get("schwaechen") != null) {
+            if (!studentdata.get("staerken").toString().equals("[]")) {
+                logger.info("stark");
 
-            repo.deleteStudentStaerken(studentid);
+                repo.deleteStudentStaerken(studentid);
 
-            String staerkenstr = studentdata.get("staerken").toString();
+                String staerkenstr = studentdata.get("staerken").toString();
 
-            logger.info(studentdata.get("staerken").toString());
+                logger.info(studentdata.get("staerken").toString());
 
-            List<Fach> faecher = convertArray(staerkenstr);
+                List<Fach> faecher = convertArray(staerkenstr);
 
-            for(Fach fach : faecher){
-                repo.setStudentStaerken(fach , studentid);
+                for (Fach fach : faecher) {
+                    repo.setStudentStaerken(fach, studentid);
+                }
             }
         }
+        if (studentdata.get("schwaechen") != null) {
+            if (!studentdata.get("schwaechen").toString().equals("[]")) {
+                repo.deleteStudentSchwaechen(studentid);
 
-        if(!studentdata.get("schwaechen").toString().equals("[]") || studentdata.get("schwaechen") == null) {
-            repo.deleteStudentSchwaechen(studentid);
+                logger.info("schwach");
+                String schwaechenstr = studentdata.get("schwaechen").toString();
 
-            logger.info("schwach");
-            String schwaechenstr = studentdata.get("schwaechen").toString();
+                List<Fach> fachList = convertArray(schwaechenstr);
 
-            List<Fach> fachList = convertArray(schwaechenstr);
-
-            for (Fach fach : fachList) {
-                repo.setStudentSchwaechen(fach, studentid);
+                for (Fach fach : fachList) {
+                    repo.setStudentSchwaechen(fach, studentid);
+                }
             }
         }
     }

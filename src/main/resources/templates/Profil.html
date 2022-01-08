@@ -388,100 +388,38 @@
                                                 dark
                                                 tile>
                                             <v-card-title> Frag diese Personen nach Rat</v-card-title>
-                                            <v-card-title class="mx-5"> <v-card-title>
-                                                <v-sheet
-                                                        color="light-blue accent-1"
-                                                        elevation="1"
-                                                        height="100"
-                                                        width="500"
-                                                        class="mx-4 mb-4"
-                                                        rounded
-                                                > <v-avatar
 
-                                                        class="mr-16 mt-3 float-right"
-                                                        size="80">
-                                                    <img
-                                                            src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                            alt="Juan">
-                                                </v-avatar>
-                                                    <v-card-title class="">
-                                                        Sprich mit Experten über Fach 1
-                                                    </v-card-title>
-
-
-                                                    <v-btn
-                                                            small
-                                                            color="success"
-                                                            dark
-                                                            class=" ma-1"
+                                            <v-row align-content="center" dense >
+                                                <v-col cols="4" v-for="gruppe in schwacheGruppen">
+                                                    <v-card
+                                                            class="mx-auto"
+                                                            max-width="860"
+                                                            outlined
                                                     >
-                                                        Zur Gruppe
-                                                    </v-btn>
+                                                        <v-list-item three-line>
+                                                            <v-list-item-content>
+                                                                <v-list-item-title class="text-h5 mb-1">
+                                                                    {{gruppe.gruppenname}}
+                                                                </v-list-item-title>
+                                                                <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.teilnehmeranzahl}}</v-list-item-subtitle>
+                                                            </v-list-item-content>
+                                                        </v-list-item>
 
-
-                                                </v-sheet>
-                                                <v-sheet
-                                                        color="light-blue accent-1"
-                                                        elevation="1"
-                                                        height="100"
-                                                        width="500"
-                                                        class="mx-4 mb-4"
-                                                        rounded
-                                                > <v-avatar
-
-                                                        class="mr-16 mt-3 float-right"
-                                                        size="80">
-                                                    <img
-                                                            src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                            alt="Juan">
-                                                </v-avatar>
-                                                    <v-card-title class="">
-                                                        Sprich mit Experten über Fach 2
-                                                    </v-card-title>
-
-
-                                                    <v-btn
-                                                            small
-                                                            color="success"
-                                                            dark
-                                                            class=" ma-1"
-                                                    >
-                                                        Zur Gruppe
-                                                    </v-btn>
-
-
-                                                </v-sheet>
-                                                <v-sheet
-                                                        color="light-blue accent-1"
-                                                        elevation="1"
-                                                        height="100"
-                                                        width="500"
-                                                        class="mx-4 mb-4"
-                                                        rounded
-                                                > <v-avatar
-
-                                                        class="mr-16 mt-3 float-right"
-                                                        size="80">
-                                                    <img
-                                                            src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                            alt="Juan">
-                                                </v-avatar>
-                                                    <v-card-title class="">
-                                                        Sprich mit Experten über Fach 3
-                                                    </v-card-title>
-
-
-                                                    <v-btn
-                                                            small
-                                                            color="success"
-                                                            dark
-                                                            class=" ma-1"
-                                                    >
-                                                        Zur Gruppe
-                                                    </v-btn>
-
-
-                                                </v-sheet>
+                                                        <v-card-actions>
+                                                            <v-btn
+                                                                    outlined
+                                                                    text>
+                                                                Ansehen
+                                                            </v-btn>
+                                                            <v-btn
+                                                                    outlined
+                                                                    text>
+                                                                Beitreten
+                                                            </v-btn>
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-col>
+                                            </v-row>
 
 
                                         </v-card>
@@ -491,96 +429,37 @@
                                                 tile>
                                             <v-card-title > Hilf diesen Personen auf die Sprünge</v-card-title>
                                             <v-card-title class="mx-5">  <v-card-title>
-                                                <v-sheet
-                                                        color="deep-orange lighten-1"
-                                                        elevation="1"
-                                                        height="100"
-                                                        width="500"
-                                                        class="mx-4 mb-4"
-                                                        rounded
-                                                >
-                                                    <v-avatar
+                                                <v-row align-content="center" dense >
+                                                    <v-col cols="4" v-for="gruppe in starkeGruppen">
+                                                        <v-card
+                                                                class="mx-auto"
+                                                                max-width="860"
+                                                                outlined
+                                                        >
+                                                            <v-list-item three-line>
+                                                                <v-list-item-content>
+                                                                    <v-list-item-title class="text-h5 mb-1">
+                                                                        {{gruppe.gruppenname}}
+                                                                    </v-list-item-title>
+                                                                    <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.teilnehmeranzahl}}</v-list-item-subtitle>
+                                                                </v-list-item-content>
+                                                            </v-list-item>
 
-                                                            class="mr-16 mt-3 float-right"
-                                                            size="80">
-                                                        <img
-                                                                src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                alt="Juan">
-                                                    </v-avatar>
-                                                    <v-card-title class="">
-                                                        Hilf Personen in Fach 1
-                                                    </v-card-title>
-
-
-                                                    <v-btn
-                                                            small
-                                                            color="success"
-                                                            dark
-                                                            class=" ma-1"
-                                                    >
-                                                        Zur Gruppe
-                                                    </v-btn>
-                                                </v-sheet>
-                                                <v-sheet
-                                                        color="deep-orange lighten-1"
-                                                        elevation="1"
-                                                        height="100"
-                                                        width="500"
-                                                        class="mx-4 mb-4"
-                                                        rounded
-                                                >
-                                                    <v-avatar
-
-                                                            class="mr-16 mt-3 float-right"
-                                                            size="80">
-                                                        <img
-                                                                src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                alt="Juan">
-                                                    </v-avatar>
-                                                    <v-card-title class="">
-                                                        Hilf Personen in Fach 2
-                                                    </v-card-title>
-
-
-                                                    <v-btn
-                                                            small
-                                                            color="success"
-                                                            dark
-                                                            class=" ma-1"
-                                                    >
-                                                        Zur Gruppe
-                                                    </v-btn>
-                                                </v-sheet>
-                                                <v-sheet
-                                                        color="deep-orange lighten-1"
-                                                        elevation="1"
-                                                        height="100"
-                                                        width="500"
-                                                        class="mx-4 mb-4"
-                                                        rounded
-                                                >
-                                                    <v-avatar
-
-                                                            class="mr-16 mt-3 float-right"
-                                                            size="80">
-                                                        <img
-                                                                src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                                                alt="Juan">
-                                                    </v-avatar>
-                                                    <v-card-title class="">
-                                                        Hilf Personen in Fach 3
-                                                    </v-card-title>
-
-
-                                                    <v-btn
-                                                            small
-                                                            color="success"
-                                                            dark
-                                                            class=" ma-1"
-                                                    >
-                                                        Zur Gruppe
-                                                    </v-btn>
-                                                </v-sheet>
+                                                            <v-card-actions>
+                                                                <v-btn
+                                                                        outlined
+                                                                        text>
+                                                                    Ansehen
+                                                                </v-btn>
+                                                                <v-btn
+                                                                        outlined
+                                                                        text>
+                                                                    Beitreten
+                                                                </v-btn>
+                                                            </v-card-actions>
+                                                        </v-card>
+                                                    </v-col>
+                                                </v-row>
                                         </v-card>
                                     </v-tab-item>
                                     <v-tab-item>
@@ -745,6 +624,7 @@
                     document.getElementById("avatar").src = "/"+this.student.bilderpfad
                     document.getElementById("navavatar").src = "/"+this.student.bilderpfad
                 }
+
                 console.log(this.student)
             },
             getStudiengaenge(data) {
@@ -854,6 +734,35 @@
                 if(this.aktuellerStudiengang) {
                     return this.studiengaenge.Studiengang[this.aktuellerStudiengang]
                 }
+            },
+            starkeGruppen(){
+                gruppenstark=[];
+                if(this.staerken !== undefined){
+                    this.gruppen.forEach(function(einArrayElement) {
+                        if(this.staerken.includes(einArrayElement.fach.fachid))
+                        gruppenstark.push(einArrayElement);
+                    });
+                }
+                return gruppenstark;
+            },
+
+            schwacheGruppen(){
+                gruppenschwach=[];
+                console.log("ab hier");
+                console.log(this.schwaechen !== undefined);
+                console.log(this.schwaechen);
+                if(this.schwaechen !== undefined){
+                    console.log(this.schwaechen);
+                    this.gruppen.forEach(function(einArrayElement) {
+                        if(this.schwaechen !== undefined){
+                            console.log(this.schwaechen);
+                            if(this.schwaechen.includes(einArrayElement.fach.fachid))
+                                gruppenschwach.push(einArrayElement);
+                        }
+
+                    });
+                }
+                return gruppenschwach;
             },
             sessionEmpty(){
                 return sessionStorage.length === 0;

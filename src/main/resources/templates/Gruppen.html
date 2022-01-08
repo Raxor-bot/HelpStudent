@@ -82,14 +82,30 @@
                                                     :rules="[v => !!v || 'Bitte Gruppennamen angeben!']"
                                                     v-model="gruppenname"
                                             ></v-text-field>
+                                            <v-select v-model="fachid"
+                                                      label="Fach auswählen"
+                                                      :items="faecher"
+                                                      item-text="fachName"
+                                                      item-value="nlfdFach"
+                                                      :rules="[v => !!v || 'Bitte Fach auswählen!']">
 
-                                            <v-select
-                                                    :items="studiengangsnamen"
-                                                    label="Studiengang"
-                                                    required
-                                                    :rules="[v => !!v || 'Bitte Studiengang auswählen!']"
-                                                    v-model="stdgangid"
-                                            ></v-select>
+                                            <template v-slot:prepend-item>
+                                                    <v-list-item>
+                                                        <v-list-item-content>
+                                                            <v-text-field v-model="fachsuche"
+                                                                          placeholder="Fach suchen"
+                                                                          @input="faecherSuche"
+                                                                          filled
+                                                                          outlined
+                                                                          class="my-n2"
+                                                            >
+                                                            </v-text-field>
+                                                        </v-list-item-content>
+                                                    </v-list-item>
+                                                    <v-divider class="mt-n6"></v-divider>
+                                                </template>
+                                            </v-select>
+
                                             <v-alert
                                                     color="red"
                                                     type="error"
@@ -195,7 +211,7 @@
                     <v-list-item three-line>
                         <v-list-item-content>
                             <div class="text-overline mb-4">
-                                {{gruppe.studiengang.stName}}
+                                {{gruppe.fach.fachName}}
                             </div>
                             <v-list-item-title class="text-h5 mb-1">
                                 {{gruppe.gruppenname}}
@@ -239,12 +255,16 @@
             navdraw: false,
 
             responsiveSearch: "",
+            fachsuche:"",
             gruppenname: "",
-            stdgangid: "",
+            fachid: "",
             gruppengroesse: 0,
 
             gruppenerror: false,
             gruppentext: "",
+
+            faecher:[],
+            faecherkopie:[],
 
             items: [
                 {title: 'Home', icon: 'mdi-home-variant-outline', url: "http://localhost:8080/home"},
@@ -294,7 +314,7 @@
                     this.requestOptions.body = JSON.stringify({
                         gruppenname: this.gruppenname,
                         gruppengroesse: this.gruppengroesse,
-                        stdgangname: this.stdgangid,
+                        fachid: this.fachid,
                         studentenid: sessionStorage.getItem("id")
 
                     });
@@ -348,6 +368,19 @@
             },
             getStudiengaenge(data) {
                 this.studiengaenge = data;
+            },
+            getFaecher(data){
+                this.faecher = data.Fach;
+                console.log("faecher")
+                this.faecherkopie = this.faecher;
+            },
+            faecherSuche(e) {
+                if (!this.fachsuche) {
+                    this.faecher = this.faecherkopie;
+                }
+                this.faecher = this.faecherkopie.filter((fach) => {
+                    return fach.fachName.toLowerCase().indexOf(this.fachsuche.toLowerCase()) > -1;
+                });
             },
             fetchGruppen(){
                 fetch("Gruppen/getGruppen",  this.requestOptions)
@@ -426,6 +459,12 @@
                     .then(data =>
                         this.getStudiengaenge(data)
                     ));
+
+            fetch("/faecher")
+                .then(rep => rep.json()
+                    .then(data => {
+                        this.getFaecher(data)
+                    }));
         },
     })
 </script>

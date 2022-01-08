@@ -57,13 +57,18 @@ public class StudentController{
     }
 
     @GetMapping("Profil/meineInfos/{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable("id") Long id){
+    public ResponseEntity<?> getStudent(@PathVariable("id") Long id){
+        Map<String, Object> myMap = new HashMap<>();
+
         Optional<Student> studentData = service.getStudentByID(id);
         System.out.println(studentData);
         System.out.print("Daten angekommen");
-        return studentData.map(value ->
-                new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() ->
-                new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        myMap.put("student",studentData);
+
+//        myMap.put("studiengang",studentData.get().getStudiengang());
+//        myMap.put("schwaechen",studentData.get().getSchwaechen());
+//        myMap.put("staerken",studentData.get().getStaerken());
+        return new ResponseEntity<Object>(myMap, HttpStatus.OK);
     }
     @GetMapping("profil/delete_user/{id}")
     public String deleteStudent(@PathVariable("id") Long id){
@@ -76,8 +81,4 @@ public class StudentController{
         return "chat";
     }
 
-//    @RequestMapping("/upload")
-//    public String viewTest(){
-//        return "upload";
-//    }
 }

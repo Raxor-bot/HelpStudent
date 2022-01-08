@@ -1,5 +1,6 @@
 package com.example.helpstudent.Controller;
 
+import com.example.helpstudent.Service.FachService;
 import com.example.helpstudent.Service.GruppenService;
 import com.example.helpstudent.Service.StudentService;
 import com.example.helpstudent.Service.StudiengangService;
@@ -23,12 +24,12 @@ import java.util.NoSuchElementException;
 public class GruppenController {
 
     private final GruppenService gruppenService;
-    private final StudiengangService studiengangService;
+    private final FachService fachService;
     private final StudentService  studentService;
 
-    public GruppenController(GruppenService gruppenService, StudiengangService studService, StudentService studentService) {
+    public GruppenController(GruppenService gruppenService,FachService fachService, StudentService studentService) {
         this.gruppenService = gruppenService;
-        this.studiengangService = studService;
+        this.fachService = fachService;
         this.studentService = studentService;
     }
 
@@ -49,7 +50,7 @@ public class GruppenController {
 
         Map<String, Object> myMap = new HashMap<>();
         Student student = studentService.getStudentByID(Long.parseLong(body.get("studentenid").toString())).orElseThrow(NoSuchElementException::new);
-        Gruppe gruppe = new Gruppe(Integer.parseInt(body.get("gruppengroesse").toString()),body.get("gruppenname").toString(),studiengangService.getStudiengangbyName(body.get("stdgangname").toString()),student);
+        Gruppe gruppe = new Gruppe(Integer.parseInt(body.get("gruppengroesse").toString()),body.get("gruppenname").toString(),fachService.getFachById(Long.parseLong(body.get("fachid").toString())),student);
 
         logger.info(student.toString());
         logger.info(gruppe.toString());
