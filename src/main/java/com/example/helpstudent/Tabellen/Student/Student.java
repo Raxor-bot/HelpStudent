@@ -91,11 +91,11 @@ public class Student implements UserDetails{
     }
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Studiengang studiengang;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "studentGruppen")
+    @ManyToMany(mappedBy = "studentGruppen",cascade = CascadeType.REMOVE)
     List<Gruppe> gruppen;
 
 
@@ -168,11 +168,11 @@ public class Student implements UserDetails{
     }
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Fach> staerken;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Fach> schwaechen;
 
 
