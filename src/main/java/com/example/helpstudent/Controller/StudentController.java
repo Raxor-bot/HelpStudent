@@ -61,14 +61,12 @@ public class StudentController{
         Map<String, Object> myMap = new HashMap<>();
 
         Optional<Student> studentData = service.getStudentByID(id);
-        System.out.println(studentData);
-        System.out.print("Daten angekommen");
-        myMap.put("student",studentData);
-
-//        myMap.put("studiengang",studentData.get().getStudiengang());
-//        myMap.put("schwaechen",studentData.get().getSchwaechen());
-//        myMap.put("staerken",studentData.get().getStaerken());
-        return new ResponseEntity<Object>(myMap, HttpStatus.OK);
+        System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
+        myMap.put("student",studentData );
+        myMap.put("schwaechen",studentData.get().getSchwaechen() );
+        myMap.put("staerken",studentData.get().getStaerken() );
+        System.out.println(myMap);
+        return new ResponseEntity<>(myMap, HttpStatus.OK);
     }
     @GetMapping("profil/delete_user/{id}")
     public String deleteStudent(@PathVariable("id") Long id){

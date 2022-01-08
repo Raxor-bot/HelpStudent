@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +46,7 @@
 
                         <!-- Profilinfos Navbar -->
                         <v-list-item-avatar>
-                            <img id="navavatar" src="https://randomuser.me/api/portraits/lego/6.jpg">
+                            <img id="navavatar" :src="standardbildurl">
                         </v-list-item-avatar>
                         <v-list-item-content>
                             <v-list-item-title v-if="student != null"> {{student.svorname}} {{student.sname}} </v-list-item-title>
@@ -81,24 +82,24 @@
                     <v-col cols="12" align-self="stretch">
                         <v-card height="250" color="#286BF9">
                             <v-row>
-                            <v-avatar
-                                    class="mt-10 mx-16"
-                                    size="150"
-                                    v-show="!editMode">
-                                <img
-                                        id="avatar"
-                                        src="https://randomuser.me/api/portraits/lego/6.jpg"
-                                        alt="Juan">
-                            </v-avatar>
+                                <v-avatar
+                                        class="mt-10 mx-16"
+                                        size="150"
+                                        v-show="!editMode">
+                                    <img
+                                            id="avatar"
+                                            :src="standardbildurl"
+                                            alt="Juan">
+                                </v-avatar>
 
-                            <v-avatar
-                                    class="mt-10 mx-16"
-                                    v-show="editMode"
-                                    color="grey lighten-3"
-                                    size="150">
+                                <v-avatar
+                                        class="mt-10 mx-16"
+                                        v-show="editMode"
+                                        color="grey lighten-3"
+                                        size="150">
 
-                                <img id="preview" src="" v-show="imgpreview">
-                            </v-avatar>
+                                    <img id="preview" src="" v-show="imgpreview">
+                                </v-avatar>
                             </v-row>
                             <div class="mt-n16 mb-16 mx-16 white--text">
                                 <p class="font-weight-black text-center mt-n16 mx-auto " v-if="student != null">{{student.svorname}} {{student.sname}}</p>
@@ -174,7 +175,7 @@
                                         <v-badge
                                                 color="green"
                                                 :value="gruppen.length"
-                                                >
+                                        >
                                             Meine Fächer
                                         </v-badge>
                                     </v-tab>
@@ -190,9 +191,9 @@
                                     <v-tab-item >
                                         <v-card dark tile >
 
-                                                <v-card-title>
-                                                    Persönliches
-                                                </v-card-title>
+                                            <v-card-title>
+                                                Persönliches
+                                            </v-card-title>
 
                                             <v-btn @click="saveinfo" class="ma-4" float="right"> Bearbeiten</v-btn>
 
@@ -307,7 +308,7 @@
                                                                           outlined
                                                                           multiple
                                                                           class="my-n2"
-                                                                          >
+                                                            >
                                                             </v-text-field>
                                                         </v-list-item-content>
                                                     </v-list-item>
@@ -594,6 +595,7 @@
                 headers: {"Content-Type": "application/json"},
                 body: {}
             },
+            standardbildurl: "https://randomuser.me/api/portraits/lego/6.jpg",
         },
         methods: {
             checkLogin(){
@@ -618,11 +620,16 @@
                     ));
             },
             getStudent(data) {
-                this.student = data;
+                //todo hier muss weiter gemacht werdentest
+                console.log(data)
+                this.student = data.student;
+                this.student.schwaechen = data.schwaechen;
+                this.student.staerken = data.staerken;
+                console.log(this.student);
                 if(this.student.bilderpfad !== null){
                     console.log(this.student.bilderpfad)
-                    document.getElementById("avatar").src = "/"+this.student.bilderpfad
-                    document.getElementById("navavatar").src = "/"+this.student.bilderpfad
+                    this.standardbildurl = "http://localhost:8080/"+this.student.bilderpfad;
+                    console.log(this.standardbildurl);
                 }
 
                 console.log(this.student)
@@ -631,8 +638,8 @@
                 this.studiengaenge = data;
             },
             getFaecher(data){
-              this.faecher = data.Fach;
-              console.log("faecher")
+                this.faecher = data.Fach;
+                console.log("faecher")
                 this.faecherkopie = this.faecher;
             },
             openUrl(url, method) {
@@ -707,13 +714,13 @@
             getStudiengangID(name){
                 let stid
                 for (const stName in this.studiengaenge) {
-                   this.studiengaenge.Studiengang.forEach(function (stdgang) {
-                       if (stdgang.stName === name){
-                           stid = stdgang.studiengangid
-                       }
-                   })
+                    this.studiengaenge.Studiengang.forEach(function (stdgang) {
+                        if (stdgang.stName === name){
+                            stid = stdgang.studiengangid
+                        }
+                    })
                 }
-                    return stid
+                return stid
             },
             faecherSuche(e) {
                 if (!this.fachsuche) {
@@ -794,9 +801,9 @@
 
             fetch("/faecher")
                 .then(rep => rep.json()
-                .then(data => {
-                    this.getFaecher(data)
-                }));
+                    .then(data => {
+                        this.getFaecher(data)
+                    }));
         },
     })
 </script>
