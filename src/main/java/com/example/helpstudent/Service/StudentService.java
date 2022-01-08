@@ -81,21 +81,16 @@ public class StudentService implements UserDetailsService {
         return token;
     }
 
-    public void deleteStudent(String mail) {
-        logger.info("Student wird gelöscht" + mail);
-
-
-        if(repo.findStudentByMail(mail).isPresent()) {
+    public void deleteStudentbyId(long id) {
+        logger.info("Student wird gelöscht" + id);
+        if(repo.findStudentByNlfdstudent(id).isPresent()) {
             logger.info("Student wurde erfolgreich gelöscht");
-
-            repo.deleteByMail(repo.findStudentByMail(mail).get().getMail());
+            repo.deleteById(repo.findStudentByNlfdstudent(id).get().getNlfdstudent());
         }
-
         else{
            logger.info("Student ist nicht vorhanden");
-
             throw new IllegalStateException(
-                    "Der Student mit der mail: " + mail + " existiert nicht"
+                    "Der Student mit der mail: " + id + " existiert nicht"
             );
         }
     }
@@ -166,6 +161,7 @@ public class StudentService implements UserDetailsService {
 
     public void UpdateUser(Map<String, Object> studentdata, long studentid) {
 
+        logger.info(studentdata.toString());
         if (studentdata.get("geburtstag") != "") {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             formatter.withLocale(Locale.GERMANY);
