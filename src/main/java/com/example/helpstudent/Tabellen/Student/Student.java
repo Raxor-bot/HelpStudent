@@ -20,9 +20,6 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 public class Student implements UserDetails{
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

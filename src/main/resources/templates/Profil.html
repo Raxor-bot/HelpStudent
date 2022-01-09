@@ -409,7 +409,7 @@
                                         <v-card
                                                 dark
                                                 tile>
-                                            <v-card-title> Frag diese Personen nach Rat</v-card-title>
+                                            <v-card-title> Frag in diesen Gruppen nach Rat</v-card-title>
 
                                             <v-row align-content="center" dense >
                                                 <v-col cols="4" v-for="gruppe in schwacheGruppen" >
@@ -454,7 +454,7 @@
                                         <v-card
                                                 dark
                                                 tile>
-                                            <v-card-title > Hilf diesen Personen auf die Sprünge</v-card-title>
+                                            <v-card-title > Hilf Personen in diesen Gruppen auf die Sprünge</v-card-title>
                                             <v-card-title class="mx-5">  </v-card-title>
                                             <v-row align-content="center" dense >
                                                 <v-col cols="4" v-for="gruppe in starkeGruppen" >
@@ -529,6 +529,7 @@
                                                                         Ansehen
                                                                     </v-btn>
                                                                     <v-btn
+                                                                            @click="openChatroom(gruppe.gruppenId, gruppe.gruppenname)"
                                                                             outlined
                                                                             text
                                                                     >
@@ -583,7 +584,7 @@
             fachsuche:"",
             fusch:"",
             msg:"",
-            aktiverTab: 1,
+            aktiverTab: 0,
             navdraw: false,
             imgpreview:false,
             studiengaenge:[],
@@ -710,9 +711,10 @@
             openUrl(url, method) {
                 window.open(url, method);
             },
-            openChat() {
-                this.initSession();
-                sessionStorage.setItem("svorname", this.fusch);
+            openChatroom(id, raumname) {
+                console.log("Chatroom öffnen ");
+                sessionStorage.setItem("roomId", id);
+                sessionStorage.setItem("roomName", raumname);
                 this.openUrl(this.chaturl, '');
             },
             initSession() {
