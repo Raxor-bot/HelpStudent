@@ -648,10 +648,7 @@
                     ));
             },
             getStudent(data) {
-                //todo hier muss weiter gemacht werdentest
-                console.log("student")
                 this.student = data.student;
-                console.log(this.student)
 
                 this.student.studiengang = data.studiengang;
                 this.student.schwaechen = data.schwaechen;
@@ -685,20 +682,22 @@
                     console.log(this.standardbildurl);
                 }
 
-                let test = [];
+                this.setFaehigkeiten();
+            },
+            setFaehigkeiten(){
+                let temp = [];
                 this.student.staerken.forEach(function(einArrayElement) {
-                    test.push(einArrayElement.nlfdFach.toString())
+                    temp.push(einArrayElement.nlfdFach.toString())
                 });
 
-                this.staerkenArray = test;
+                this.staerkenArray = temp;
 
-
-                test = [];
+                temp = [];
                 this.student.schwaechen.forEach(function(einArrayElement) {
-                    test.push(einArrayElement.nlfdFach.toString())
+                    temp.push(einArrayElement.nlfdFach.toString())
                 });
 
-                this.schwaechenArray = test;
+                this.schwaechenArray = temp;
             },
             getStudiengaenge(data) {
                 this.studiengaenge = data;
