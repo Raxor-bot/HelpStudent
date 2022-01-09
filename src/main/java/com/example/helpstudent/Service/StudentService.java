@@ -163,7 +163,7 @@ public class StudentService implements UserDetailsService {
 
         logger.info(studentdata.toString());
         if (studentdata.get("geburtstag") != "") {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             formatter.withLocale(Locale.GERMANY);
             LocalDate date = LocalDate.parse((String) studentdata.get("geburtstag"), formatter);
 

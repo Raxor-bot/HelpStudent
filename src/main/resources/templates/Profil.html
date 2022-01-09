@@ -206,9 +206,9 @@
                                                         ref="menu"
                                                         v-model="menu"
                                                         :close-on-content-click="false"
-                                                        :return-value.sync="geburtstag"
                                                         transition="scale-transition"
                                                         offset-y
+                                                        :disabled="!editMode"
                                                         min-width="auto"
                                                 >
                                                     <template v-slot:activator="{ on, attrs }">
@@ -216,6 +216,7 @@
                                                                 v-model="geburtstag"
                                                                 prepend-icon="mdi-calendar"
                                                                 readonly
+                                                                :disabled="!editMode"
                                                                 v-bind="attrs"
                                                                 v-on="on"
                                                         ></v-text-field>
@@ -416,7 +417,7 @@
                                             <v-card-title> Frag diese Personen nach Rat</v-card-title>
 
                                             <v-row align-content="center" dense >
-                                                <v-col cols="4" v-for="gruppe in schwacheGruppen">
+                                                <v-col cols="4" v-for="gruppe in schwacheGruppen" :key="gruppe.id">
                                                     <v-card
                                                             class="mx-auto"
                                                             max-width="860"
@@ -445,47 +446,59 @@
                                                         </v-card-actions>
                                                     </v-card>
                                                 </v-col>
+                                                <v-card
+                                                        class="mx-auto"
+                                                        max-width="860"
+                                                        outlined
+                                                        v-if="schwacheGruppen.length < 1"
+                                                >              <v-card-text>Es gibt noch keine Gruppen in denen du dir Hilfe suchen könntest!</v-card-text>
+                                                </v-card>
                                             </v-row>
-
-
                                         </v-card>
 
                                         <v-card
                                                 dark
                                                 tile>
                                             <v-card-title > Hilf diesen Personen auf die Sprünge</v-card-title>
-                                            <v-card-title class="mx-5">  <v-card-title>
-                                                <v-row align-content="center" dense >
-                                                    <v-col cols="4" v-for="gruppe in starkeGruppen">
-                                                        <v-card
-                                                                class="mx-auto"
-                                                                max-width="860"
-                                                                outlined
-                                                        >
-                                                            <v-list-item three-line>
-                                                                <v-list-item-content>
-                                                                    <v-list-item-title class="text-h5 mb-1">
-                                                                        {{gruppe.gruppenname}}
-                                                                    </v-list-item-title>
-                                                                    <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.teilnehmeranzahl}}</v-list-item-subtitle>
-                                                                </v-list-item-content>
-                                                            </v-list-item>
+                                            <v-card-title class="mx-5">  </v-card-title>
+                                            <v-row align-content="center" dense >
+                                                <v-col cols="4" v-for="gruppe in starkeGruppen" :key="gruppe.id">
+                                                    <v-card
+                                                            class="mx-auto"
+                                                            max-width="860"
+                                                            outlined
+                                                    >
+                                                        <v-list-item three-line>
+                                                            <v-list-item-content>
+                                                                <v-list-item-title class="text-h5 mb-1">
+                                                                    {{gruppe.gruppenname}}
+                                                                </v-list-item-title>
+                                                                <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.teilnehmeranzahl}}</v-list-item-subtitle>
+                                                            </v-list-item-content>
+                                                        </v-list-item>
 
-                                                            <v-card-actions>
-                                                                <v-btn
-                                                                        outlined
-                                                                        text>
-                                                                    Ansehen
-                                                                </v-btn>
-                                                                <v-btn
-                                                                        outlined
-                                                                        text>
-                                                                    Beitreten
-                                                                </v-btn>
-                                                            </v-card-actions>
-                                                        </v-card>
-                                                    </v-col>
-                                                </v-row>
+                                                        <v-card-actions>
+                                                            <v-btn
+                                                                    outlined
+                                                                    text>
+                                                                Ansehen
+                                                            </v-btn>
+                                                            <v-btn
+                                                                    outlined
+                                                                    text>
+                                                                Beitreten
+                                                            </v-btn>
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-card
+                                                        class="mx-auto"
+                                                        max-width="860"
+                                                        outlined
+                                                        v-if="schwacheGruppen.length < 1"
+                                                >              <v-card-text>Es gibt noch keine Gruppen in denen du anderen helfen könntest!</v-card-text>
+                                                </v-card>
+                                            </v-row>
                                         </v-card>
                                     </v-tab-item>
                                     <v-tab-item>
@@ -498,7 +511,7 @@
                                             <v-main>
                                                 <v-container  >
                                                     <v-row align-content="center" dense >
-                                                        <v-col cols="4" v-for="gruppe in gruppen">
+                                                        <v-col cols="4" v-for="gruppe in meineGruppen" :key="gruppe.id">
                                                             <v-card
                                                                     class="mx-auto"
                                                                     max-width="860"
@@ -609,11 +622,12 @@
             profilepic: "",
             chaturl:"http://localhost:8080/chat",
             aktuellerStudiengang:"",
-            geburtstag: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+            geburtstag: "2000-01-01",
             geschlecht: "",
             semester: "",
             staerken: [],
             schwaechen: [],
+            meineGruppen:[],
             gruppen:[],
             date: '01-01-2022',
             requestOptions: {
@@ -673,6 +687,9 @@
                 }
                 if(this.student.schwaechen != null && this.student.schwaechen !== []){
                     this.schwaechen = this.student.schwaechen;
+                }
+                if(this.student.gruppen != null && this.student.gruppen !== []){
+                    this.meineGruppen = this.student.gruppen;
                 }
                 if(this.student.bilderpfad !== null){
                     console.log(this.student.bilderpfad)
@@ -803,18 +820,12 @@
 
             schwacheGruppen(){
                 gruppenschwach=[];
-                console.log("ab hier");
-                console.log(this.schwaechen !== undefined);
-                console.log(this.schwaechen);
                 if(this.schwaechen !== undefined){
-                    console.log(this.schwaechen);
                     this.gruppen.forEach(function(einArrayElement) {
                         if(this.schwaechen !== undefined){
-                            console.log(this.schwaechen);
                             if(this.schwaechen.includes(einArrayElement.fach.fachid))
                                 gruppenschwach.push(einArrayElement);
                         }
-
                     });
                 }
                 return gruppenschwach;
