@@ -1,0 +1,81 @@
+@startuml
+
+
+class Student{
+- nlfdstudent  : long
+- sname : String
+- svorname : String
+- geburtstag  : LocalDate
+- geschlecht  : String
+- nSemester  : int
+- mail  : mail
+- passwort  : long
+- bilderpfad  : long
+- rolle  : StudentRolle
+- locked  : long
+- enabled : Boolean
+- studiengang : Studiengang
+- gruppen : List<Gruppen>
+- staerken : List<Fach>
+- schwaechen : List<Fach>
+....
++ Student(sname : String,svorname : String,mail : String,passwort : String) : Student
++ Student(sname : String,svorname : String,geburtstag : LocalDate, nSemester : int,mail : String, passwort : String,bilderpfad : String, rolle : StudentRolle )
++ Student(sname : String,svorname : String,geburtstag : LocalDate,nSemester : int,studiengang : Studiengang,mail : String,passwort : String,bilderpfad : String, rolle : StudentRolle)
+....
++ getAuthorities() : Collection<?>
++ isAccountNonExpired() : boolean
++ isAccountNonLocked() : boolean
++ isCredentialsNonExpired() : boolean
++ isEnabled() : boolean
+}
+
+interface UserDetails{
+
+}
+
+class Studiengang{
+-studiengangid : long;
+-stName : String;
+-stAbkuerzung : String;
+-students : List<Student>
+-faecher : List<Fach>;
+}
+
+
+enum studentRolle{
+DEFAULT
+USER
+ADMIN
+}
+
+class Gruppe{
+- iD : long;
+- teilnehmeranzahl : int;
+- gruppenname : String ;
+}
+
+class Fach{
+- nlfdFach : long;
+- fachName : String;
+- semester : int;
+}
+
+Student .up.|> UserDetails
+Studiengang -left- Student
+Student -up- studentRolle
+Studiengang --* Fach
+Gruppe -left- Fach
+
+
+
+
+
+
+
+
+
+
+
+
+@enduml

@@ -1,4 +1,4 @@
-package com.example.helpstudent.Tabellen.Student;
+package com.example.helpstudent.Tabellen;
 
 import lombok.Getter;
 import lombok.Setter;

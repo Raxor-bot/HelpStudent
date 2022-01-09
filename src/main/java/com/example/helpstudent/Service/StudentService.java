@@ -1,8 +1,8 @@
 package com.example.helpstudent.Service;
 
-import com.example.helpstudent.Tabellen.Student.Fach;
-import com.example.helpstudent.Tabellen.Student.Gruppe;
-import com.example.helpstudent.Tabellen.Student.Student;
+import com.example.helpstudent.Tabellen.Fach;
+import com.example.helpstudent.Tabellen.Gruppe;
+import com.example.helpstudent.Tabellen.Student;
 import com.example.helpstudent.Repository.StudentRepository;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
 import org.slf4j.Logger;
@@ -203,6 +203,7 @@ public class StudentService implements UserDetailsService {
                 }
             }
         }
+
         if (studentdata.get("schwaechen") != null) {
             if (!studentdata.get("schwaechen").toString().equals("[]")) {
                 repo.deleteStudentSchwaechen(studentid);

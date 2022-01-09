@@ -1,4 +1,4 @@
-package com.example.helpstudent.Tabellen.Student;
+package com.example.helpstudent.Tabellen;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,6 +9,7 @@ public class Studiengang {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long studiengangid;
     private String stName;
     private String stAbkuerzung;

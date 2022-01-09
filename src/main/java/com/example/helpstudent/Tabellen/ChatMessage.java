@@ -1,4 +1,4 @@
-package com.example.helpstudent.Tabellen.Student;
+package com.example.helpstudent.Tabellen;
 
 
 public class ChatMessage {
@@ -8,24 +8,9 @@ public class ChatMessage {
         private String empfaenger;
         private ChatType typ;
 
-        public ChatType getTyp() {
-                return typ;
-        }
-
-        public void setTyp(ChatType typ) {
-                this.typ = typ;
-        }
 
         public String getNachricht() {
                 return nachricht;
-        }
-
-        public void setNachricht(String nachricht) {
-                this.nachricht = nachricht;
-        }
-
-        public String getSender() {
-                return sender;
         }
 
         public void setSender(String sender) {

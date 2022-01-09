@@ -1,6 +1,6 @@
 package com.example.helpstudent.Service;
 
-import com.example.helpstudent.email.EmailSender;
+import com.example.helpstudent.registrierung.EmailSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSender;

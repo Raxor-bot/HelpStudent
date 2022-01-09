@@ -1,4 +1,4 @@
-package com.example.helpstudent.Tabellen.Student;
+package com.example.helpstudent.Tabellen;
 
 public enum StudentRolle {
     DEFAULT,

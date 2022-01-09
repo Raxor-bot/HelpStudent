@@ -1,9 +1,8 @@
 package com.example.helpstudent.Repository;
 
-import com.example.helpstudent.Tabellen.Student.Fach;
-import com.example.helpstudent.Tabellen.Student.Gruppe;
-import com.example.helpstudent.Tabellen.Student.Student;
-import com.example.helpstudent.Tabellen.Student.Studiengang;
+import com.example.helpstudent.Tabellen.Fach;
+import com.example.helpstudent.Tabellen.Student;
+import com.example.helpstudent.Tabellen.Studiengang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,7 +1,7 @@
 package com.example.helpstudent.Config;
 
 import com.example.helpstudent.Service.StudentService;
-import com.example.helpstudent.Tabellen.Student.Student;
+import com.example.helpstudent.Tabellen.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

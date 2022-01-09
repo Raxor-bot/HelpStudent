@@ -1,6 +1,6 @@
 package com.example.helpstudent.Repository;
 
-import com.example.helpstudent.Tabellen.Student.Studiengang;
+import com.example.helpstudent.Tabellen.Studiengang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;

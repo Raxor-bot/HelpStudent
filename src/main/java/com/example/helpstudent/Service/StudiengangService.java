@@ -1,7 +1,7 @@
 package com.example.helpstudent.Service;
 
 import com.example.helpstudent.Repository.StudiengangRepository;
-import com.example.helpstudent.Tabellen.Student.Studiengang;
+import com.example.helpstudent.Tabellen.Studiengang;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

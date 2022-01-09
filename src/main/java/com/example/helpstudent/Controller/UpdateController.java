@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import com.example.helpstudent.Service.StudentService;
-import com.example.helpstudent.Tabellen.Student.Student;
+import com.example.helpstudent.Tabellen.Student;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
@@ -118,7 +118,7 @@ public class UpdateController {
             logger.info(student.get().toString());
 
             String profilpfad = student.get().getBilderpfad();
-            final String UPLOAD_FOLDER = "src/main/resources/static";
+            final String UPLOAD_FOLDER = "src/main/resources/Bilder";
 
             studentService.UpdateUser(studentdata, Long.parseLong(studentid));
 

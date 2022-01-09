@@ -1,10 +1,9 @@
 package com.example.helpstudent.Service;
 
-import com.example.helpstudent.Tabellen.Student.Student;
-import com.example.helpstudent.email.EmailSender;
+import com.example.helpstudent.Tabellen.Student;
+import com.example.helpstudent.registrierung.EmailSender;
 import com.example.helpstudent.registrierung.EmailValidierung;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;

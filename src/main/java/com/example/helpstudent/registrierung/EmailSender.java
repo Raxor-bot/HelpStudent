@@ -1,4 +1,4 @@
-package com.example.helpstudent.email;
+package com.example.helpstudent.registrierung;
 
 import org.springframework.stereotype.Component;
 

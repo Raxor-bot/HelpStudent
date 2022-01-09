@@ -3,8 +3,8 @@ package com.example.helpstudent.Config;
 
 import com.example.helpstudent.Service.FachService;
 import com.example.helpstudent.Service.StudiengangService;
-import com.example.helpstudent.Tabellen.Student.Fach;
-import com.example.helpstudent.Tabellen.Student.Studiengang;
+import com.example.helpstudent.Tabellen.Fach;
+import com.example.helpstudent.Tabellen.Studiengang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

@@ -1,7 +1,7 @@
 package com.example.helpstudent.Controller;
 
 import com.example.helpstudent.Service.*;
-import com.example.helpstudent.Tabellen.Student.Student;
+import com.example.helpstudent.Tabellen.Student;
 import com.example.helpstudent.registrierung.token.TokenError;
 
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package com.example.helpstudent.Repository;
 
-import com.example.helpstudent.Tabellen.Student.Gruppe;
+import com.example.helpstudent.Tabellen.Gruppe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

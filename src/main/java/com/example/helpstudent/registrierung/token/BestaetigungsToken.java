@@ -1,6 +1,6 @@
 package com.example.helpstudent.registrierung.token;
 
-import com.example.helpstudent.Tabellen.Student.Student;
+import com.example.helpstudent.Tabellen.Student;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

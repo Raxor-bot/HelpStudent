@@ -1,4 +1,4 @@
-package com.example.helpstudent.Tabellen.Student;
+package com.example.helpstudent.Tabellen;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
@@ -122,14 +123,6 @@ public class Student implements UserDetails{
         return svorname;
     }
 
-    public LocalDate getGeburtstag() {
-        return geburtstag;
-    }
-
-    public int getNsemester() {
-        return nsemester;
-    }
-
     public String getMail() {
         return mail;
     }
@@ -139,9 +132,6 @@ public class Student implements UserDetails{
         return bilderpfad;
     }
 
-    public StudentRolle getRolle() {
-        return rolle;
-    }
 
     @Override
     public boolean isAccountNonLocked() {
@@ -156,10 +146,6 @@ public class Student implements UserDetails{
     @Override
     public boolean isEnabled() {
         return enabled;
-    }
-
-    public void setBilderpfad(String bilderpfad) {
-        this.bilderpfad = bilderpfad;
     }
 
     @JsonIgnore
@@ -187,20 +173,12 @@ public class Student implements UserDetails{
 		this.mail = email;
 	}
 
-	public String getGeschlecht() {
-		return geschlecht;
-	}
-
-	public void setGeschlecht(String geschlecht) {
-		this.geschlecht = geschlecht;
-	}
-
 	@Override
 	public String getPassword() {
 		return this.passwort;
 	}
 
-	
-	
-	
+
+
+
 }

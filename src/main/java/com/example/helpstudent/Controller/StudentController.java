@@ -2,7 +2,7 @@ package com.example.helpstudent.Controller;
 
 
 import com.example.helpstudent.Service.StudentService;
-import com.example.helpstudent.Tabellen.Student.Student;
+import com.example.helpstudent.Tabellen.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
