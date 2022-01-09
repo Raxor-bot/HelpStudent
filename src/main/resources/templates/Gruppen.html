@@ -299,7 +299,7 @@
 
                 getStudent(data) {
                 this.student = data;
-                if(this.student.bilderpfad !== null){
+                if(this.student.bilderpfad){
                     document.getElementById("navavatar").src = "/"+this.student.bilderpfad
                 }
             },
@@ -447,7 +447,7 @@
 
             this.fetchGruppen();
 
-            fetch("Profil/meineInfos/" + sessionStorage.getItem("id"))
+            fetch("/Profil/meineInfos/"+sessionStorage.getItem("id"))
                 .then(rep => rep.json())
                 .then(data => (
                     this.getStudent(data)

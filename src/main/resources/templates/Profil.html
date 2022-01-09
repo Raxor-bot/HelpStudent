@@ -444,7 +444,7 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-card
-                                                        class="mx-auto"
+                                                        class="mx-auto my-4"
                                                         max-width="860"
                                                         outlined
                                                         v-if="schwacheGruppen.length < 1"
@@ -489,7 +489,7 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-card
-                                                        class="mx-auto"
+                                                        class="mx-auto my-4"
                                                         max-width="860"
                                                         outlined
                                                         v-if="starkeGruppen.length < 1"
@@ -881,9 +881,8 @@
                 this.initSession();
             }
             this.checkLogin();
-
-
             this.fetchGruppen();
+
             fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
                 .then(rep => rep.json())
                 .then(data => (this.getStudent(data)))
@@ -895,9 +894,6 @@
                     .then(data => {
                         this.getFaecher(data)
                     }));
-
-
-
         },
     })
 </script>
