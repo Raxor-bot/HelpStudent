@@ -17,14 +17,12 @@ public class RegistrationService {
     private final StudentService studentService;
     private final EmailValidierung emailValidierung;
     private final BestaetigungsTokenService bestaetigungsTokenService;
-    private final EmailSender emailsender;
+    private EmailSender emailsender;
 
-    public RegistrationService(StudentService studentService, EmailValidierung emailValidierung, BestaetigungsTokenService bestaetigungsTokenService, @Qualifier("emailSender") EmailSender emailsender) {
+    public RegistrationService(StudentService studentService, EmailValidierung emailValidierung, BestaetigungsTokenService bestaetigungsTokenService) {
         this.studentService = studentService;
         this.emailValidierung = emailValidierung;
         this.bestaetigungsTokenService = bestaetigungsTokenService;
-
-        this.emailsender = emailsender;
     }
 
     public String registrierenValidierung(@ModelAttribute("Student") Student student){
