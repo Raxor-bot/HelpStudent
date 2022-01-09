@@ -238,11 +238,14 @@
                                                 </v-menu>
                                             <v-card-text>Geschlecht:</v-card-text>
 
-                                            <v-text-field
-                                                    v-model="geschlecht"
+                                            <v-select
+                                                    :items="geschlechter"
+                                                    dense
+                                                    outlined
                                                     required
                                                     :disabled="!editMode"
-                                            > </v-text-field>
+                                                    v-model="geschlecht"
+                                            ></v-select>
 
 
                                             <v-card-text>
@@ -265,6 +268,11 @@
                                                     for="semester"
                                                     v-model="semester"
                                                     required
+                                                    type="number"
+                                                    step="1"
+                                                    min="1"
+                                                    max="20"
+                                                    :rules="[semsterRegel]"
                                                     :disabled="!editMode"
                                             > </v-text-field>
 
@@ -609,6 +617,10 @@
             rules: [
                 value => !value || value.size < 4000000 || 'Profilbild sollte kleiner als 4MB sein!',
             ],
+            semsterRegel: v  => {
+                if (v % 1 === 0) return true;
+                return 'Es muss eine ganze Zahl sein!';
+            },
             items: [
                 { title: 'Home', icon: 'mdi-home-variant-outline', url:   "http://localhost:8080/home"},
                 { title: 'Mein Profil', icon: 'mdi-account-outline', url: "http://localhost:8080/Profil"},
@@ -621,6 +633,7 @@
             aktuellerStudiengang:"",
             geburtstag: "2000-01-01",
             geschlecht: "",
+            geschlechter:["männlich", "weiblich", "divers"],
             semester: "",
             staerken: [],
             staerkenArray: [],
