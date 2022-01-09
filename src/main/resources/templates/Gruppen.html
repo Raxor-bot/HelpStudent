@@ -225,6 +225,13 @@
                                 outlined
                                 text
                         >
+                            Chatten
+                        </v-btn>
+                        <v-btn
+                                @click="gruppeBeitreten(gruppe.gruppenId)"
+                                outlined
+                                text
+                        >
                             Beitreten
                         </v-btn>
 
@@ -333,6 +340,17 @@
 
                 this.fetchGruppen();
                 location.reload();
+            },
+            gruppeBeitreten(id){
+                this.requestOptions.body = JSON.stringify({
+                    gruppenid: id,
+                    studentenid: sessionStorage.getItem("id")
+                });
+                fetch("Gruppen/gruppe_beitreten", this.requestOptions)
+                    .then((res) => res.text())
+                    .then(data => (
+                        this.handleData(data)
+                    ));
             },
 
             handleData(data) {

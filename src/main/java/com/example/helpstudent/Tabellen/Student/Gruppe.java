@@ -18,7 +18,7 @@ public class Gruppe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private long iD;
+    private long id;
     private int teilnehmeranzahl;
     private String gruppenname;
 
@@ -42,11 +42,11 @@ public class Gruppe {
     @JsonIgnore
     private List<Student> studentGruppen = new ArrayList<>();
     public Long getGruppenId() {
-        return iD;
+        return id;
     }
 
     public void setGruppenId(Long gruppenId) {
-        this.iD = gruppenId;
+        this.id = gruppenId;
     }
 
     public int getTeilnehmeranzahl() {

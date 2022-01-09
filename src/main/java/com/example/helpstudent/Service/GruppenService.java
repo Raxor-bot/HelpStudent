@@ -21,6 +21,10 @@ public class GruppenService{
         return repo.findAll();
     }
 
+    public Optional<Gruppe> getGruppebyId(long id){
+        return repo.findGruppeById(id);
+    }
+
     public void addNewGruppe(Gruppe gruppe){
         Optional<Gruppe> gruppeOptional = repo.findByGruppenname(gruppe.getGruppenname());
         if (gruppeOptional.isPresent()){

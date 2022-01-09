@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RequestMapping("/Gruppen")
 @Controller
@@ -25,7 +26,7 @@ public class GruppenController {
 
     private final GruppenService gruppenService;
     private final FachService fachService;
-    private final StudentService  studentService;
+    private final StudentService studentService;
 
     public GruppenController(GruppenService gruppenService,FachService fachService, StudentService studentService) {
         this.gruppenService = gruppenService;
@@ -66,5 +67,21 @@ public class GruppenController {
             }
 
         return new ResponseEntity<Object>(myMap, HttpStatus.OK);
+    }
+    @PostMapping("/gruppe_beitreten")
+    public ResponseEntity<?> gruppeBeitreten(@RequestBody Map<String,Object> body) {
+        Map<String, Object> myMap = new HashMap<>();
+        Student student = studentService.getStudentByID(Long.parseLong(body.get("studentenid").toString())).orElseThrow(NoSuchElementException::new);
+        Gruppe gruppe = gruppenService.getGruppebyId(Long.parseLong(body.get("gruppenid").toString())).orElseThrow(NoSuchElementException::new);
+            studentService.addStudentGruppe(student,gruppe);
+    return new ResponseEntity<Object>(myMap, HttpStatus.OK);
+    }
+    @PostMapping("/gruppe_verlassen")
+    public ResponseEntity<?> gruppeVerlassen(@RequestBody Map<String,Object> body) {
+        Map<String, Object> myMap = new HashMap<>();
+        Student student = studentService.getStudentByID(Long.parseLong(body.get("studentenid").toString())).orElseThrow(NoSuchElementException::new);
+        Gruppe gruppe = gruppenService.getGruppebyId(Long.parseLong(body.get("gruppenid").toString())).orElseThrow(NoSuchElementException::new);
+            studentService.removeStudentGruppe(student,gruppe);
+    return new ResponseEntity<Object>(myMap, HttpStatus.OK);
     }
 }

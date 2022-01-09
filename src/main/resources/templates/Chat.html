@@ -70,7 +70,7 @@
                                     <v-img
                                             class="elevation-6"
                                             alt=""
-                                            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                                            :src="standardbildurl"
                                     ></v-img>
                                 </v-list-item-avatar>
 
@@ -145,6 +145,8 @@
             messages:[],
             raumdId:null,
             raumName:null,
+            student:null,
+            standardbildurl:"https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light",
         },
         methods:{
             initSession() {
@@ -202,7 +204,7 @@
                 let messageContent = this.messageInput.trim();
                 if(messageContent !== "" && stompClient) {
                     let chatMessage = {
-                        sender: this.username,
+                        sender: sessionStorage.getItem("id"),
                         nachricht: messageContent,
                         type: 'CHAT'
                     };
@@ -213,17 +215,38 @@
             },
 
              onMessageReceived(payload) {
+
+
                 var message = JSON.parse(payload.body);
+
+                 fetch("Profil/meineInfos/"+message.sender)
+                     .then(rep => rep.json())
+                     .then(data => (this.getStudent(data)))
+
                 console.log(message)
-                this.messages.push({username: message.sender, inhalt: message.nachricht});
+                this.messages.push({username: this.student.svorname, inhalt: message.nachricht});
                 console.log(this.messages);
             },
+            getStudent(data) {
+                this.student = data.student;
+
+                if(this.student.bilderpfad !== null){
+                    console.log(this.student.bilderpfad)
+                    this.standardbildurl = "http://localhost:8080/"+this.student.bilderpfad;
+                    console.log(this.standardbildurl);
+                }
+            }
         },
         created(){
             if (this.sessionEmpty) {
                 this.initSession();
             }
             this.checkLogin();
+
+            fetch("Profil/meineInfos/"+sessionStorage.getItem("id"))
+                .then(rep => rep.json())
+                .then(data => (this.getStudent(data)))
+
             console.log(sessionStorage);
             this.raumName = sessionStorage.getItem("roomName");
             this.raumdId = sessionStorage.getItem("roomId");

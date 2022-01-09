@@ -1,6 +1,7 @@
 package com.example.helpstudent.Repository;
 
 import com.example.helpstudent.Tabellen.Student.Fach;
+import com.example.helpstudent.Tabellen.Student.Gruppe;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.Tabellen.Student.Studiengang;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -89,4 +90,14 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Modifying
     @Query(value = "delete from student_staerken where student_nlfdstudent = ?1", nativeQuery = true)
     void deleteStudentStaerken(long studentid);
+
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO gruppe_student_gruppen(gruppen_id, student_gruppen_nlfdstudent) VALUES (:gruppenid,:studentid)", nativeQuery = true)
+    void addStudentGruppe(@Param("studentid")long studentid, @Param("gruppenid")long gruppenid);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE from gruppe_student_gruppen WHERE gruppen_id = :gruppenid AND student_gruppen_nlfdstudent = :studentid", nativeQuery = true)
+    void removeStudentGruppe(@Param("studentid")long studentid, @Param("gruppenid")long gruppenid);
 }

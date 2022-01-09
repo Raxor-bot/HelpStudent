@@ -523,17 +523,19 @@
 
                                                                 <v-card-actions>
                                                                     <v-btn
-                                                                            outlined
-                                                                            text
-                                                                    >
-                                                                        Ansehen
-                                                                    </v-btn>
-                                                                    <v-btn
                                                                             @click="openChatroom(gruppe.gruppenId, gruppe.gruppenname)"
                                                                             outlined
                                                                             text
                                                                     >
                                                                         Beitreten
+                                                                    </v-btn>
+                                                                    <v-btn
+                                                                            @click="gruppeVerlassen(gruppe.gruppenId)"
+                                                                            outlined
+                                                                            text
+                                                                            color="red darken-1"
+                                                                    >
+                                                                        Verlassen
                                                                     </v-btn>
                                                                 </v-card-actions>
                                                             </v-card>
@@ -739,13 +741,13 @@
                 this.imgpreview = false;
                 this.profilepic = '';
             },
-            addInfo(){
+            async addInfo() {
                 const formData = new FormData();
-                if(this.imgpreview) {
+                if (this.imgpreview) {
                     formData.append("file", this.profilepic);
                 }
 
-                if(typeof this.aktuellerStudiengang == "object"){
+                if (typeof this.aktuellerStudiengang == "object") {
                     this.aktuellerStudiengang = this.aktuellerStudiengang.studiengangid;
                 }
 
@@ -762,18 +764,19 @@
                 formData.append("studid", this.student.nlfdstudent)
                 console.log(data)
                 console.log(JSON.stringify(data))
-                formData.append("studentdata",JSON.stringify(data))
+                formData.append("studentdata", JSON.stringify(data))
                 const imgRequestOptions = {
                     method: "POST",
                     body: formData,
                 }
                 console.log(formData)
-                fetch("/upload", imgRequestOptions)
+                await fetch("/upload", imgRequestOptions)
                     .then((res) => res.text())
                     .then(data => (
                         this.handleData(data)
                     ));
                 this.editMode = false;
+                //open("http://localhost:8080/Profil","_self");
             },
             handleData(data){
                 data = JSON.parse(data)
@@ -806,6 +809,19 @@
                 await fetch("profil/delete_user/"+sessionStorage.getItem("id"))
                 sessionStorage.clear()
                 window.open("http://localhost:8080/Login?delete=true","_self")
+            },
+
+            gruppeVerlassen(id){
+                this.requestOptions.body = JSON.stringify({
+                    gruppenid: id,
+                    studentenid: sessionStorage.getItem("id")
+                });
+                fetch("Gruppen/gruppe_verlassen", this.requestOptions)
+                    .then((res) => res.text())
+                    .then(data => (
+                        this.handleData(data)
+                    ));
+                window.open("http://localhost:8080/Profil","_self");
             },
 
             setaktiverTab(){

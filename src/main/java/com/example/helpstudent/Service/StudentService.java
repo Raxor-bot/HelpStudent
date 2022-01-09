@@ -1,6 +1,7 @@
 package com.example.helpstudent.Service;
 
 import com.example.helpstudent.Tabellen.Student.Fach;
+import com.example.helpstudent.Tabellen.Student.Gruppe;
 import com.example.helpstudent.Tabellen.Student.Student;
 import com.example.helpstudent.Repository.StudentRepository;
 import com.example.helpstudent.registrierung.token.BestaetigungsToken;
@@ -94,23 +95,15 @@ public class StudentService implements UserDetailsService {
         }
     }
 
-
-    @Transactional
-    public void updateStudent(Long studentId, String name, String email) {
-        logger.info("Student wird geupdatet");
-
-        Student student = repo.findById(studentId).orElseThrow(()-> new IllegalStateException(
-                "Der Student mit der ID: "+studentId+" existiert nicht"
-        ));
-
-        if(nameGueltig(student,name)){
-            student.setSname(name);
+    public void addStudentGruppe(Student student, Gruppe gruppe){
+        if(!student.getGruppen().contains(gruppe)) {
+            repo.addStudentGruppe(student.getNlfdstudent(), gruppe.getGruppenId());
         }
+    }
 
-        if(emailGueltig(student, email)){
-            this.checkMail(email);
-            student.setMail(email);
-        }
+
+    public void removeStudentGruppe(Student student, Gruppe gruppe) {
+            repo.removeStudentGruppe(student.getNlfdstudent(), gruppe.getGruppenId());
     }
 
     private void checkMail(String email){

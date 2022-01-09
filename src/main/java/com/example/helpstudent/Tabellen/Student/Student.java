@@ -98,7 +98,6 @@ public class Student implements UserDetails{
     @ManyToMany(mappedBy = "studentGruppen",cascade = CascadeType.ALL)
     List<Gruppe> gruppen;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority rang = new SimpleGrantedAuthority(rolle.name());
@@ -186,7 +185,6 @@ public class Student implements UserDetails{
 
 	public void setMail(String email) {
 		this.mail = email;
-		
 	}
 
 	public String getGeschlecht() {
