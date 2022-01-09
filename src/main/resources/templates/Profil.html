@@ -134,17 +134,6 @@
                                         accept="image/png, image/jpeg"
                                         @change="onChange($event)"
                                         @remove="onRemove()"/>
-
-                                <v-chip
-                                        v-show="!editMode"
-                                        class="mt-n28 mx-16"
-                                        color="primary"
-                                        text-color="white">
-                                    Alter
-                                    <v-icon right>
-                                        mdi-cake-variant
-                                    </v-icon>
-                                </v-chip>
                             </div>
                         </v-card>
                     </v-col>
@@ -163,14 +152,15 @@
 
                                 <v-tabs dark
                                         background-color="primary"
-                                        grow>
+                                        grow
+                                        v-model="aktiverTab">
 
                                     <!--Beschriftung der Tabs -->
-                                    <v-tab id="meineinfos">
+                                    <v-tab key="1">
                                         Meine Infos
                                         </v-badge>
                                     </v-tab>
-                                    <v-tab>
+                                    <v-tab key="2">
                                         <v-badge
                                                 color="green"
                                                 :value="gruppen.length"
@@ -178,7 +168,7 @@
                                             Meine Fächer
                                         </v-badge>
                                     </v-tab>
-                                    <v-tab>
+                                    <v-tab key="3">
                                         <v-badge
                                                 color="red"
                                                 :value="gruppen.length">
@@ -546,37 +536,21 @@
                                                                     </v-btn>
                                                                 </v-card-actions>
                                                             </v-card>
+
                                                         </v-col>
 
-
+                                                        <v-card
+                                                                class="mx-auto my-4"
+                                                                max-width="860"
+                                                                outlined
+                                                                @click="openUrl('http://localhost:8080/Gruppen','_self')"
+                                                                v-if="meineGruppen.length < 1"
+                                                        >              <v-card-text>Du bist noch keinen Gruppen beigetreten. Klick mich um Gruppen zu finden oder eine zu ersetllen!</v-card-text>
+                                                        </v-card>
 
                                                     </v-row>
                                                 </v-container>
                                             </v-main>
-                                            <!-- Chatportal Links-->
-                                            <v-card-title> Chatportal</v-card-title>
-                                            <v-card-text>Hier geht es in unser Chatportal</v-card-text>
-                                            <v-btn
-                                                    color="#286BF9"
-                                                    class="mt-2 mx-5 mb-5"
-                                                    @click="overlay = !overlay">
-                                                Finde neue Gruppen
-                                            </v-btn>
-                                            <v-btn
-                                                    color="#286BF9"
-                                                    class="mt-2 mx-5 mb-5"
-                                                    @click="openChat()">
-
-                                                Meine Chats
-                                            </v-btn>
-                                            </v-btn>
-                                            <v-btn
-                                                    color="#286BF9"
-                                                    class="mt-2 mx-5 mb-5"
-                                                    @click="overlay = !overlay">
-                                                Meine Chatanfragen
-                                            </v-btn>
-                                        </v-card>
                                     </v-tab-item>
                                 </v-tabs>
                             </v-toolbar>
@@ -609,6 +583,7 @@
             fachsuche:"",
             fusch:"",
             msg:"",
+            aktiverTab: 1,
             navdraw: false,
             imgpreview:false,
             studiengaenge:[],
@@ -829,6 +804,12 @@
                 await fetch("profil/delete_user/"+sessionStorage.getItem("id"))
                 sessionStorage.clear()
                 window.open("http://localhost:8080/Login?delete=true","_self")
+            },
+
+            setaktiverTab(){
+                if(sessionStorage.getItem("tab")){
+                    this.aktiverTab = parseInt(sessionStorage.getItem("tab"));
+                }
             }
         },
         computed:{
@@ -912,6 +893,7 @@
                     .then(data => {
                         this.getFaecher(data)
                     }));
+            this.setaktiverTab();
         },
     })
 </script>
