@@ -594,6 +594,7 @@
             ],
             semsterRegel: v  => {
                 if (v % 1 === 0) return true;
+                if (typeof v !== "string") return true;
                 return 'Es muss eine ganze Zahl sein!';
             },
             items: [
