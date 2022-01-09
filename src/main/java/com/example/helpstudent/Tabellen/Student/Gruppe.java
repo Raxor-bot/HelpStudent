@@ -27,15 +27,15 @@ public class Gruppe {
         this.gruppenname = gruppenname;
     }
 
-    public Gruppe(int teilnehmeranzahl, String gruppenname, Studiengang studiengang, Student erstelltvonnlfdstudent) {
+    public Gruppe(int teilnehmeranzahl, String gruppenname, Fach fach, Student erstelltvonnlfdstudent) {
         this.teilnehmeranzahl = teilnehmeranzahl;
         this.gruppenname = gruppenname;
-        this.studiengang = studiengang;
+        this.fach = fach;
         this.studentGruppen.add(erstelltvonnlfdstudent);
     }
 
     @ManyToOne
-    private Studiengang studiengang;
+    private Fach fach;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable

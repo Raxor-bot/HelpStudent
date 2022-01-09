@@ -162,7 +162,7 @@ public class StudentService implements UserDetailsService {
 
         logger.info(studentdata.toString());
         if (studentdata.get("geburtstag") != "") {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             formatter.withLocale(Locale.GERMANY);
             LocalDate date = LocalDate.parse((String) studentdata.get("geburtstag"), formatter);
 
@@ -173,7 +173,9 @@ public class StudentService implements UserDetailsService {
             repo.setStudentgeschlecht((String) studentdata.get("geschlecht"), studentid);
         }
 
-        if (studentdata.get("studiengang") != "") {
+        //todo wichtig jannik das ist doof weil ganz viele errors
+        // z.B.: java.lang.ClassCastException: class java.util.LinkedHashMap cannot be cast to class java.lang.Number (java.util.LinkedHashMap and java.lang.Number are in module java.base of loader 'bootstrap')
+        if (studentdata.get("studiengang") != "" && studentdata.get("studiengang") != null) {
             long studiengangId = ((Number) studentdata.get("studiengang")).longValue();
 
             repo.setStudentStudiengang(studiengangService.getStudiengangById(studiengangId), studentid);
@@ -187,32 +189,35 @@ public class StudentService implements UserDetailsService {
             }
         }
 
-        if(!studentdata.get("staerken").toString().equals("[]") || studentdata.get("staerken") == null){
-            logger.info("stark");
+        if (studentdata.get("schwaechen") != null) {
+            if (!studentdata.get("staerken").toString().equals("[]")) {
+                logger.info("stark");
 
-            repo.deleteStudentStaerken(studentid);
+                repo.deleteStudentStaerken(studentid);
 
-            String staerkenstr = studentdata.get("staerken").toString();
+                String staerkenstr = studentdata.get("staerken").toString();
 
-            logger.info(studentdata.get("staerken").toString());
+                logger.info(studentdata.get("staerken").toString());
 
-            List<Fach> faecher = convertArray(staerkenstr);
+                List<Fach> faecher = convertArray(staerkenstr);
 
-            for(Fach fach : faecher){
-                repo.setStudentStaerken(fach , studentid);
+                for (Fach fach : faecher) {
+                    repo.setStudentStaerken(fach, studentid);
+                }
             }
         }
+        if (studentdata.get("schwaechen") != null) {
+            if (!studentdata.get("schwaechen").toString().equals("[]")) {
+                repo.deleteStudentSchwaechen(studentid);
 
-        if(!studentdata.get("schwaechen").toString().equals("[]") || studentdata.get("schwaechen") == null) {
-            repo.deleteStudentSchwaechen(studentid);
+                logger.info("schwach");
+                String schwaechenstr = studentdata.get("schwaechen").toString();
 
-            logger.info("schwach");
-            String schwaechenstr = studentdata.get("schwaechen").toString();
+                List<Fach> fachList = convertArray(schwaechenstr);
 
-            List<Fach> fachList = convertArray(schwaechenstr);
-
-            for (Fach fach : fachList) {
-                repo.setStudentSchwaechen(fach, studentid);
+                for (Fach fach : fachList) {
+                    repo.setStudentSchwaechen(fach, studentid);
+                }
             }
         }
     }
