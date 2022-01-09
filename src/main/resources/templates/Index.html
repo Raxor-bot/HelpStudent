@@ -89,18 +89,18 @@
           </v-col>
 
           <v-col cols="6">
-            <v-card height="200" color="red">
+            <v-card height="200" color="red"  @click="toMeineFaecher">
 
               <v-card-title>Deine Fächer</v-card-title>
-              <v-card-text>Neue Studenten benötigen deine Hilfe in einem deiner Fächer</v-card-text>
+              <v-card-text>Sieh dir an was in deinen Fächern los ist!</v-card-text>
             </v-card>
           </v-col>
 
           <v-col cols="6">
-            <v-card height="200" color="green">
+            <v-card height="200" color="green" @click="toMeineGruppen">
 
               <v-card-title>Deine Gruppen</v-card-title>
-              <v-card-text>Sieh dir an was in deinen Gruppen los ist</v-card-text>
+              <v-card-text>Sieh dir an was in deinen Gruppen los ist!</v-card-text>
 
             </v-card>
           </v-col>
@@ -138,6 +138,14 @@
 
     },
     methods:{
+      toMeineFaecher(){
+        sessionStorage.setItem("tab","2");
+        this.openUrl("http://localhost:8080/Profil","_self");
+      },
+      toMeineGruppen(){
+        sessionStorage.setItem("tab","3");
+        this.openUrl("http://localhost:8080/Profil","_self");
+      },
       checkLogin(){
         if(sessionStorage.getItem("id") === "" || this.sessionEmpty){
           window.open("http://localhost:8080/Login?error=True","_self")
