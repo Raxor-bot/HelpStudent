@@ -474,11 +474,14 @@
 
                                                         <v-card-actions>
                                                             <v-btn
+                                                                    @click="openChatroom(gruppe.gruppenId, gruppe.gruppenname)"
                                                                     outlined
-                                                                    text>
-                                                                Ansehen
+                                                                    text
+                                                            >
+                                                                Chatten
                                                             </v-btn>
                                                             <v-btn
+                                                                    @click="gruppeBeitreten(gruppe.gruppenId)"
                                                                     outlined
                                                                     text>
                                                                 Beitreten
@@ -648,6 +651,17 @@
                     .then(rep => rep.json())
                     .then(data => (
                         this.setGruppen(data)
+                    ));
+            },
+            gruppeBeitreten(id){
+                this.requestOptions.body = JSON.stringify({
+                    gruppenid: id,
+                    studentenid: sessionStorage.getItem("id")
+                });
+                fetch("Gruppen/gruppe_beitreten", this.requestOptions)
+                    .then((res) => res.text())
+                    .then(data => (
+                        this.handleData(data)
                     ));
             },
             getStudent(data) {
@@ -821,6 +835,7 @@
                     .then(data => (
                         this.handleData(data)
                     ));
+                this.aktiverTab = 2;
                 window.open("http://localhost:8080/Profil","_self");
             },
 

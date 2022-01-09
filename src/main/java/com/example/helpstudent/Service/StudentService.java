@@ -103,6 +103,7 @@ public class StudentService implements UserDetailsService {
 
 
     public void removeStudentGruppe(Student student, Gruppe gruppe) {
+        logger.info("lösche Gruppe"+gruppe.getGruppenname());
             repo.removeStudentGruppe(student.getNlfdstudent(), gruppe.getGruppenId());
     }
 
