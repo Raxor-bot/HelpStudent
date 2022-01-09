@@ -755,6 +755,10 @@
                     formData.append("file", this.profilepic);
                 }
 
+                if(typeof this.aktuellerStudiengang == "object"){
+                    this.aktuellerStudiengang = this.aktuellerStudiengang.studiengangid;
+                }
+
                 let data = {
                     "geburtstag": this.geburtstag,
                     "geschlecht": this.geschlecht,
@@ -763,6 +767,7 @@
                     "staerken": this.staerken,
                     "schwaechen": this.schwaechen
                 }
+
 
                 formData.append("studid", this.student.nlfdstudent)
                 console.log(data)
