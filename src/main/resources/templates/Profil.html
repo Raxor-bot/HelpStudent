@@ -414,7 +414,7 @@
                                             <v-card-title> Frag diese Personen nach Rat</v-card-title>
 
                                             <v-row align-content="center" dense >
-                                                <v-col cols="4" v-for="gruppe in schwacheGruppen" :key="gruppe.id">
+                                                <v-col cols="4" v-for="gruppe in schwacheGruppen" >
                                                     <v-card
                                                             class="mx-auto"
                                                             max-width="860"
@@ -459,7 +459,7 @@
                                             <v-card-title > Hilf diesen Personen auf die Sprünge</v-card-title>
                                             <v-card-title class="mx-5">  </v-card-title>
                                             <v-row align-content="center" dense >
-                                                <v-col cols="4" v-for="gruppe in starkeGruppen" :key="gruppe.id">
+                                                <v-col cols="4" v-for="gruppe in starkeGruppen" >
                                                     <v-card
                                                             class="mx-auto"
                                                             max-width="860"
@@ -492,7 +492,7 @@
                                                         class="mx-auto"
                                                         max-width="860"
                                                         outlined
-                                                        v-if="schwacheGruppen.length < 1"
+                                                        v-if="starkeGruppen.length < 1"
                                                 >              <v-card-text>Es gibt noch keine Gruppen in denen du anderen helfen könntest!</v-card-text>
                                                 </v-card>
                                             </v-row>
@@ -623,7 +623,9 @@
             geschlecht: "",
             semester: "",
             staerken: [],
+            staerkenArray: [],
             schwaechen: [],
+            schwaechenArray: [],
             meineGruppen:[],
             gruppen:[],
             date: '01-01-2022',
@@ -694,7 +696,20 @@
                     console.log(this.standardbildurl);
                 }
 
-                console.log(this.student)
+                let test = [];
+                this.student.staerken.forEach(function(einArrayElement) {
+                    test.push(einArrayElement.nlfdFach.toString())
+                });
+
+                this.staerkenArray = test;
+
+
+                test = [];
+                this.student.schwaechen.forEach(function(einArrayElement) {
+                    test.push(einArrayElement.nlfdFach.toString())
+                });
+
+                this.schwaechenArray = test;
             },
             getStudiengaenge(data) {
                 this.studiengaenge = data;
@@ -828,25 +843,23 @@
             },
             starkeGruppen(){
                 gruppenstark=[];
-                if(this.staerken !== undefined){
-                    this.gruppen.forEach(function(einArrayElement) {
-                        if(this.staerken.includes(einArrayElement.fach.fachid))
+                let staerkenarray = this.staerkenArray;
+                this.gruppen.forEach(function(einArrayElement) {
+                    if(staerkenarray.includes(einArrayElement.fach.nlfdFach.toString())){
                         gruppenstark.push(einArrayElement);
-                    });
-                }
+                    }
+                });
                 return gruppenstark;
             },
 
             schwacheGruppen(){
                 gruppenschwach=[];
-                if(this.schwaechen !== undefined){
-                    this.gruppen.forEach(function(einArrayElement) {
-                        if(this.schwaechen !== undefined){
-                            if(this.schwaechen.includes(einArrayElement.fach.fachid))
-                                gruppenschwach.push(einArrayElement);
-                        }
-                    });
-                }
+                let schwaechenarray = this.schwaechenArray;
+                this.gruppen.forEach(function(einArrayElement) {
+                    if(schwaechenarray.includes(einArrayElement.fach.nlfdFach.toString())){
+                        gruppenschwach.push(einArrayElement);
+                    }
+                });
                 return gruppenschwach;
             },
             sessionEmpty(){
@@ -882,6 +895,9 @@
                     .then(data => {
                         this.getFaecher(data)
                     }));
+
+
+
         },
     })
 </script>
