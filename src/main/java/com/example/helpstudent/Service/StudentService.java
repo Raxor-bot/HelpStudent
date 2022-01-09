@@ -174,6 +174,8 @@ public class StudentService implements UserDetailsService {
             repo.setStudentgeschlecht((String) studentdata.get("geschlecht"), studentid);
         }
 
+        //todo wichtig jannik das ist doof weil ganz viele errors
+        // z.B.: java.lang.ClassCastException: class java.util.LinkedHashMap cannot be cast to class java.lang.Number (java.util.LinkedHashMap and java.lang.Number are in module java.base of loader 'bootstrap')
         if (studentdata.get("studiengang") != "" && studentdata.get("studiengang") != null) {
             long studiengangId = ((Number) studentdata.get("studiengang")).longValue();
 
