@@ -223,7 +223,6 @@ public class StudentService implements UserDetailsService {
 
     private List<Fach> convertArray(String fachstr) {
         List<Fach> faecher = new ArrayList<>();
-        System.out.println("Stärkenstr"+fachstr);
         long[] arr = Arrays.stream(fachstr.substring(1, fachstr.length() - 1)
                 .split(","))
                 .map(String::trim)
@@ -234,7 +233,6 @@ public class StudentService implements UserDetailsService {
         for (long num : arr) {
             faecher.add(fachService.getFachById(num));
         }
-        System.out.println("fäcehr" + faecher);
         return faecher;
     }
 }
