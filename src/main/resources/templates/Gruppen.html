@@ -153,7 +153,7 @@
                 <template v-slot:prepend>
                     <v-list-item two-line>
                         <v-list-item-avatar>
-                            <img id="navavatar" src="https://randomuser.me/api/portraits/lego/6.jpg">
+                            <img id="navavatar" :src="standardbildurl">
                         </v-list-item-avatar>
 
                         <v-list-item-content>
@@ -276,6 +276,7 @@
             },
             gruppen:[],
             loginStatus:null,
+            standardbildurl:"https://randomuser.me/api/portraits/lego/6.jpg",
         },
         methods: {
             validate () {
@@ -296,10 +297,14 @@
                this.gruppen = data.gruppen;
             },
 
-                getStudent(data) {
-                this.student = data;
-                if(this.student.bilderpfad){
-                    document.getElementById("navavatar").src = "/"+this.student.bilderpfad
+            getStudent(data) {
+                this.student = data.student;
+                console.log("this.student")
+                console.log(this.student)
+                if(this.student.bilderpfad !== null){
+                    console.log(this.student.bilderpfad)
+                    this.standardbildurl = "http://localhost:8080/"+this.student.bilderpfad;
+                    console.log(this.standardbildurl);
                 }
             },
             searchClose() {
