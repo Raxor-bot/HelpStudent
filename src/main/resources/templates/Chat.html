@@ -182,11 +182,9 @@
 
 
             onConnected() {
-                // Subscribe to the Public Topic
                 console.log('/chat-room/'+this.raumdId);
                 stompClient.subscribe('/chat-room/'+this.raumdId, this.onMessageReceived);
 
-                // Tell your username to the server
                 stompClient.send("/app/chat.addUser",
                     {},
                     JSON.stringify({sender: this.username, type: 'JOIN'})
@@ -195,7 +193,7 @@
             },
 
             onError(error) {
-                connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+                connectingElement.textContent = 'Keine Verbindung zu zum Websocket möglich!';
                 connectingElement.style.color = 'red';
             },
 
@@ -219,7 +217,7 @@
 
                 var message = JSON.parse(payload.body);
 
-                 fetch("Profil/meineInfos/"+message.sender)
+                 fetch("Profil/meineInfos/"+ message.sender )
                      .then(rep => rep.json())
                      .then(data => (this.getStudent(data)))
 
