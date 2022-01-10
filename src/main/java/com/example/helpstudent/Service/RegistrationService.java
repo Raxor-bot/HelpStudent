@@ -18,10 +18,11 @@ public class RegistrationService {
     private final BestaetigungsTokenService bestaetigungsTokenService;
     private EmailSender emailsender;
 
-    public RegistrationService(StudentService studentService, EmailValidierung emailValidierung, BestaetigungsTokenService bestaetigungsTokenService) {
+    public RegistrationService(StudentService studentService, EmailValidierung emailValidierung, BestaetigungsTokenService bestaetigungsTokenService, EmailSender emailsender) {
         this.studentService = studentService;
         this.emailValidierung = emailValidierung;
         this.bestaetigungsTokenService = bestaetigungsTokenService;
+        this.emailsender = emailsender;
     }
 
     public String registrierenValidierung(@ModelAttribute("Student") Student student){

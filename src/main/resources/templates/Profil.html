@@ -268,18 +268,21 @@
 
 
                                             <v-card-text>Hier kann ich helfen:</v-card-text>
-                                            <v-select v-model="staerken"
-                                                      :items="faecher"
-                                                      item-text="fachName"
-                                                      item-value="nlfdFach"
-                                                      chips
-                                                      multiple
-                                                      attach
-                                                      v-if="editMode == true && aktuellerStudiengang">
+                                            <v-select
+                                                    v-model="staerken"
+                                                    :items="faecher"
+                                                    item-text="fachName"
+                                                    item-value="nlfdFach"
+                                                    chips
+                                                    multiple
+                                                    attach
+                                                    v-if="editMode == true && aktuellerStudiengang">
                                                 <template v-slot:prepend-item>
                                                     <v-list-item>
                                                         <v-list-item-content>
-                                                            <v-text-field v-model="fachsuche"
+                                                            <v-text-field
+
+                                                                          v-model="fachsuche"
                                                                           placeholder="Fach suchen"
                                                                           @input="faecherSuche"
                                                                           background-color="#1E1E1E"
@@ -312,7 +315,9 @@
 
                                             <v-card-text>Hier brauche ich hilfe:</v-card-text>
                                             <!-- https://codepen.io/sudheer-ranga/pen/bGVbjbx -->
-                                            <v-select v-model="schwaechen"
+                                            <v-select
+
+                                                      v-model="schwaechen"
                                                       :items="faecher"
                                                       item-text="fachName"
                                                       item-value="nlfdFach"
@@ -329,7 +334,7 @@
                                                                           filled
                                                                           outlined
                                                                           multiple
-                                                                          class="my-n2"
+                                                                          class="my-n2 px-2"
                                                             >
                                                             </v-text-field>
                                                         </v-list-item-content>
@@ -474,11 +479,14 @@
 
                                                         <v-card-actions>
                                                             <v-btn
+                                                                    @click="openChatroom(gruppe.gruppenId, gruppe.gruppenname)"
                                                                     outlined
-                                                                    text>
-                                                                Ansehen
+                                                                    text
+                                                            >
+                                                                Chatten
                                                             </v-btn>
                                                             <v-btn
+                                                                    @click="gruppeBeitreten(gruppe.gruppenId)"
                                                                     outlined
                                                                     text>
                                                                 Beitreten
@@ -810,17 +818,31 @@
                 sessionStorage.clear()
                 window.open("http://localhost:8080/Login?delete=true","_self")
             },
-
-            gruppeVerlassen(id){
+            async gruppeBeitreten(id){
                 this.requestOptions.body = JSON.stringify({
                     gruppenid: id,
                     studentenid: sessionStorage.getItem("id")
                 });
-                fetch("Gruppen/gruppe_verlassen", this.requestOptions)
+               await fetch("Gruppen/gruppe_beitreten", this.requestOptions)
                     .then((res) => res.text())
                     .then(data => (
                         this.handleData(data)
                     ));
+                this.aktiverTab = 2;
+                window.open("http://localhost:8080/Profil","_self");
+            },
+
+           async gruppeVerlassen(id){
+                this.requestOptions.body = JSON.stringify({
+                    gruppenid: id,
+                    studentenid: sessionStorage.getItem("id")
+                });
+                await fetch("Gruppen/gruppe_verlassen", this.requestOptions)
+                    .then((res) => res.text())
+                    .then(data => (
+                        this.handleData(data)
+                    ));
+                this.aktiverTab = 2;
                 window.open("http://localhost:8080/Profil","_self");
             },
 
