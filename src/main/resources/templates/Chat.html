@@ -70,7 +70,7 @@
                                     <v-img
                                             class="elevation-6"
                                             alt=""
-                                            :src="standardbildurl"
+                                            :src="item.bilderpfad"
                                     ></v-img>
                                 </v-list-item-avatar>
 
@@ -103,6 +103,7 @@
                     hide-details
                     rounded
                     solo
+                    @keyup.enter="sendMessage()"
             ></v-text-field>
 
             <v-btn
@@ -203,6 +204,7 @@
                 if(messageContent !== "" && stompClient) {
                     let chatMessage = {
                         sender: sessionStorage.getItem("id"),
+                        empfaenger: sessionStorage.getItem("id"),
                         nachricht: messageContent,
                         type: 'CHAT'
                     };
@@ -217,15 +219,16 @@
 
                 var message = JSON.parse(payload.body);
 
-                 fetch("Profil/meineInfos/"+ message.sender )
-                     .then(rep => rep.json())
-                     .then(data => (this.getStudent(data)))
-
                 console.log(message)
-                this.messages.push({username: this.student.svorname, inhalt: message.nachricht});
-                console.log(this.messages);
+
+                 fetch("Profil/meineInfos/"+ message.empfaenger )
+                     .then(rep => rep.json())
+                     .then(data => (this.getStudent(data, message)))
+
+
+
             },
-            getStudent(data) {
+            getStudent(data, message) {
                 this.student = data.student;
 
                 if(this.student.bilderpfad !== null){
@@ -233,6 +236,10 @@
                     this.standardbildurl = "http://localhost:8080/"+this.student.bilderpfad;
                     console.log(this.standardbildurl);
                 }
+
+                this.messages.push({username: this.student.svorname, inhalt: message.nachricht, bilderpfad:  this.standardbildurl});
+                console.log(this.messages);
+
             }
         },
         created(){

@@ -69,6 +69,7 @@
                                                             prepend-icon="mdi-lock"
                                                             type="password"
                                                             color="teal accent-3"
+                                                            @keyup.enter="login()"
                                                     ></v-text-field>
                                                 </v-form>
                                                 <h3 class="text-center mt-4">Passwort vergessen?</h3>
@@ -78,7 +79,7 @@
                                                     flat
                                                     tile
                                             >
-                                                <v-btn rounded color="teal accent-3" dark @click="login()">Einloggen</v-btn>
+                                                <v-btn rounded color="teal accent-3" dark  @click="login()">Einloggen</v-btn>
                                             </v-card>
                                         </v-col>
                                         <v-col cols="12" md="4" class="teal accent-3">
@@ -172,6 +173,7 @@
                                                             :type="value ? 'password' : 'text'"
                                                             :rules="[rules.password]"
                                                             @input="_=>passwort2=_"
+                                                            @keyup.enter="registrieren()"
                                                     ></v-text-field>
                                                 </v-form>
                                             </v-card-text>
@@ -180,7 +182,7 @@
                                                     flat
                                                     tile
                                             >
-                                                <v-btn rounded color="teal accent-3" dark @click="registrieren()">Registrieren</v-btn>
+                                                <v-btn rounded color="teal accent-3" dark  @click="registrieren()">Registrieren</v-btn>
                                             </v-card>
                                         </v-col>
                                     </v-row>
