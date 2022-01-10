@@ -417,7 +417,7 @@
                                             <v-card-title> Frag in diesen Gruppen nach Rat</v-card-title>
 
                                             <v-row align-content="center" dense >
-                                                <v-col cols="4" v-for="gruppe in schwacheGruppen" >
+                                                <v-col cols="4" v-for="gruppe in schwacheGruppen" :key="gruppe.id" >
                                                     <v-card
                                                             class="mx-auto"
                                                             max-width="860"
@@ -461,7 +461,7 @@
                                             <v-card-title > Hilf Personen in diesen Gruppen auf die Sprünge</v-card-title>
                                             <v-card-title class="mx-5">  </v-card-title>
                                             <v-row align-content="center" dense >
-                                                <v-col cols="4" v-for="gruppe in starkeGruppen" >
+                                                <v-col cols="4" :key="gruppe.id" v-for="gruppe in starkeGruppen" >
                                                     <v-card
                                                             class="mx-auto"
                                                             max-width="860"
