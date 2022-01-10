@@ -660,11 +660,16 @@
             },
             getStudent(data) {
                 this.student = data.student;
+                console.log("this.student")
+                console.log(this.student)
 
                 this.student.studiengang = data.studiengang;
                 this.student.schwaechen = data.schwaechen;
                 this.student.staerken = data.staerken;
                 this.student.gruppen = data.gruppen;
+
+                console.log("Student:")
+                console.log(this.student)
 
                 if(this.student.nsemester != null){
                     this.semester = this.student.nsemester;
