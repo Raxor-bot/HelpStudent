@@ -18,6 +18,7 @@ public class RegistrationService {
     private final BestaetigungsTokenService bestaetigungsTokenService;
     private EmailSender emailsender;
 
+    
     public RegistrationService(StudentService studentService, EmailValidierung emailValidierung, BestaetigungsTokenService bestaetigungsTokenService, EmailSender emailsender) {
         this.studentService = studentService;
         this.emailValidierung = emailValidierung;
@@ -43,7 +44,7 @@ public class RegistrationService {
     );
     //TODO ADRESSE FÜR SERVER AUF RASPBERRY PI ANPASSEN
     String link = "http://localhost:8080/Login/Register/bestaetigt?token="+ eingang;
-    emailsender.send(student.getMail(),buildEmail(student.getSname(), link));
+    emailsender.send(student.getMail(),buildEmail(student.getSvorname(), link));
     System.out.println(link);
     return eingang;
 
