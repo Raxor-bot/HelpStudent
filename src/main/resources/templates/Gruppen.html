@@ -70,7 +70,7 @@
 
                             <v-card-text>
 
-                                <v-form ref="form">
+                                <v-form ref="form" lazy-validation>
                                     <v-row
                                             justify="space-between"
                                             overflow-visible="true">
@@ -114,25 +114,11 @@
 
                                         </v-col>
 
-                                        <v-col cols="2">
-                                            <v-slider
-                                                    class="mr-5"
-                                                    color="green lighten-2"
-                                                    max="64"
-                                                    min="4"
-                                                    thumb-label="always"
-                                                    ticks
-                                                    v-model="gruppengroesse"
-                                                    value="12"
-                                                    vertical
-                                            ></v-slider>
-                                            <p class="mt-2"> Größe </p>
-                                        </v-col>
                                     </v-row>
                                     <v-row>
                                         <v-btn
                                                 :disabled="!valid"
-                                                @click="erstelleGruppe()"
+                                                @click="validate()"
                                                 class="mr-4"
                                                 color="green lighten-1"
                                                 dark
@@ -215,7 +201,6 @@
                             <v-list-item-title class="text-h5 mb-1">
                                 {{gruppe.gruppenname}}
                             </v-list-item-title>
-                            <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.teilnehmeranzahl}}</v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -256,7 +241,7 @@
                 }
             }),
         data: {
-            valid: true,
+            valid:true,
             searchClosed: true,
             navdraw: false,
 
@@ -264,7 +249,6 @@
             fachsuche:"",
             gruppenname: "",
             fachid: "",
-            gruppengroesse: 0,
 
             gruppenerror: false,
             gruppentext: "",
@@ -293,6 +277,13 @@
             loginStatus:null,
         },
         methods: {
+            validate () {
+
+                this.$refs.form.validate()
+                if(this.$refs.form.validate()){
+                    this.erstelleGruppe()
+                }
+            },
             checkLogin(){
                 if(sessionStorage.getItem("id") === "" || this.sessionEmpty){
                     window.open("http://localhost:8080/Login?error=True","_self")
@@ -316,10 +307,9 @@
                 }
             },
             erstelleGruppe() {
-                if (this.gruppenname !== "" && this.gruppengroesse !== 0) {
+                if (this.gruppenname !== "") {
                     this.requestOptions.body = JSON.stringify({
                         gruppenname: this.gruppenname,
-                        gruppengroesse: this.gruppengroesse,
                         fachid: this.fachid,
                         studentenid: sessionStorage.getItem("id")
 

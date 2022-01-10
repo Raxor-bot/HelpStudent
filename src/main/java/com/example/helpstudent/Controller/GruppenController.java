@@ -50,7 +50,7 @@ public class GruppenController {
 
         Map<String, Object> myMap = new HashMap<>();
         Student student = studentService.getStudentByID(Long.parseLong(body.get("studentenid").toString())).orElseThrow(NoSuchElementException::new);
-        Gruppe gruppe = new Gruppe(Integer.parseInt(body.get("gruppengroesse").toString()),body.get("gruppenname").toString(),fachService.getFachById(Long.parseLong(body.get("fachid").toString())),student);
+        Gruppe gruppe = new Gruppe(body.get("gruppenname").toString(),fachService.getFachById(Long.parseLong(body.get("fachid").toString())),student);
 
         logger.info(student.toString());
         logger.info(gruppe.toString());
