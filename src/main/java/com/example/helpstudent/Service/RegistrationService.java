@@ -36,13 +36,12 @@ public class RegistrationService {
 
     String eingang = studentService. addNewStudent(
             new Student(
-                    student.getSvorname(),
                     student.getSname(),
+                    student.getSvorname(),
                     student.getMail(),
                     student.getPassword()
             )
     );
-    //TODO ADRESSE FÜR SERVER AUF RASPBERRY PI ANPASSEN
     String link = "http://localhost:8080/Login/Register/bestaetigt?token="+ eingang;
     emailsender.send(student.getMail(),buildEmail(student.getSvorname(), link));
     System.out.println(link);
