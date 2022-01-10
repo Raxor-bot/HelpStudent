@@ -753,7 +753,12 @@
                 if (typeof this.aktuellerStudiengang == "object") {
                     this.aktuellerStudiengang = this.aktuellerStudiengang.studiengangid;
                 }
-
+                if(typeof this.staerken[0] == "object"){
+                    this.staerken = this.staerkenArray;
+                }
+                if(typeof this.schwaechen[0] == "object"){
+                    this.schwaechen = this.schwaechenArray;
+                }
                 let data = {
                     "geburtstag": this.geburtstag,
                     "geschlecht": this.geschlecht,
@@ -779,7 +784,7 @@
                         this.handleData(data)
                     ));
                 this.editMode = false;
-                //open("http://localhost:8080/Profil","_self");
+                open("http://localhost:8080/Profil","_self");
             },
             handleData(data){
                 data = JSON.parse(data)
