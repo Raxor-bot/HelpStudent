@@ -19,16 +19,13 @@ public class Gruppe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private long id;
-    private int teilnehmeranzahl;
     private String gruppenname;
 
-    public Gruppe(int teilnehmeranzahl, String gruppenname) {
-        this.teilnehmeranzahl = teilnehmeranzahl;
+    public Gruppe(String gruppenname) {
         this.gruppenname = gruppenname;
     }
 
-    public Gruppe(int teilnehmeranzahl, String gruppenname, Fach fach, Student erstelltvonnlfdstudent) {
-        this.teilnehmeranzahl = teilnehmeranzahl;
+    public Gruppe(String gruppenname, Fach fach, Student erstelltvonnlfdstudent) {
         this.gruppenname = gruppenname;
         this.fach = fach;
         this.studentGruppen.add(erstelltvonnlfdstudent);
@@ -47,14 +44,6 @@ public class Gruppe {
 
     public void setGruppenId(Long gruppenId) {
         this.id = gruppenId;
-    }
-
-    public int getTeilnehmeranzahl() {
-        return teilnehmeranzahl;
-    }
-
-    public void setTeilnehmeranzahl(int teilnehmeranzahl) {
-        this.teilnehmeranzahl = teilnehmeranzahl;
     }
 
     public String getGruppenname() {

@@ -417,7 +417,7 @@
                                             <v-card-title> Frag in diesen Gruppen nach Rat</v-card-title>
 
                                             <v-row align-content="center" dense >
-                                                <v-col cols="4" v-for="gruppe in schwacheGruppen" >
+                                                <v-col cols="4" v-for="gruppe in schwacheGruppen" :key="gruppe.id" >
                                                     <v-card
                                                             class="mx-auto"
                                                             max-width="860"
@@ -428,7 +428,6 @@
                                                                 <v-list-item-title class="text-h5 mb-1">
                                                                     {{gruppe.gruppenname}}
                                                                 </v-list-item-title>
-                                                                <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.teilnehmeranzahl}}</v-list-item-subtitle>
                                                             </v-list-item-content>
                                                         </v-list-item>
 
@@ -462,7 +461,7 @@
                                             <v-card-title > Hilf Personen in diesen Gruppen auf die Sprünge</v-card-title>
                                             <v-card-title class="mx-5">  </v-card-title>
                                             <v-row align-content="center" dense >
-                                                <v-col cols="4" v-for="gruppe in starkeGruppen" >
+                                                <v-col cols="4" :key="gruppe.id" v-for="gruppe in starkeGruppen" >
                                                     <v-card
                                                             class="mx-auto"
                                                             max-width="860"
@@ -473,7 +472,6 @@
                                                                 <v-list-item-title class="text-h5 mb-1">
                                                                     {{gruppe.gruppenname}}
                                                                 </v-list-item-title>
-                                                                <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.teilnehmeranzahl}}</v-list-item-subtitle>
                                                             </v-list-item-content>
                                                         </v-list-item>
 
@@ -525,7 +523,6 @@
                                                                         <v-list-item-title class="text-h5 mb-1">
                                                                             {{gruppe.gruppenname}}
                                                                         </v-list-item-title>
-                                                                        <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.teilnehmeranzahl}}</v-list-item-subtitle>
                                                                     </v-list-item-content>
                                                                 </v-list-item>
 
