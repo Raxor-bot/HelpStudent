@@ -118,7 +118,7 @@ public class UpdateController {
             logger.info(student.get().toString());
 
             String profilpfad = student.get().getBilderpfad();
-            final String UPLOAD_FOLDER = "src/main/resources/Bilder";
+            final String UPLOAD_FOLDER = "src/main/resources/static";
 
             studentService.UpdateUser(studentdata, Long.parseLong(studentid));
 

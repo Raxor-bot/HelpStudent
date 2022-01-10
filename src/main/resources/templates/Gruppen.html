@@ -70,7 +70,7 @@
 
                             <v-card-text>
 
-                                <v-form ref="form">
+                                <v-form ref="form" lazy-validation>
                                     <v-row
                                             justify="space-between"
                                             overflow-visible="true">
@@ -114,25 +114,11 @@
 
                                         </v-col>
 
-                                        <v-col cols="2">
-                                            <v-slider
-                                                    class="mr-5"
-                                                    color="green lighten-2"
-                                                    max="64"
-                                                    min="4"
-                                                    thumb-label="always"
-                                                    ticks
-                                                    v-model="gruppengroesse"
-                                                    value="12"
-                                                    vertical
-                                            ></v-slider>
-                                            <p class="mt-2"> Größe </p>
-                                        </v-col>
                                     </v-row>
                                     <v-row>
                                         <v-btn
                                                 :disabled="!valid"
-                                                @click="erstelleGruppe()"
+                                                @click="validate()"
                                                 class="mr-4"
                                                 color="green lighten-1"
                                                 dark
@@ -167,7 +153,7 @@
                 <template v-slot:prepend>
                     <v-list-item two-line>
                         <v-list-item-avatar>
-                            <img id="navavatar" src="https://randomuser.me/api/portraits/lego/6.jpg">
+                            <img id="navavatar" :src="standardbildurl">
                         </v-list-item-avatar>
 
                         <v-list-item-content>
@@ -202,6 +188,7 @@
         <v-main :style="backgroundImage" id="HSHL">
             <v-container>
                 <v-card
+                        :key="gruppe.gruppenId"
                         class="mx-auto"
                         max-width="860"
                         outlined
@@ -215,7 +202,6 @@
                             <v-list-item-title class="text-h5 mb-1">
                                 {{gruppe.gruppenname}}
                             </v-list-item-title>
-                            <v-list-item-subtitle>Mitgliederanzahl: {{gruppe.teilnehmeranzahl}}</v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -256,7 +242,7 @@
                 }
             }),
         data: {
-            valid: true,
+            valid:true,
             searchClosed: true,
             navdraw: false,
 
@@ -264,7 +250,6 @@
             fachsuche:"",
             gruppenname: "",
             fachid: "",
-            gruppengroesse: 0,
 
             gruppenerror: false,
             gruppentext: "",
@@ -275,7 +260,7 @@
             items: [
                 {title: 'Home', icon: 'mdi-home-variant-outline', url: "http://localhost:8080/home"},
                 {title: 'Mein Profil', icon: 'mdi-account-outline', url: "http://localhost:8080/Profil"},
-                {title: 'Users', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Profil"},
+                {title: 'Gruppen', icon: 'mdi-account-group-outline', url: "http://localhost:8080/Gruppen"},
             ],
             session: "",
             groups: [
@@ -291,8 +276,16 @@
             },
             gruppen:[],
             loginStatus:null,
+            standardbildurl:"https://randomuser.me/api/portraits/lego/6.jpg",
         },
         methods: {
+            validate () {
+
+                this.$refs.form.validate()
+                if(this.$refs.form.validate()){
+                    this.erstelleGruppe()
+                }
+            },
             checkLogin(){
                 if(sessionStorage.getItem("id") === "" || this.sessionEmpty){
                     window.open("http://localhost:8080/Login?error=True","_self")
@@ -304,10 +297,14 @@
                this.gruppen = data.gruppen;
             },
 
-                getStudent(data) {
-                this.student = data;
-                if(this.student.bilderpfad){
-                    document.getElementById("navavatar").src = "/"+this.student.bilderpfad
+            getStudent(data) {
+                this.student = data.student;
+                console.log("this.student")
+                console.log(this.student)
+                if(this.student.bilderpfad !== null){
+                    console.log(this.student.bilderpfad)
+                    this.standardbildurl = "http://localhost:8080/"+this.student.bilderpfad;
+                    console.log(this.standardbildurl);
                 }
             },
             searchClose() {
@@ -316,10 +313,9 @@
                 }
             },
             erstelleGruppe() {
-                if (this.gruppenname !== "" && this.gruppengroesse !== 0) {
+                if (this.gruppenname !== "") {
                     this.requestOptions.body = JSON.stringify({
                         gruppenname: this.gruppenname,
-                        gruppengroesse: this.gruppengroesse,
                         fachid: this.fachid,
                         studentenid: sessionStorage.getItem("id")
 
